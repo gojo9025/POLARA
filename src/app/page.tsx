@@ -1,0 +1,378 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import './page.css';
+import AppLayout from '@/components/AppLayout';
+import {
+  Search, ArrowRight, Compass, BookOpen, BarChart3,
+  GraduationCap, MessageCircle, Snowflake, Globe, FileText,
+  Image as ImageIcon, Play, Users, TrendingUp, Sparkles, Megaphone
+} from 'lucide-react';
+import {
+  expeditions, researchAreas, reports, publications,
+  learningModules, platformStats, sampleOutreachPackage
+} from '@/lib/data';
+
+export default function HomePage() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  return (
+    <AppLayout>
+      <div className="home-page">
+        {/* ═══ Hero Section ═══ */}
+        <section className="hero">
+          <div className="hero-bg">
+            <div className="hero-gradient-1" />
+            <div className="hero-gradient-2" />
+            <div className="hero-grid" />
+            {/* Animated particles */}
+            <div className="hero-particles">
+              {Array.from({ length: 20 }).map((_, i) => {
+                const left = (i * 37) % 100;
+                const top = (i * 59) % 100;
+                const delay = (i * 13) % 5;
+                const duration = 3 + ((i * 17) % 4);
+                return (
+                  <div key={i} className="particle" style={{
+                    left: `${left}%`,
+                    top: `${top}%`,
+                    animationDelay: `${delay}s`,
+                    animationDuration: `${duration}s`,
+                  }} />
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="hero-content">
+            <div className="hero-badge">
+              <Snowflake size={14} />
+              <span>India&apos;s Polar Science Knowledge Ecosystem</span>
+            </div>
+
+            <h1 className="hero-title">
+              Discover the Science<br />
+              <span className="text-gradient">Behind the Poles</span>
+            </h1>
+
+            <p className="hero-description">
+              Explore expeditions, research, datasets, publications and multimedia
+              from India&apos;s polar science ecosystem — organized, connected and made
+              accessible through POLARA.
+            </p>
+
+            <div className="hero-search">
+              <Search size={20} className="hero-search-icon" />
+              <input
+                type="text"
+                className="hero-search-input"
+                placeholder="Search polar science... (e.g., Antarctic sea ice, Arctic climate)"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim()) {
+                    window.location.href = `/explore?q=${encodeURIComponent(searchQuery)}`;
+                  }
+                }}
+              />
+              <Link
+                href={searchQuery.trim() ? `/explore?q=${encodeURIComponent(searchQuery)}` : '/explore'}
+                className="btn btn-primary"
+              >
+                Search
+              </Link>
+            </div>
+
+            <div className="hero-ctas">
+              <Link href="/explore" className="btn btn-primary btn-lg">
+                <Globe size={18} />
+                Explore Polar Knowledge
+              </Link>
+              <Link href="/ask" className="btn btn-secondary btn-lg">
+                <MessageCircle size={18} />
+                Ask POLARA
+              </Link>
+            </div>
+
+            <div className="hero-tags">
+              {['Antarctic sea ice', 'Arctic climate', 'Indian expeditions', 'Glaciology', 'Southern Ocean', 'Polar biodiversity'].map(tag => (
+                <Link href={`/explore?q=${encodeURIComponent(tag)}`} key={tag} className="tag">
+                  {tag}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ Stats Bar ═══ */}
+        <section className="stats-bar">
+          <div className="stats-bar-inner">
+            <div className="stats-bar-note">
+              <Sparkles size={14} />
+              <span>Prototype Dataset</span>
+            </div>
+            {[
+              { value: platformStats.totalResources.toLocaleString(), label: 'Knowledge Resources', icon: <FileText size={16} /> },
+              { value: platformStats.expeditions.toString(), label: 'Expeditions', icon: <Compass size={16} /> },
+              { value: platformStats.publications.toString(), label: 'Publications', icon: <BookOpen size={16} /> },
+              { value: platformStats.datasets.toString(), label: 'Datasets', icon: <BarChart3 size={16} /> },
+              { value: platformStats.mediaAssets.toLocaleString(), label: 'Media Assets', icon: <ImageIcon size={16} /> },
+              { value: platformStats.learningResources.toString(), label: 'Learning Resources', icon: <GraduationCap size={16} /> },
+            ].map(stat => (
+              <div key={stat.label} className="stat-item">
+                <div className="stat-item-value">{stat.value}</div>
+                <div className="stat-item-label">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══ Featured Expeditions ═══ */}
+        <section className="section">
+          <div className="section-header">
+            <div>
+              <h2>Featured Expeditions</h2>
+              <p>India&apos;s latest polar research expeditions</p>
+            </div>
+            <Link href="/expeditions" className="btn btn-ghost">
+              View all <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <div className="expedition-grid">
+            {expeditions.map((exp, i) => (
+              <Link href={`/expeditions/${exp.id}`} key={exp.id} className="expedition-card" style={{ animationDelay: `${i * 100}ms` }}>
+                <div className="expedition-card-image">
+                  <div className="expedition-card-overlay" />
+                  <div className="expedition-card-region">
+                    <span className="badge badge-ice">{exp.region}</span>
+                  </div>
+                </div>
+                <div className="expedition-card-content">
+                  <div className="expedition-card-year">{exp.year}</div>
+                  <h3 className="expedition-card-name">{exp.name}</h3>
+                  <p className="expedition-card-location">{exp.location}</p>
+                  <div className="expedition-card-areas">
+                    {exp.researchAreas.slice(0, 3).map(area => (
+                      <span key={area} className="tag">{area}</span>
+                    ))}
+                  </div>
+                  <div className="expedition-card-stats">
+                    <span>{exp.resourceCount.reports} reports</span>
+                    <span>{exp.resourceCount.datasets} datasets</span>
+                    <span>{exp.resourceCount.publications} publications</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══ Research Highlights ═══ */}
+        <section className="section">
+          <div className="section-header">
+            <div>
+              <h2>Research Highlights</h2>
+              <p>Latest findings from polar research</p>
+            </div>
+            <Link href="/repository" className="btn btn-ghost">
+              View all <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <div className="highlights-grid">
+            {reports.map((report, i) => (
+              <Link href={`/repository/${report.id}`} key={report.id} className="highlight-card" style={{ animationDelay: `${i * 100}ms` }}>
+                <div className="highlight-card-meta">
+                  <span className="badge badge-cyan">{report.researchArea}</span>
+                  <span className="highlight-year">{report.year}</span>
+                </div>
+                <h3 className="highlight-title">{report.title}</h3>
+                <p className="highlight-desc truncate-3">{report.description}</p>
+                <div className="highlight-footer">
+                  <div className="highlight-authors">
+                    <Users size={14} />
+                    <span>{report.authors?.join(', ')}</span>
+                  </div>
+                  <span className="highlight-link">
+                    Read more <ArrowRight size={14} />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══ Explore Polar Science ═══ */}
+        <section className="section">
+          <div className="section-header">
+            <div>
+              <h2>Explore Polar Science</h2>
+              <p>Browse by research area</p>
+            </div>
+          </div>
+
+          <div className="research-grid">
+            {researchAreas.map((area, i) => (
+              <Link
+                href={`/explore?area=${encodeURIComponent(area.name)}`}
+                key={area.id}
+                className="research-card"
+                style={{ animationDelay: `${i * 60}ms` }}
+              >
+                <div className="research-card-icon" style={{ background: `${area.color}15`, color: area.color }}>
+                  <span style={{ fontSize: '1.5rem' }}>{area.icon}</span>
+                </div>
+                <div className="research-card-info">
+                  <h4>{area.name}</h4>
+                  <p className="truncate-2">{area.description}</p>
+                </div>
+                <div className="research-card-count" style={{ color: area.color }}>
+                  {area.resourceCount}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══ Learning Hub ═══ */}
+        <section className="section">
+          <div className="section-header">
+            <div>
+              <h2>Learning Hub</h2>
+              <p>Educational resources for everyone</p>
+            </div>
+            <Link href="/learning" className="btn btn-ghost">
+              View all <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <div className="learning-grid">
+            {[
+              { title: 'For Students', desc: 'Simple explanations and visual learning', icon: <GraduationCap size={24} />, href: '/learning?audience=student', color: 'var(--ice-500)' },
+              { title: 'For Educators', desc: 'Teaching resources and lesson plans', icon: <BookOpen size={24} />, href: '/learning?audience=educator', color: 'var(--cyan-500)' },
+              { title: 'Explainers', desc: 'Research made accessible for everyone', icon: <Sparkles size={24} />, href: '/learning?type=explainer', color: 'var(--aurora-500)' },
+              { title: 'Quizzes', desc: 'Test your polar science knowledge', icon: <Play size={24} />, href: '/learning?type=quiz', color: 'var(--frost-500)' },
+              { title: 'Visual Stories', desc: 'Science stories with images and visuals', icon: <ImageIcon size={24} />, href: '/learning?type=story', color: 'var(--warm-500)' },
+            ].map((item, i) => (
+              <Link href={item.href} key={item.title} className="learning-card" style={{ animationDelay: `${i * 80}ms` }}>
+                <div className="learning-card-icon" style={{ color: item.color }}>
+                  {item.icon}
+                </div>
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══ Knowledge Flow ═══ */}
+        <section className="section flow-section">
+          <div className="flow-bg" />
+          <div className="section-header">
+            <div>
+              <h2>From Research to Public Knowledge</h2>
+              <p>How POLARA transforms polar science</p>
+            </div>
+          </div>
+
+          <div className="flow-pipeline">
+            {[
+              { icon: <FileText size={24} />, label: 'Scientific Research', sub: 'Upload & ingest' },
+              { icon: <Sparkles size={24} />, label: 'AI Understanding', sub: 'Extract & structure' },
+              { icon: <Search size={24} />, label: 'Knowledge Index', sub: 'Search & discover' },
+              { icon: <Users size={24} />, label: 'Audience Adaptation', sub: 'Transform & simplify' },
+              { icon: <Megaphone size={24} />, label: 'Outreach', sub: 'Publish & disseminate' },
+            ].map((step, i) => (
+              <React.Fragment key={step.label}>
+                <div className="flow-step" style={{ animationDelay: `${i * 150}ms` }}>
+                  <div className="flow-step-icon">{step.icon}</div>
+                  <div className="flow-step-label">{step.label}</div>
+                  <div className="flow-step-sub">{step.sub}</div>
+                </div>
+                {i < 4 && <div className="flow-arrow"><ArrowRight size={20} /></div>}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══ Latest Outreach ═══ */}
+        <section className="section">
+          <div className="section-header">
+            <div>
+              <h2>Latest Outreach</h2>
+              <p>Recent content generated from polar research</p>
+            </div>
+            <Link href="/outreach" className="btn btn-ghost">
+              View all <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <div className="outreach-grid">
+            {sampleOutreachPackage.outputs.slice(0, 4).map((output, i) => (
+              <div key={output.id} className="outreach-card" style={{ animationDelay: `${i * 100}ms` }}>
+                <div className="outreach-card-type">
+                  <span className={`badge ${['badge-ice', 'badge-cyan', 'badge-frost', 'badge-warm'][i]}`}>
+                    {output.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  </span>
+                  <span className="outreach-card-status">
+                    <span className="status-dot status-dot-draft" />
+                    AI Generated
+                  </span>
+                </div>
+                <h4>{output.title}</h4>
+                <p className="truncate-3">{output.content.substring(0, 200)}...</p>
+                <div className="outreach-card-source">
+                  <FileText size={12} />
+                  <span>Source: {sampleOutreachPackage.sourceResourceTitle.substring(0, 60)}...</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══ CTA Section ═══ */}
+        <section className="cta-section">
+          <div className="cta-bg" />
+          <div className="cta-content">
+            <h2>Ready to explore polar science?</h2>
+            <p>Search, learn, and discover India&apos;s polar research — powered by AI.</p>
+            <div className="cta-buttons">
+              <Link href="/explore" className="btn btn-primary btn-lg">
+                <Globe size={18} />
+                Start Exploring
+              </Link>
+              <Link href="/ask" className="btn btn-secondary btn-lg">
+                <MessageCircle size={18} />
+                Ask POLARA
+              </Link>
+              <Link href="/login" className="btn btn-ghost btn-lg">
+                Sign In for Full Access
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ Footer ═══ */}
+        <footer className="footer">
+          <div className="footer-inner">
+            <div className="footer-brand">
+              <div className="footer-logo">
+                <Snowflake size={20} />
+                <span>POLARA</span>
+              </div>
+              <p>Polar Outreach, Learning & Research Archive</p>
+              <p className="footer-org">National Centre for Polar and Ocean Research (NCPOR)</p>
+              <p className="footer-org">Ministry of Earth Sciences, Government of India</p>
+            </div>
+            <div className="footer-note">
+              <p>This is a prototype application. All data shown is demonstration data.</p>
+              <p>Smart India Hackathon 2025 — Problem Statement #26063</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </AppLayout>
+  );
+}

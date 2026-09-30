@@ -1,0 +1,172 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useAuth } from '@/lib/auth';
+import {
+  Home, Search, Database, Compass, BookOpen, FileText,
+  BarChart3, Image as ImageIcon, GraduationCap, MessageCircle,
+  Megaphone, FolderOpen, Settings, LogOut, ChevronLeft,
+  ChevronRight, User, Bell, Globe, Snowflake, Menu, X
+} from 'lucide-react';
+
+interface NavItem {
+  label: string;
+  href: string;
+  icon: React.ReactNode;
+  roles?: string[];
+}
+
+const navItems: NavItem[] = [
+  { label: 'Home', href: '/', icon: <Home size={18} /> },
+  { label: 'Explore', href: '/explore', icon: <Search size={18} /> },
+  { label: 'Repository', href: '/repository', icon: <Database size={18} /> },
+  { label: 'Expeditions', href: '/expeditions', icon: <Compass size={18} /> },
+  { label: 'Publications', href: '/explore?type=publication', icon: <BookOpen size={18} /> },
+  { label: 'Datasets', href: '/explore?type=dataset', icon: <BarChart3 size={18} /> },
+  { label: 'Media', href: '/explore?type=media', icon: <ImageIcon size={18} /> },
+  { label: 'Learning Hub', href: '/learning', icon: <GraduationCap size={18} /> },
+  { label: 'Ask POLARA', href: '/ask', icon: <MessageCircle size={18} /> },
+  { label: 'Outreach Studio', href: '/outreach', icon: <Megaphone size={18} />, roles: ['admin', 'researcher'] },
+  { label: 'Collections', href: '/collections', icon: <FolderOpen size={18} /> },
+  { label: 'Admin', href: '/admin', icon: <Settings size={18} />, roles: ['admin'] },
+];
+
+export default function Sidebar() {
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const { user, isAuthenticated, logout } = useAuth();
+
+  const filteredItems = navItems.filter(item => {
+    if (!item.roles) return true;
+    if (!user) return false;
+    return item.roles.includes(user.role);
+  });
+
+  return (
+    <>
+      <button
+        className="sidebar-mobile-toggle"
+        onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label="Toggle navigation"
+      >
+        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      {mobileOpen && (
+        <div className="sidebar-overlay" onClick={() => setMobileOpen(false)} />
+      )}
+
+      <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''} ${mobileOpen ? 'sidebar-mobile-open' : ''}`}>
+        <div className="sidebar-header">
+          <Link href="/" className="sidebar-logo" onClick={() => setMobileOpen(false)}>
+            <div className="sidebar-logo-icon">
+              <Snowflake size={20} />
+            </div>
+            {!collapsed && (
+              <div className="sidebar-logo-text">
+                <span className="sidebar-logo-name">POLARA</span>
+                <span className="sidebar-logo-subtitle">Polar Science Archive</span>
+              </div>
+            )}
+          </Link>
+          <button
+            className="sidebar-collapse-btn"
+            onClick={() => setCollapsed(!collapsed)}
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          </button>
+        </div>
+
+        <nav className="sidebar-nav">
+          <div className="sidebar-section">
+            {!collapsed && <span className="sidebar-section-label">Navigation</span>}
+            {filteredItems.slice(0, 4).map(item => (
+              <NavLink
+                key={item.href}
+                item={item}
+                active={pathname === item.href}
+                collapsed={collapsed}
+                onClick={() => setMobileOpen(false)}
+              />
+            ))}
+          </div>
+
+          <div className="sidebar-section">
+            {!collapsed && <span className="sidebar-section-label">Research</span>}
+            {filteredItems.slice(4, 7).map(item => (
+              <NavLink
+                key={item.href}
+                item={item}
+                active={pathname === item.href}
+                collapsed={collapsed}
+                onClick={() => setMobileOpen(false)}
+              />
+            ))}
+          </div>
+
+          <div className="sidebar-section">
+            {!collapsed && <span className="sidebar-section-label">Knowledge</span>}
+            {filteredItems.slice(7).map(item => (
+              <NavLink
+                key={item.href}
+                item={item}
+                active={pathname === item.href || pathname.startsWith(item.href + '/')}
+                collapsed={collapsed}
+                onClick={() => setMobileOpen(false)}
+              />
+            ))}
+          </div>
+        </nav>
+
+        <div className="sidebar-footer">
+          {isAuthenticated && user ? (
+            <div className="sidebar-user">
+              <div className="sidebar-user-avatar">
+                <User size={16} />
+              </div>
+              {!collapsed && (
+                <div className="sidebar-user-info">
+                  <span className="sidebar-user-name">{user.name}</span>
+                  <span className="sidebar-user-role">{user.role}</span>
+                </div>
+              )}
+              {!collapsed && (
+                <button className="sidebar-logout" onClick={logout} aria-label="Sign out">
+                  <LogOut size={16} />
+                </button>
+              )}
+            </div>
+          ) : (
+            <Link href="/login" className="sidebar-login-btn" onClick={() => setMobileOpen(false)}>
+              <Globe size={18} />
+              {!collapsed && <span>Sign In for Access</span>}
+            </Link>
+          )}
+        </div>
+      </aside>
+    </>
+  );
+}
+
+function NavLink({ item, active, collapsed, onClick }: {
+  item: NavItem;
+  active: boolean;
+  collapsed: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Link
+      href={item.href}
+      onClick={onClick}
+      className={`nav-link-wrapper ${active ? 'active' : ''}`}
+      title={collapsed ? item.label : undefined}
+    >
+      <span className="icon-wrap">{item.icon}</span>
+      {!collapsed && <span className="nav-label">{item.label}</span>}
+    </Link>
+  );
+}

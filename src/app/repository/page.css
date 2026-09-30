@@ -1,0 +1,61 @@
+
+          .repo-page { padding: var(--space-8); max-width: var(--content-max-width); }
+          .page-header { margin-bottom: var(--space-8); }
+          .page-breadcrumb {
+            display: flex; align-items: center; gap: var(--space-2);
+            font-size: 0.8125rem; color: var(--text-tertiary); margin-bottom: var(--space-4);
+          }
+          .page-breadcrumb a { color: var(--text-tertiary); }
+          .page-header h1 {
+            display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2);
+          }
+
+          .repo-categories { display: flex; flex-direction: column; gap: var(--space-8); }
+
+          .repo-cat {
+            animation: fadeIn 0.5s ease-out forwards; opacity: 0;
+          }
+
+          .repo-cat-header {
+            display: flex; align-items: center; gap: var(--space-4);
+            margin-bottom: var(--space-4);
+          }
+
+          .repo-cat-icon {
+            width: 48px; height: 48px; border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+          }
+
+          .repo-cat-header h2 { font-size: 1.25rem; margin-bottom: 0; }
+          .repo-cat-header span { font-size: 0.75rem; color: var(--text-tertiary); }
+          .repo-cat-header .btn { margin-left: auto; }
+
+          .repo-cat-list {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--space-4);
+          }
+
+          .repo-item {
+            background: var(--bg-card); border: 1px solid var(--border-secondary);
+            border-radius: var(--radius-lg); padding: var(--space-5);
+            text-decoration: none; transition: all var(--transition-base);
+          }
+          .repo-item:hover { border-color: var(--border-accent); box-shadow: var(--shadow-glow); transform: translateY(-2px); }
+          .repo-item h4 { font-size: 0.9375rem; margin-bottom: var(--space-2); color: var(--text-primary); }
+          .repo-item p { font-size: 0.8125rem; margin-bottom: var(--space-3); }
+          .repo-item-meta { display: flex; align-items: center; gap: var(--space-2); font-size: 0.75rem; color: var(--text-tertiary); }
+
+          .repo-cta {
+            margin-top: var(--space-8); padding: var(--space-6);
+            background: linear-gradient(135deg, rgba(56, 182, 230, 0.06), rgba(46, 196, 182, 0.04));
+            border: 1px solid var(--border-accent); border-radius: var(--radius-xl);
+            display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap;
+          }
+          .repo-cta svg { color: var(--ice-400); }
+          .repo-cta p { flex: 1; font-size: 0.9375rem; }
+
+          @media (max-width: 768px) {
+            .repo-page { padding: var(--space-16) var(--space-4) var(--space-4); }
+            .repo-cat-list { grid-template-columns: 1fr; }
+          }
+        
