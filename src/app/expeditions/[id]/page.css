@@ -336,7 +336,7 @@
             font-size: 0.875rem;
           }
 
-          @media (max-width: 768px) {
+          @media (max-width: 1024px) {
             .detail-hero {
               padding: var(--space-16) var(--space-4) var(--space-6);
             }

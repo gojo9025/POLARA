@@ -150,7 +150,7 @@
           .glossary-def p, .glossary-simple p { font-size: 0.875rem; }
           .glossary-related { display: flex; gap: var(--space-1); flex-wrap: wrap; }
 
-          @media (max-width: 768px) {
+          @media (max-width: 1024px) {
             .learning-header { padding: var(--space-16) var(--space-4) 0; }
             .learning-body { padding: var(--space-4); }
             .modules-grid { grid-template-columns: 1fr; }

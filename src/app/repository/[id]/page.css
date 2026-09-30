@@ -186,7 +186,7 @@
 
           .doi { font-family: var(--font-mono); font-size: 0.75rem; }
 
-          @media (max-width: 768px) {
+          @media (max-width: 1024px) {
             .rd-hero { padding: var(--space-16) var(--space-4) var(--space-6); }
             .rd-body { flex-direction: column; padding: var(--space-4); }
             .rd-sidebar { width: 100%; }

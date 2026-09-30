@@ -612,6 +612,12 @@ a:hover {
    Responsive
    ═══════════════════════════════════════════════════════════════ */
 
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+}
+
 @media (max-width: 768px) {
   :root {
     --sidebar-width: 0px;

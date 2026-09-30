@@ -692,6 +692,16 @@
 }
 
 /* ── Responsive ── */
+@media (max-width: 1024px) {
+  .hero {
+    padding: var(--space-20) var(--space-6) var(--space-12);
+    min-height: 60vh;
+  }
+  .section {
+    padding: var(--space-12) var(--space-6);
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
     padding: var(--space-20) var(--space-4) var(--space-12);

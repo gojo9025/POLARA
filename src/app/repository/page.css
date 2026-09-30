@@ -54,7 +54,7 @@
           .repo-cta svg { color: var(--ice-400); }
           .repo-cta p { flex: 1; font-size: 0.9375rem; }
 
-          @media (max-width: 768px) {
+          @media (max-width: 1024px) {
             .repo-page { padding: var(--space-16) var(--space-4) var(--space-4); }
             .repo-cat-list { grid-template-columns: 1fr; }
           }

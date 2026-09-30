@@ -155,7 +155,7 @@
           .topic-name { flex: 1; font-size: 0.8125rem; color: var(--text-secondary); }
           .topic-count { font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }
 
-          @media (max-width: 768px) {
+          @media (max-width: 1024px) {
             .admin-page { padding: var(--space-16) var(--space-4) var(--space-4); }
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
             .admin-grid { grid-template-columns: 1fr; }

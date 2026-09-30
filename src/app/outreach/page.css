@@ -154,7 +154,7 @@
             margin-top: -20px;
           }
 
-          @media (max-width: 768px) {
+          @media (max-width: 1024px) {
             .outreach-header { padding: var(--space-16) var(--space-4) var(--space-6); }
             .source-section, .outputs-section, .workflow-section { padding: var(--space-4); }
             .source-card { flex-direction: column; text-align: center; }

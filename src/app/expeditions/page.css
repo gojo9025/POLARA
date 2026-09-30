@@ -530,7 +530,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .premium-header {
     padding: var(--space-16) var(--space-4) var(--space-12);
   }
