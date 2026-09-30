@@ -221,17 +221,17 @@
           line-height: 1.7;
         }
 
-        .message-text :global(h4) {
+        .message-text h4 {
           color: var(--text-primary);
           font-size: 1rem;
           margin: var(--space-3) 0 var(--space-2);
         }
 
-        .message-text :global(strong) {
+        .message-text strong {
           color: var(--text-primary);
         }
 
-        .message-text :global(li) {
+        .message-text li {
           margin-left: var(--space-4);
           margin-bottom: var(--space-1);
         }

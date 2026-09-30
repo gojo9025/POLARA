@@ -128,8 +128,8 @@
           }
           .explain-source { font-size: 0.6875rem; color: var(--text-muted); }
           .explain-text { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.7; }
-          .explain-text :global(strong) { color: var(--text-primary); }
-          .explain-text :global(li) { margin-left: var(--space-4); margin-bottom: var(--space-1); }
+          .explain-text strong { color: var(--text-primary); }
+          .explain-text li { margin-left: var(--space-4); margin-bottom: var(--space-1); }
 
           /* Ask banner */
           .ask-banner {
