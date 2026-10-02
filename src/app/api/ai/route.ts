@@ -222,6 +222,42 @@ function extractSourcesForQuery(text: string) {
     });
   }
 
+  if (lower.includes('himalaya') || lower.includes('himansh') || lower.includes('glacier') || lower.includes('chandra')) {
+    sources.push({
+      title: 'Chandra Basin Benchmark Glaciers: Sutri Dhaka & Batal Mass Balance Deficit (Himansh)',
+      type: 'Report',
+      page: 6,
+      relevance: 0.95,
+      id: 'rep5',
+    });
+    sources.push({
+      title: 'Himansh Station High-Altitude Hourly Meteorological Records (4,050m)',
+      type: 'Dataset',
+      relevance: 0.92,
+      id: 'ds7',
+    });
+  }
+
+  if (lower.includes('polynya') || lower.includes('deep water') || lower.includes('bottom water')) {
+    sources.push({
+      title: 'Prydz Bay Coastal Polynya Ocean-Atmosphere Heat Flux & Dense Shelf Water Formation',
+      type: 'Report',
+      page: 11,
+      relevance: 0.94,
+      id: 'rep6',
+    });
+  }
+
+  if (lower.includes('krill') || lower.includes('biomass') || lower.includes('food web')) {
+    sources.push({
+      title: 'Southern Ocean Acoustic Biomass Survey of Antarctic Krill (Euphausia superba)',
+      type: 'Report',
+      page: 15,
+      relevance: 0.93,
+      id: 'rep9',
+    });
+  }
+
   if (sources.length === 0) {
     sources.push({
       title: 'India in the Polar Regions: Decadal Scientific Synthesis (NCPOR)',
@@ -438,6 +474,32 @@ Hydrophones deployed in polar waters capture a diverse acoustic tapestry that re
         'Listen to Weddell seal vocalizations in POLARA Media',
         'How loud is glacier calving underwater?',
         'What frequency do baleen whales sing at?',
+      ],
+    };
+  }
+
+  if (q.includes('himalaya') || q.includes('himansh') || q.includes('chandra') || q.includes('third pole')) {
+    return {
+      answer: `### The Third Pole: Cryospheric Research at Himansh Observatory (4,050m)
+
+India's Himalayan cryosphere program, centered at the **Himansh Research Station** in the Chandra Basin (Himachal Pradesh), monitors the benchmark glaciers feeding the Indus and Ganges river basins:
+
+1. **Accelerated Mass Balance Deficits:**
+   Benchmark glaciers including **Sutri Dhaka** (debris-free) and **Batal** (debris-covered) show sustained negative mass balance (-0.78 m w.e./year), driven by reduced winter snowfall from Western Disturbances and elevated summer isotherms.
+
+2. **Role of Debris Cover:**
+   Supraglacial debris exceeding 15 cm thickness on Batal Glacier insulates the underlying ice, reducing melt rates by 42% compared to clean ice, but creating unstable proglacial moraine-dammed lakes.
+
+3. **Glacio-Hydrological Runoff Dynamics:**
+   Continuous isotopic tracer profiling (δ18O and δD) confirms that glacial melt contributes **58% of peak summer streamflow** in the upper Chandra River, highlighting the vital role of glaciers in downstream freshwater security.
+
+4. **InSAR & UAV Ice Surface Velocity:**
+   Repeat satellite radar interferometry (Sentinel-1) combined with drone photogrammetry reveals seasonal ice velocity decelerations linked to subglacial cavitation.`,
+      sources,
+      suggestions: [
+        'What is the mass balance of Sutri Dhaka Glacier?',
+        'How does Himansh Station operate at 4,050 meters?',
+        'What are Western Disturbances and how do they feed glaciers?',
       ],
     };
   }

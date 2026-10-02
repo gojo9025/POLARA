@@ -95,8 +95,84 @@ export default function AudioPlayer({ recording, autoPlay = false }: AudioPlayer
         filter.connect(masterGain);
         noise.start();
         synthNodesRef.current.push(noise, filter);
+      } else if (type === 'orca-clicks') {
+        // High-frequency echolocation click trains & whistles
+        const playOrcaBurst = () => {
+          if (!audioCtxRef.current) return;
+          const ctx = audioCtxRef.current;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const now = ctx.currentTime;
+
+          // Rapid echolocation click train
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(3200 + Math.random() * 2400, now);
+          osc.frequency.exponentialRampToValueAtTime(1400, now + 0.4);
+
+          gain.gain.setValueAtTime(0.01, now);
+          gain.gain.linearRampToValueAtTime(0.25, now + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+
+          osc.connect(gain);
+          gain.connect(masterGain);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        };
+
+        playOrcaBurst();
+        synthIntervalRef.current = setInterval(playOrcaBurst, 1800);
+      } else if (type === 'crabeater-seal') {
+        // Low-frequency underwater groans & pulsed sweeps
+        const playGroan = () => {
+          if (!audioCtxRef.current) return;
+          const ctx = audioCtxRef.current;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const now = ctx.currentTime;
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(340, now);
+          osc.frequency.linearRampToValueAtTime(110, now + 0.9);
+
+          gain.gain.setValueAtTime(0.01, now);
+          gain.gain.linearRampToValueAtTime(0.35, now + 0.15);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 1.0);
+
+          osc.connect(gain);
+          gain.connect(masterGain);
+          osc.start(now);
+          osc.stop(now + 1.1);
+        };
+
+        playGroan();
+        synthIntervalRef.current = setInterval(playGroan, 2800);
+      } else if (type === 'hydrothermal-vent') {
+        // Deep sub-bass tectonic rumble & bubbling
+        const bufferSize = ctx.sampleRate * 3;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          data[i] = (lastOut + (0.02 * white)) / 1.02;
+          lastOut = data[i];
+          data[i] *= 3.5;
+        }
+
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(95, ctx.currentTime);
+
+        source.connect(filter);
+        filter.connect(masterGain);
+        source.start();
+        synthNodesRef.current.push(source, filter);
       } else {
-        // Polar howling winds
+        // Polar & Himalayan high-altitude howling winds
         const bufferSize = ctx.sampleRate * 3;
         const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
         const data = buffer.getChannelData(0);
@@ -110,7 +186,7 @@ export default function AudioPlayer({ recording, autoPlay = false }: AudioPlayer
 
         const lowPass = ctx.createBiquadFilter();
         lowPass.type = 'lowpass';
-        lowPass.frequency.setValueAtTime(260, ctx.currentTime);
+        lowPass.frequency.setValueAtTime(type === 'himalayan-wind' ? 380 : 260, ctx.currentTime);
 
         windSource.connect(lowPass);
         lowPass.connect(masterGain);
