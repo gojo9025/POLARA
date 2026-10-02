@@ -26,12 +26,12 @@ const typeIcons: Record<string, React.ReactNode> = {
 };
 
 const typeColors: Record<string, string> = {
-  report: 'badge-ice',
+  report: 'badge-ochre',
   dataset: 'badge-cyan',
-  publication: 'badge-aurora',
+  publication: 'badge-sand',
   photograph: 'badge-frost',
   video: 'badge-warm',
-  audio: 'badge-cyan',
+  audio: 'badge-tundra',
 };
 
 function ExploreContent() {
@@ -369,8 +369,20 @@ function ExploreContent() {
                           <span className={`badge ${typeColors[resource.type] || 'badge-ice'}`}>
                             {resource.type.charAt(0).toUpperCase() + resource.type.slice(1)}
                           </span>
-                          <span className="badge badge-cyan">{resource.researchArea}</span>
-                          <span className="badge badge-aurora">{resource.region}</span>
+                          <span className={`badge ${
+                            resource.researchArea.toLowerCase().includes('biology') ? 'badge-tundra' :
+                            resource.researchArea.toLowerCase().includes('climate') ? 'badge-sand' :
+                            'badge-cyan'
+                          }`}>
+                            {resource.researchArea}
+                          </span>
+                          <span className={`badge ${
+                            resource.region.toLowerCase().includes('antarctica') ? 'badge-ochre' :
+                            resource.region.toLowerCase().includes('himalaya') ? 'badge-tundra' :
+                            'badge-aurora'
+                          }`}>
+                            {resource.region}
+                          </span>
                           <span className="result-year">{resource.year}</span>
                           <button
                             onClick={(e) => {

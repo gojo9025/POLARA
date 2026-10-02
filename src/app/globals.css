@@ -7,11 +7,17 @@
 
 @layer base {
   :root {
-    /* ── The User's Exact 4-Color Palette ── */
+    /* ── The User's Primary Deep Polar Palette ── */
     --c-orange: #FF6500;            /* Warm Expedition Amber / Accent (used sparingly) */
     --c-steel: #1E3E62;             /* Polar Ocean Steel Blue (secondary, borders, interactive) */
     --c-midnight: #0B192C;          /* Deep Arctic Midnight Navy (surfaces, elevated, cards) */
     --c-black: #000000;             /* Pure Void Black (base background) */
+
+    /* ── The User's Earth, Tundra & Expedition Palette ── */
+    --c-cream: #F5EFE3;             /* Warm Editorial Alabaster Cream (primary typography & headings) */
+    --c-olive: #4F5B2A;             /* Arctic Tundra & Moss Olive (ecology, botany, biodiversity) */
+    --c-ochre: #B8892D;             /* Expedition Traverse Ochre (milestones, historical archives) */
+    --c-sand: #D8C9A8;              /* Polar Sediment & Sand (secondary text, borders, subtle tags) */
 
     /* ── Tonal Scales ── */
     --navy-950: #000000;
@@ -92,14 +98,18 @@
     --bg-glass: rgba(11, 25, 44, 0.78);
     --bg-card: rgba(11, 25, 44, 0.92);
 
-    --text-primary: #f8fafc;
-    --text-secondary: #9cb1cb;
-    --text-tertiary: #6b84a3;
-    --text-muted: #425875;
+    --text-primary: #F5EFE3;        /* Warm Alabaster Cream — Ultra-premium editorial typography */
+    --text-secondary: #D8C9A8;      /* Sand Neutral — Secondary descriptions and subtitles */
+    --text-tertiary: #9cb1cb;       /* Steel Telemetry — Metadata, telemetry labels */
+    --text-muted: #597391;
     --text-inverse: #000000;
 
     --accent-primary: #FF6500;
     --accent-secondary: #1E3E62;
+    --accent-tundra: #4F5B2A;
+    --accent-ochre: #B8892D;
+    --accent-cream: #F5EFE3;
+    --accent-sand: #D8C9A8;
     --accent-glow: rgba(255, 101, 0, 0.18);
 
     --border-primary: rgba(30, 62, 98, 0.7);
@@ -491,6 +501,27 @@ a:hover {
   box-shadow: 0 0 12px rgba(255, 101, 0, 0.12);
 }
 
+/* ── New Tundra, Expedition & Sand Badges ── */
+.badge-tundra, .badge-ecology, .badge-olive {
+  background: rgba(79, 91, 42, 0.28);
+  color: #b9cf78;
+  border: 1px solid rgba(79, 91, 42, 0.75);
+  box-shadow: 0 0 12px rgba(79, 91, 42, 0.2);
+}
+
+.badge-ochre, .badge-expedition {
+  background: rgba(184, 137, 45, 0.24);
+  color: #e6be65;
+  border: 1px solid rgba(184, 137, 45, 0.7);
+  box-shadow: 0 0 12px rgba(184, 137, 45, 0.18);
+}
+
+.badge-sand {
+  background: rgba(216, 201, 168, 0.14);
+  color: #F5EFE3;
+  border: 1px solid rgba(216, 201, 168, 0.45);
+}
+
 .badge-danger {
   background: rgba(239, 68, 68, 0.15);
   color: var(--danger-400);
@@ -515,7 +546,7 @@ a:hover {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #1E3E62, #FF6500, #1E3E62);
+  background: linear-gradient(90deg, #1E3E62 0%, #B8892D 35%, #FF6500 65%, #4F5B2A 100%);
   opacity: 0;
   transition: opacity var(--transition-base);
 }
@@ -526,7 +557,7 @@ a:hover {
 
 .stat-card:hover {
   box-shadow: var(--shadow-glow);
-  border-color: rgba(255, 101, 0, 0.35);
+  border-color: rgba(184, 137, 45, 0.45);
 }
 
 .stat-value {
@@ -540,7 +571,7 @@ a:hover {
 
 .stat-label {
   font-size: 0.8125rem;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-top: var(--space-1);
@@ -553,19 +584,19 @@ a:hover {
   gap: var(--space-1);
   padding: var(--space-1) var(--space-3);
   background: rgba(30, 62, 98, 0.25);
-  border: 1px solid rgba(30, 62, 98, 0.65);
+  border: 1px solid rgba(216, 201, 168, 0.35);
   border-radius: var(--radius-sm);
   font-size: 0.75rem;
-  color: #cbd5e1;
+  color: #D8C9A8;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .tag:hover {
-  border-color: rgba(255, 101, 0, 0.45);
-  color: #ffffff;
-  background: rgba(30, 62, 98, 0.5);
-  box-shadow: 0 0 14px rgba(255, 101, 0, 0.12);
+  border-color: #B8892D;
+  color: #F5EFE3;
+  background: rgba(184, 137, 45, 0.22);
+  box-shadow: 0 0 14px rgba(184, 137, 45, 0.2);
 }
 
 /* ── Section ── */
@@ -695,7 +726,7 @@ a:hover {
    ═══════════════════════════════════════════════════════════════ */
 
 .text-gradient {
-  background: linear-gradient(135deg, #f8fafc 15%, #88b1e0 60%, #FF6500 100%);
+  background: linear-gradient(135deg, #F5EFE3 20%, #D8C9A8 45%, #88b1e0 70%, #B8892D 88%, #FF6500 100%);
   background-size: 200% auto;
   animation: aurora-shift 6s ease-in-out infinite;
   -webkit-background-clip: text;
@@ -704,7 +735,25 @@ a:hover {
 }
 
 .text-gradient-warm {
-  background: linear-gradient(135deg, #f8fafc 10%, #FF6500 70%, #ff8a3d 100%);
+  background: linear-gradient(135deg, #F5EFE3 10%, #D8C9A8 40%, #B8892D 75%, #FF6500 100%);
+  background-size: 200% auto;
+  animation: aurora-shift 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-tundra {
+  background: linear-gradient(135deg, #F5EFE3 15%, #D8C9A8 45%, #4F5B2A 78%, #B8892D 100%);
+  background-size: 200% auto;
+  animation: aurora-shift 6s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-ochre {
+  background: linear-gradient(135deg, #F5EFE3 10%, #D8C9A8 35%, #B8892D 85%, #FF6500 100%);
   background-size: 200% auto;
   animation: aurora-shift 5s ease-in-out infinite;
   -webkit-background-clip: text;

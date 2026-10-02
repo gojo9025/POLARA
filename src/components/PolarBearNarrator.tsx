@@ -55,7 +55,7 @@ const chapters: StoryChapter[] = [
     ctaLabel: 'View All 44 Expeditions',
     ctaHref: '/expeditions',
     ctaIcon: <Compass size={16} />,
-    themeColor: '#FF6500',
+    themeColor: '#B8892D',
   },
   {
     id: 3,
@@ -76,20 +76,20 @@ const chapters: StoryChapter[] = [
   },
   {
     id: 4,
-    badge: 'EARTH OBSERVATION & SEA ICE',
-    title: 'Real-Time Telemetry & Cryo-Dynamics',
+    badge: 'ARCTIC TUNDRA & CRYO-ECOLOGY',
+    title: 'Tundra Dynamics, Biodiversity & Sea Ice',
     speechText:
-      'The ice is alive. It expands to 18 million square kilometers each winter and retreats in summer. We track radar sea ice concentration, meteorological vectors, and atmospheric carbon flux in near real time across the high latitudes.',
+      'The polar frontier is an intricate living ecosystem. We monitor Arctic mosses, microbial cryo-communities, lichen biodiversity, and fast ice dynamics across the high latitudes. Every shift in tundra permafrost and sea ice echoes across global weather patterns.',
     quote: '"A 1% shift in polar sea ice alters monsoon dynamics across South Asia."',
     stats: [
       { label: 'Station Telemetry', value: '4 Synchronized Feeds' },
+      { label: 'Tundra Flora Sites', value: '12 Monitored Quadrats' },
       { label: 'Fast Ice Metrics', value: '1.84m Thickness' },
-      { label: 'Update Cadence', value: '15-Min Intervals' },
     ],
     ctaLabel: 'Inspect Cryo-Datasets',
     ctaHref: '/explore?type=Dataset',
     ctaIcon: <BarChart3 size={16} />,
-    themeColor: '#1E3E62',
+    themeColor: '#4F5B2A',
   },
   {
     id: 5,

@@ -271,7 +271,7 @@
   left: 0;
   width: 3px;
   height: 100%;
-  background: linear-gradient(180deg, var(--ice-400), var(--cyan-500));
+  background: linear-gradient(180deg, #1E3E62 0%, #B8892D 50%, #FF6500 100%);
   border-radius: var(--radius-sm) 0 0 var(--radius-xl);
 }
 
