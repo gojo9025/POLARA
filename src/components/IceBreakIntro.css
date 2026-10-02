@@ -63,16 +63,89 @@
   opacity: 0.4;
 }
 
+/* Mode Switcher Pill */
+.intro-mode-switcher {
+  position: relative;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.45rem;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 9999px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  color: #94a3b8;
+  font-family: var(--font-heading, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover:not(:disabled) {
+  color: #e2e8f0;
+}
+
+.mode-btn.active {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+}
+
+.mode-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mode-chip {
+  padding: 0.15rem 0.4rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.625rem;
+  font-weight: 800;
+  border-radius: 9999px;
+  background: #38bdf8;
+  color: #030712;
+}
+
 /* Centerpiece Container */
 .ice-break-centerpiece {
   position: relative;
   width: min(92vw, 1000px);
   height: min(58vh, 560px);
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* 3D WebGL Canvas Container */
+.ice-break-3d-canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.ice-break-3d-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 /* Polar Bear Breaking Frame */
