@@ -2,12 +2,15 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import PolarBearIceberg3D from '@/components/PolarBearIceberg3D';
 import './page.css';
 import AppLayout from '@/components/AppLayout';
 import {
   Search, ArrowRight, Compass, BookOpen, BarChart3,
   GraduationCap, MessageCircle, Snowflake, Globe, FileText,
-  Image as ImageIcon, Play, Users, TrendingUp, Sparkles, Megaphone
+  Image as ImageIcon, Play, Users, TrendingUp, Sparkles, Megaphone,
+  Box, Radio
 } from 'lucide-react';
 import {
   expeditions, researchAreas, reports, publications,
@@ -88,6 +91,7 @@ const polarStations = [
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeStationId, setActiveStationId] = useState('bharati');
+  const [heroVisualMode, setHeroVisualMode] = useState<'3d' | 'cinematic' | 'telemetry'>('3d');
 
   const activeStation = polarStations.find(s => s.id === activeStationId) || polarStations[0];
 
@@ -120,7 +124,12 @@ export default function HomePage() {
           </div>
 
           <div className="hero-container">
-            <div className="hero-content">
+            <motion.div
+              className="hero-content"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
               <div className="hero-badge">
                 <Snowflake size={14} />
                 <span>India&apos;s Polar Science Knowledge Ecosystem</span>
@@ -177,94 +186,181 @@ export default function HomePage() {
                   </Link>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* ═══ Polar Telemetry HUD & Radar Scope ═══ */}
-            <div className="telemetry-hud">
-              <div className="hud-corner hud-corner-tl" />
-              <div className="hud-corner hud-corner-tr" />
-              <div className="hud-corner hud-corner-bl" />
-              <div className="hud-corner hud-corner-br" />
+            {/* ═══ 21st.dev Style Showcase Column ═══ */}
+            <div className="hero-showcase-column">
+              {/* Floating Switcher Bar */}
+              <div className="hero-switcher-bar">
+                <button
+                  className={`switcher-pill ${heroVisualMode === '3d' ? 'active' : ''}`}
+                  onClick={() => setHeroVisualMode('3d')}
+                  title="Interactive 3D Polar Bear walking on Iceberg"
+                >
+                  <Box size={14} />
+                  <span>3D Polar Bear</span>
+                  <span className="switcher-chip">Three.js</span>
+                </button>
 
-              <div className="hud-header">
-                <div className="hud-title-wrap">
-                  <div className="hud-live-dot" />
-                  <span className="hud-title">NCPOR Telemetry Array</span>
-                </div>
-                <span className="hud-time">UTC LIVE FEED</span>
+                <button
+                  className={`switcher-pill ${heroVisualMode === 'cinematic' ? 'active' : ''}`}
+                  onClick={() => setHeroVisualMode('cinematic')}
+                  title="8K High-Resolution Glacial Imagery"
+                >
+                  <Sparkles size={14} />
+                  <span>8K Glacial Cam</span>
+                </button>
+
+                <button
+                  className={`switcher-pill ${heroVisualMode === 'telemetry' ? 'active' : ''}`}
+                  onClick={() => setHeroVisualMode('telemetry')}
+                  title="Scientific Stations Telemetry Array"
+                >
+                  <Radio size={14} />
+                  <span>Station Telemetry</span>
+                </button>
               </div>
 
-              {/* Station Tabs */}
-              <div className="hud-station-tabs">
-                {polarStations.map(station => (
-                  <button
-                    key={station.id}
-                    className={`hud-tab ${activeStationId === station.id ? 'active' : ''}`}
-                    onClick={() => setActiveStationId(station.id)}
+              {/* Dynamic View with AnimatePresence */}
+              <AnimatePresence mode="wait">
+                {heroVisualMode === '3d' && (
+                  <motion.div
+                    key="3d"
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    {station.name.split(' ')[0]}
-                  </button>
-                ))}
-              </div>
+                    <PolarBearIceberg3D />
+                  </motion.div>
+                )}
 
-              {/* Telemetry Body */}
-              <div className="hud-telemetry-body">
-                <div className="hud-station-info">
-                  <div className="station-badge-row">
-                    <span className="badge badge-ice" style={{ color: activeStation.color, borderColor: activeStation.color }}>
-                      {activeStation.region}
-                    </span>
-                    <span style={{ fontSize: '0.6875rem', color: 'var(--aurora-400)', fontFamily: 'var(--font-mono)' }}>
-                      ● {activeStation.status}
-                    </span>
-                  </div>
-
-                  <div className="station-name">{activeStation.name}</div>
-                  <div className="station-coords">
-                    <Compass size={13} /> {activeStation.coords}
-                  </div>
-
-                  <div className="telemetry-metrics-grid">
-                    <div className="metric-card">
-                      <label>Temp / Metric</label>
-                      <span>{activeStation.temp}</span>
-                    </div>
-                    <div className="metric-card">
-                      <label>Vector / Depth</label>
-                      <span>{activeStation.wind}</span>
-                    </div>
-                    <div className="metric-card">
-                      <label>Baro / Salinity</label>
-                      <span>{activeStation.pressure}</span>
-                    </div>
-                    <div className="metric-card">
-                      <label>Condition</label>
-                      <span style={{ fontSize: '0.8125rem' }}>{activeStation.iceCondition}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Radar Scope */}
-                <div className="radar-scope-container">
-                  <div className="radar-scope">
-                    <div className="radar-ring radar-ring-1" />
-                    <div className="radar-ring radar-ring-2" />
-                    <div className="radar-crosshair-h" />
-                    <div className="radar-crosshair-v" />
-                    <div className="radar-sweep-beam" />
-                    <div
-                      className="radar-blip"
-                      style={{
-                        left: activeStation.radarX,
-                        top: activeStation.radarY,
-                        backgroundColor: activeStation.color,
-                        boxShadow: `0 0 10px ${activeStation.color}`,
-                      }}
+                {heroVisualMode === 'cinematic' && (
+                  <motion.div
+                    key="cinematic"
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.3 }}
+                    className="cinematic-iceberg-view"
+                  >
+                    <img
+                      src="/images/polar-bear-iceberg.jpg"
+                      alt="Majestic polar bear moving gracefully across a glacial iceberg in the Arctic"
+                      className="cinematic-iceberg-img"
                     />
-                  </div>
-                  <span className="radar-caption">RADAR COORD LOCK</span>
-                </div>
-              </div>
+                    <div className="cinematic-lens-overlay" />
+                    <div className="cinematic-hud-tag">
+                      <div className="tag-pulse" />
+                      <div className="tag-meta">
+                        <span className="tag-title">URSUS MARITIMUS • 8K SATELLITE EXPEDITION FEED</span>
+                        <span className="tag-loc">Kongsfjorden Glacier Pack Ice, Svalbard • Drift Rate 0.4 kt</span>
+                      </div>
+                    </div>
+                    <div className="cinematic-badge-row">
+                      <span className="badge badge-aurora">Telemetry Tracked</span>
+                      <span className="badge badge-ice">Fast Ice: 1.84m</span>
+                    </div>
+                  </motion.div>
+                )}
+
+                {heroVisualMode === 'telemetry' && (
+                  <motion.div
+                    key="telemetry"
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="telemetry-hud">
+                      <div className="hud-corner hud-corner-tl" />
+                      <div className="hud-corner hud-corner-tr" />
+                      <div className="hud-corner hud-corner-bl" />
+                      <div className="hud-corner hud-corner-br" />
+
+                      <div className="hud-header">
+                        <div className="hud-title-wrap">
+                          <div className="hud-live-dot" />
+                          <span className="hud-title">NCPOR Telemetry Array</span>
+                        </div>
+                        <span className="hud-time">UTC LIVE FEED</span>
+                      </div>
+
+                      {/* Station Tabs */}
+                      <div className="hud-station-tabs">
+                        {polarStations.map(station => (
+                          <button
+                            key={station.id}
+                            className={`hud-tab ${activeStationId === station.id ? 'active' : ''}`}
+                            onClick={() => setActiveStationId(station.id)}
+                          >
+                            {station.name.split(' ')[0]}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Telemetry Body */}
+                      <div className="hud-telemetry-body">
+                        <div className="hud-station-info">
+                          <div className="station-badge-row">
+                            <span className="badge badge-ice" style={{ color: activeStation.color, borderColor: activeStation.color }}>
+                              {activeStation.region}
+                            </span>
+                            <span style={{ fontSize: '0.6875rem', color: 'var(--aurora-400)', fontFamily: 'var(--font-mono)' }}>
+                              ● {activeStation.status}
+                            </span>
+                          </div>
+
+                          <div className="station-name">{activeStation.name}</div>
+                          <div className="station-coords">
+                            <Compass size={13} /> {activeStation.coords}
+                          </div>
+
+                          <div className="telemetry-metrics-grid">
+                            <div className="metric-card">
+                              <label>Temp / Metric</label>
+                              <span>{activeStation.temp}</span>
+                            </div>
+                            <div className="metric-card">
+                              <label>Vector / Depth</label>
+                              <span>{activeStation.wind}</span>
+                            </div>
+                            <div className="metric-card">
+                              <label>Baro / Salinity</label>
+                              <span>{activeStation.pressure}</span>
+                            </div>
+                            <div className="metric-card">
+                              <label>Condition</label>
+                              <span style={{ fontSize: '0.8125rem' }}>{activeStation.iceCondition}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Radar Scope */}
+                        <div className="radar-scope-container">
+                          <div className="radar-scope">
+                            <div className="radar-ring radar-ring-1" />
+                            <div className="radar-ring radar-ring-2" />
+                            <div className="radar-crosshair-h" />
+                            <div className="radar-crosshair-v" />
+                            <div className="radar-sweep-beam" />
+                            <div
+                              className="radar-blip"
+                              style={{
+                                left: activeStation.radarX,
+                                top: activeStation.radarY,
+                                backgroundColor: activeStation.color,
+                                boxShadow: `0 0 10px ${activeStation.color}`,
+                              }}
+                            />
+                          </div>
+                          <span className="radar-caption">RADAR COORD LOCK</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </section>

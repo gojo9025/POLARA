@@ -1,0 +1,247 @@
+/* ═══════════════════════════════════════════════════════════════
+   POLARA — 3D Polar Bear & Iceberg WebGL Viewport (21st.dev Style)
+   ═══════════════════════════════════════════════════════════════ */
+
+.polar-bear-3d-wrapper {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(14, 25, 52, 0.7) 0%, rgba(4, 8, 18, 0.95) 100%);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(56, 182, 230, 0.18);
+  box-shadow: 
+    0 16px 48px -8px rgba(0, 0, 0, 0.6),
+    0 0 32px -4px rgba(56, 182, 230, 0.12),
+    0 0 0 1px rgba(56, 182, 230, 0.1) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  touch-action: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.polar-bear-3d-wrapper:hover {
+  border-color: rgba(56, 182, 230, 0.32);
+  box-shadow: 
+    0 24px 64px -12px rgba(0, 0, 0, 0.7),
+    0 0 48px -4px rgba(56, 182, 230, 0.2),
+    0 0 0 1px rgba(56, 182, 230, 0.2) inset;
+}
+
+.polar-bear-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  cursor: grab;
+}
+
+.polar-bear-canvas:active {
+  cursor: grabbing;
+}
+
+/* ── Fullscreen Experience Mode ── */
+.polar-bear-3d-wrapper.fullscreen-mode {
+  position: fixed;
+  inset: 16px;
+  width: calc(100vw - 32px);
+  height: calc(100vh - 32px);
+  z-index: 2000;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 0 120px rgba(0, 0, 0, 0.9), 0 0 40px rgba(56, 182, 230, 0.3);
+}
+
+/* ── 21st.dev Style Floating Holographic Capsule HUD ── */
+.hud-overlay-capsule {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 14px;
+  background: rgba(6, 12, 24, 0.82);
+  border: 1px solid rgba(56, 182, 230, 0.2);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 16px rgba(56, 182, 230, 0.1);
+  z-index: 20;
+  max-width: 95%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hud-capsule-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--aurora-400);
+  box-shadow: 0 0 8px var(--aurora-400);
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+.hud-metric-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-label {
+  font-size: 0.5625rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.hud-val {
+  font-size: 0.6875rem;
+  font-family: var(--font-mono);
+  color: var(--ice-300);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.hud-capsule-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(56, 182, 230, 0.15);
+}
+
+.hud-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-btn-toggle {
+  display: flex;
+  align-items: center;
+  background: rgba(14, 22, 42, 0.7);
+  border: 1px solid rgba(56, 182, 230, 0.14);
+  border-radius: var(--radius-full);
+  padding: 2px;
+  gap: 2px;
+}
+
+.hud-mode-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--text-tertiary);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.hud-mode-pill:hover {
+  color: var(--ice-300);
+}
+
+.hud-mode-pill.active {
+  background: rgba(56, 182, 230, 0.2);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(56, 182, 230, 0.2);
+}
+
+.hud-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(14, 22, 42, 0.7);
+  border: 1px solid rgba(56, 182, 230, 0.16);
+  border-radius: var(--radius-full);
+  color: var(--text-tertiary);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.hud-action-pill:hover {
+  color: var(--ice-300);
+  border-color: rgba(56, 182, 230, 0.3);
+}
+
+.hud-action-pill.active {
+  background: rgba(74, 222, 128, 0.15);
+  border-color: rgba(74, 222, 128, 0.35);
+  color: var(--aurora-400);
+}
+
+.hud-expand-btn {
+  background: rgba(56, 182, 230, 0.08);
+  border: 1px solid rgba(56, 182, 230, 0.18);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.hud-expand-btn:hover {
+  color: var(--ice-300);
+  background: rgba(56, 182, 230, 0.18);
+  border-color: rgba(56, 182, 230, 0.35);
+}
+
+/* ── Floating Sub-caption Pill ── */
+.polar-bear-caption-pill {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(6, 10, 20, 0.7);
+  border: 1px solid rgba(56, 182, 230, 0.12);
+  border-radius: var(--radius-full);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  backdrop-filter: blur(12px);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.caption-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ice-400);
+  box-shadow: 0 0 6px var(--ice-400);
+}
+
+@media (max-width: 768px) {
+  .polar-bear-3d-wrapper {
+    height: 380px;
+  }
+  .hud-overlay-capsule {
+    top: 10px;
+    padding: 4px 8px;
+    gap: 6px;
+  }
+  .hud-capsule-item .hud-metric-col {
+    display: none;
+  }
+}
