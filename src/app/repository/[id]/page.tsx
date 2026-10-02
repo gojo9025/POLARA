@@ -13,7 +13,7 @@ import {
   FileText, ArrowRight, Compass, BookOpen, BarChart3,
   MessageCircle, Sparkles, GraduationCap, Globe, Users,
   Calendar, MapPin, Tag, ExternalLink, Microscope, Copy, Check,
-  Download, Bookmark, BookmarkCheck, Share2, Code2
+  Download, Bookmark, BookmarkCheck, Share2, Code2, ChevronLeft
 } from 'lucide-react';
 import { useBookmarks } from '@/lib/bookmarks';
 import { useToast } from '@/lib/toast';
@@ -138,10 +138,11 @@ export default function ResourceDetailPage() {
         <div className="rd-hero">
           <div className="rd-hero-bg" />
           <div className="rd-hero-content">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-              <div className="page-breadcrumb">
-                <Link href="/">Home</Link> / <Link href="/explore">Explore</Link> / <span>{resource.type}</span>
-              </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
+              <Link href="/explore" className="btn btn-ghost btn-sm" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                <ChevronLeft size={15} />
+                <span>Back to Archive</span>
+              </Link>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                 <button
                   onClick={() => toggleBookmark(resource)}

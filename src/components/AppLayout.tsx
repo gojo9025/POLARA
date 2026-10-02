@@ -14,6 +14,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { user, isAuthenticated, logout } = useAuth();
 
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [notifList, setNotifList] = useState(notifications);
@@ -55,23 +56,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     });
 
   return (
-    <div className="app-layout">
-      <Sidebar />
-      <div className="app-main-wrapper" style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, height: '100vh', overflow: 'hidden' }}>
-        
-        {/* Top Telemetry News Ticker */}
-        <div className="topbar-ticker">
-          <div className="ticker-badge">
-            <span className="ticker-live-dot" />
-            <span>NCPOR POLAR ADVISORY</span>
-          </div>
-          <div className="ticker-text">
-            <span>● 44th ISEA Maitri-Bharati inland traverse operations active in Queen Maud Land</span>
-            <span>● Svalbard IndARC sub-surface mooring telemetry nominal (Temp: -1.4°C, Depth: 192m)</span>
-            <span>● Bharati Station fast-ice satellite monitoring active via EOS-04 synthetic aperture radar</span>
-          </div>
-        </div>
-
+    <div className={`app-layout ${sidebarCollapsed ? 'sidebar-is-collapsed' : ''}`}>
+      <Sidebar collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)} />
+      <div className="app-main-wrapper">
         {/* Global Command Topbar */}
         <header className="global-topbar">
           {/* Breadcrumbs */}
@@ -93,13 +80,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             )}
           </nav>
           
-          {/* Global Search / Command Palette Trigger */}
-          <div className="topbar-search-trigger" onClick={openCommandPalette} role="button" tabIndex={0}>
-            <Search size={15} className="search-trigger-icon" />
-            <span className="search-trigger-text">Search polar science, datasets, telemetry...</span>
-            <div className="search-trigger-kbd">
-              <Command size={11} />
-              <span>K</span>
+          {/* Center Search Trigger & Live Polar Telemetry Badge */}
+          <div className="topbar-center-group">
+            <div className="topbar-search-trigger" onClick={openCommandPalette} role="button" tabIndex={0} title="Press Ctrl+K to search">
+              <Search size={15} className="search-trigger-icon" />
+              <span className="search-trigger-text">Search polar science, datasets, telemetry...</span>
+              <div className="search-trigger-kbd">
+                <Command size={11} />
+                <span>K</span>
+              </div>
+            </div>
+
+            <div className="topbar-telemetry-badge" title="NCPOR Real-Time Polar Network Feed">
+              <span className="telemetry-live-dot" />
+              <span className="telemetry-badge-text">ISEA-44 ACTIVE</span>
+              <span className="telemetry-badge-sep">•</span>
+              <span className="telemetry-badge-sub">IndARC -1.4°C</span>
             </div>
           </div>
 
@@ -218,7 +214,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </header>
 
         {/* Main Content Area */}
-        <main className="app-main" style={{ flex: 1, overflowY: 'auto', background: '#060a14', padding: 0 }}>
+        <main className="app-main">
           {children}
         </main>
       </div>

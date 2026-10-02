@@ -6,9 +6,9 @@
 /* ── Hero — Dramatic Aurora ── */
 .hero {
   position: relative;
-  padding: var(--space-24) var(--space-8) var(--space-16);
+  padding: var(--space-16) var(--space-8) var(--space-12);
   overflow: hidden;
-  min-height: 90vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
 }

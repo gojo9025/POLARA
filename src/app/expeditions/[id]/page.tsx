@@ -12,7 +12,7 @@ import './page.css';
 import {
   MapPin, Calendar, Users, Compass, FileText, BarChart3,
   BookOpen, Image as ImageIcon, Play, GraduationCap,
-  ArrowRight, ExternalLink, MessageCircle, Sparkles, Volume2
+  ArrowRight, ExternalLink, MessageCircle, Sparkles, Volume2, ChevronLeft
 } from 'lucide-react';
 
 export default function ExpeditionDetailPage() {
@@ -57,9 +57,10 @@ export default function ExpeditionDetailPage() {
             }}
           />
           <div className="detail-hero-content">
-            <div className="page-breadcrumb">
-              <Link href="/">Home</Link> / <Link href="/expeditions">Expeditions</Link> / <span>{expedition.expeditionNumber}</span>
-            </div>
+            <Link href="/expeditions" className="btn btn-ghost btn-sm" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', marginBottom: '14px', alignSelf: 'flex-start' }}>
+              <ChevronLeft size={15} />
+              <span>Back to Expeditions</span>
+            </Link>
             <span className="badge badge-ice">{expedition.region}</span>
             <h1>{expedition.name}</h1>
             <div className="detail-meta">

@@ -47,10 +47,6 @@ export default function ExpeditionsPage() {
         <div className="premium-header">
           <div className="header-background" />
           <div className="header-content">
-            <div className="page-breadcrumb">
-              <Link href="/">Home</Link> / <span>Expeditions</span>
-            </div>
-            
             <div className="title-section">
               <div className="title-icon">
                 <Compass size={32} />

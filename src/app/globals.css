@@ -146,6 +146,27 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 182, 230, 0.25) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 182, 230, 0.22);
+  border-radius: 9999px;
+  transition: background var(--transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 182, 230, 0.45);
 }
 
 html {
@@ -741,19 +762,39 @@ a:hover {
 .app-layout {
   display: flex;
   min-height: 100vh;
+  width: 100%;
+  background: var(--bg-primary);
+}
+
+.app-main-wrapper {
+  margin-left: var(--sidebar-width);
+  transition: margin-left var(--transition-base);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  width: calc(100% - var(--sidebar-width));
+  position: relative;
+}
+
+.sidebar-is-collapsed .app-main-wrapper {
+  margin-left: var(--sidebar-collapsed);
+  width: calc(100% - var(--sidebar-collapsed));
 }
 
 .app-main {
   flex: 1;
-  margin-left: var(--sidebar-width);
-  transition: margin-left var(--transition-base);
-  min-height: 100vh;
+  width: 100%;
+  min-height: 0;
   position: relative;
+  background: var(--bg-primary);
 }
 
 @media (max-width: 768px) {
-  .app-main {
-    margin-left: 0;
+  .app-main-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
   }
 }
 
@@ -1103,64 +1144,69 @@ a:hover {
   }
 }
 
-.app-main-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-  height: 100vh;
-  overflow: hidden;
-}
 /* ═══════════════════════════════════════════════════════════════
-   Top Telemetry News Ticker
+   Topbar Telemetry Badge & Center Group
    ═══════════════════════════════════════════════════════════════ */
-.topbar-ticker {
-  background: rgba(4, 8, 16, 0.95);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.08);
-  padding: 4px 20px;
+.topbar-center-group {
   display: flex;
   align-items: center;
-  gap: 16px;
-  font-size: 0.6875rem;
-  overflow: hidden;
-  z-index: 12;
+  gap: 14px;
+  flex: 1 1 500px;
+  max-width: 720px;
+  justify-content: center;
 }
 
-.ticker-badge {
-  display: flex;
+.topbar-telemetry-badge {
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(56, 182, 230, 0.1);
-  border: 1px solid rgba(56, 182, 230, 0.2);
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
-  color: var(--ice-400);
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(14, 22, 42, 0.75);
+  border: 1px solid rgba(56, 182, 230, 0.18);
+  border-radius: var(--radius-full);
   font-family: var(--font-mono);
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
   white-space: nowrap;
+  box-shadow: 0 0 12px rgba(56, 182, 230, 0.06);
+  flex-shrink: 0;
+  cursor: default;
+  transition: all var(--transition-fast);
 }
 
-.ticker-live-dot {
-  width: 6px;
-  height: 6px;
+.topbar-telemetry-badge:hover {
+  border-color: rgba(56, 182, 230, 0.35);
+  background: rgba(18, 30, 56, 0.9);
+  box-shadow: 0 0 18px rgba(56, 182, 230, 0.15);
+}
+
+.telemetry-live-dot {
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--aurora-400);
-  box-shadow: 0 0 6px var(--aurora-400);
+  box-shadow: 0 0 8px var(--aurora-400);
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
-.ticker-text {
-  display: flex;
-  gap: 24px;
-  color: var(--text-tertiary);
-  white-space: nowrap;
-  animation: ticker-slide 35s linear infinite;
+.telemetry-badge-text {
+  color: var(--ice-300);
+  font-weight: 700;
 }
 
-@keyframes ticker-slide {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.telemetry-badge-sep {
+  color: var(--text-muted);
+}
+
+.telemetry-badge-sub {
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .topbar-telemetry-badge {
+    display: none;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1170,12 +1216,15 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 24px;
+  padding: 0 24px;
+  height: 60px;
   background: rgba(6, 10, 20, 0.88);
   backdrop-filter: blur(24px) saturate(1.4);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.08);
-  z-index: 10;
+  border-bottom: 1px solid rgba(56, 182, 230, 0.1);
+  z-index: 50;
   gap: 16px;
+  position: sticky;
+  top: 0;
 }
 
 .topbar-breadcrumb {

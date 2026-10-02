@@ -14,9 +14,6 @@ export default function RepositoryPage() {
     <AppLayout>
       <div className="repo-page">
         <div className="page-header">
-          <div className="page-breadcrumb">
-            <Link href="/">Home</Link> / <span>Repository</span>
-          </div>
           <h1><Database size={28} /> Knowledge Repository</h1>
           <p>Browse the structured polar science knowledge base</p>
         </div>

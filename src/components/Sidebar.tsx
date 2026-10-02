@@ -33,11 +33,26 @@ const navItems: NavItem[] = [
   { label: 'Admin', href: '/admin', icon: <ShieldCheck size={18} />, roles: ['admin'] },
 ];
 
-export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+interface SidebarProps {
+  collapsed?: boolean;
+  onToggleCollapse?: () => void;
+}
+
+export default function Sidebar({ collapsed: propCollapsed, onToggleCollapse }: SidebarProps = {}) {
+  const [localCollapsed, setLocalCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const { user, isAuthenticated, logout } = useAuth();
+
+  const isControlled = propCollapsed !== undefined;
+  const collapsed = isControlled ? propCollapsed : localCollapsed;
+  const handleToggle = () => {
+    if (onToggleCollapse) {
+      onToggleCollapse();
+    } else {
+      setLocalCollapsed(prev => !prev);
+    }
+  };
 
   const filteredItems = navItems.filter(item => {
     if (!item.roles) return true;
@@ -74,7 +89,7 @@ export default function Sidebar() {
           </Link>
           <button
             className="sidebar-collapse-btn"
-            onClick={() => setCollapsed(!collapsed)}
+            onClick={handleToggle}
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}

@@ -68,7 +68,7 @@ function LearningHubContent() {
     }
   }, [searchParams]);
 
-  // Close modal on Escape
+  // Close modal on Escape and prevent body scrolling
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -78,6 +78,17 @@ function LearningHubContent() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  useEffect(() => {
+    if (selectedModule) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedModule]);
 
   const activeQuiz = useMemo(() => {
     return quizzes.find(q => q.id === activeQuizId) || quizzes[0];
@@ -183,12 +194,6 @@ function LearningHubContent() {
         <header className="learning-header">
           <div className="learning-header-bg" />
           <div className="learning-header-content">
-            <div className="page-breadcrumb">
-              <Link href="/">Home</Link>
-              <span className="breadcrumb-sep">/</span>
-              <span>Learning Hub</span>
-            </div>
-
             <div className="learning-title-row">
               <div className="learning-title-icon">
                 <BookOpenCheck size={28} />

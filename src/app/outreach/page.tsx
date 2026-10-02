@@ -177,9 +177,6 @@ export default function OutreachStudioPage() {
         <div className="outreach-header">
           <div className="outreach-header-bg" />
           <div className="outreach-header-content">
-            <div className="page-breadcrumb">
-              <Link href="/">Home</Link> / <span>Outreach Studio</span>
-            </div>
             <div className="outreach-title-row">
               <div className="outreach-icon-wrap">
                 <Megaphone size={24} />
