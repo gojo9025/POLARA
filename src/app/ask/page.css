@@ -15,7 +15,7 @@
 /* ── Neural Core Header ── */
 .ask-header {
   padding: var(--space-4) var(--space-8);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.1);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.1);
   background: linear-gradient(180deg, rgba(14, 21, 41, 0.95) 0%, rgba(6, 10, 20, 0.85) 100%);
   backdrop-filter: blur(20px);
   display: flex;
@@ -41,7 +41,7 @@
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 0 20px rgba(56, 182, 230, 0.35), 0 0 0 1px rgba(56, 182, 230, 0.2) inset;
+  box-shadow: 0 0 20px rgba(30, 62, 98, 0.35), 0 0 0 1px rgba(30, 62, 98, 0.2) inset;
   animation: pulse-glow 4s ease-in-out infinite;
 }
 
@@ -68,7 +68,7 @@
   background: rgba(14, 21, 41, 0.6);
   padding: 4px 6px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
 }
 
 .mode-label {
@@ -99,14 +99,14 @@
 
 .mode-btn:hover {
   color: var(--ice-300);
-  background: rgba(56, 182, 230, 0.08);
+  background: rgba(30, 62, 98, 0.08);
 }
 
 .mode-btn.active {
-  background: linear-gradient(135deg, rgba(56, 182, 230, 0.2), rgba(46, 196, 182, 0.15));
-  border-color: rgba(56, 182, 230, 0.35);
+  background: linear-gradient(135deg, rgba(30, 62, 98, 0.2), rgba(30, 62, 98, 0.15));
+  border-color: rgba(30, 62, 98, 0.35);
   color: var(--ice-300);
-  box-shadow: 0 0 12px rgba(56, 182, 230, 0.15);
+  box-shadow: 0 0 12px rgba(30, 62, 98, 0.15);
 }
 
 .mode-btn.active svg {
@@ -138,15 +138,15 @@
 .empty-icon {
   width: 72px;
   height: 72px;
-  background: radial-gradient(circle, rgba(56, 182, 230, 0.15) 0%, rgba(46, 196, 182, 0.05) 70%);
-  border: 1px solid rgba(56, 182, 230, 0.3);
+  background: radial-gradient(circle, rgba(30, 62, 98, 0.15) 0%, rgba(30, 62, 98, 0.05) 70%);
+  border: 1px solid rgba(30, 62, 98, 0.3);
   border-radius: var(--radius-2xl);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ice-400);
   margin-bottom: var(--space-5);
-  box-shadow: 0 0 30px rgba(56, 182, 230, 0.2);
+  box-shadow: 0 0 30px rgba(30, 62, 98, 0.2);
   animation: float 6s ease-in-out infinite;
 }
 
@@ -178,7 +178,7 @@
   gap: var(--space-3);
   padding: var(--space-4) var(--space-5);
   background: rgba(14, 21, 41, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.12);
+  border: 1px solid rgba(30, 62, 98, 0.12);
   border-radius: var(--radius-xl);
   color: var(--text-secondary);
   font-size: 0.84375rem;
@@ -191,10 +191,10 @@
 }
 
 .suggestion-btn:hover {
-  border-color: rgba(56, 182, 230, 0.35);
+  border-color: rgba(30, 62, 98, 0.35);
   color: var(--ice-300);
   background: rgba(22, 34, 62, 0.85);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(56, 182, 230, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(30, 62, 98, 0.1);
   transform: translateY(-2px);
 }
 
@@ -229,16 +229,16 @@
 }
 
 .message.user .message-avatar {
-  background: rgba(56, 182, 230, 0.15);
-  border: 1px solid rgba(56, 182, 230, 0.25);
+  background: rgba(30, 62, 98, 0.15);
+  border: 1px solid rgba(30, 62, 98, 0.25);
   color: var(--ice-300);
 }
 
 .message.assistant .message-avatar {
   background: linear-gradient(135deg, var(--ice-600), var(--cyan-600));
-  border: 1px solid rgba(56, 182, 230, 0.3);
+  border: 1px solid rgba(30, 62, 98, 0.3);
   color: white;
-  box-shadow: 0 0 15px rgba(56, 182, 230, 0.3);
+  box-shadow: 0 0 15px rgba(30, 62, 98, 0.3);
 }
 
 .message-content {
@@ -248,7 +248,7 @@
 
 .message.user .message-content {
   background: linear-gradient(135deg, rgba(22, 34, 62, 0.9), rgba(14, 21, 41, 0.85));
-  border: 1px solid rgba(56, 182, 230, 0.25);
+  border: 1px solid rgba(30, 62, 98, 0.25);
   border-radius: var(--radius-xl) var(--radius-sm) var(--radius-xl) var(--radius-xl);
   padding: var(--space-4) var(--space-5);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
@@ -256,7 +256,7 @@
 
 .message.assistant .message-content {
   background: rgba(12, 18, 35, 0.8);
-  border: 1px solid rgba(56, 182, 230, 0.12);
+  border: 1px solid rgba(30, 62, 98, 0.12);
   border-radius: var(--radius-sm) var(--radius-xl) var(--radius-xl) var(--radius-xl);
   padding: var(--space-6);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -312,7 +312,7 @@
 .message-sources {
   margin-top: var(--space-5);
   padding-top: var(--space-4);
-  border-top: 1px solid rgba(56, 182, 230, 0.08);
+  border-top: 1px solid rgba(30, 62, 98, 0.08);
 }
 
 .message-sources h5 {
@@ -343,7 +343,7 @@
   gap: var(--space-2);
   padding: 6px 12px;
   background: rgba(6, 10, 20, 0.5);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
   border-radius: var(--radius-md);
   margin-bottom: 6px;
   font-size: 0.78125rem;
@@ -352,7 +352,7 @@
 
 .source-item:hover {
   background: rgba(14, 21, 41, 0.8);
-  border-color: rgba(56, 182, 230, 0.25);
+  border-color: rgba(30, 62, 98, 0.25);
 }
 
 .source-item svg {
@@ -370,7 +370,7 @@
   font-size: 0.6875rem;
   font-family: var(--font-mono);
   color: var(--cyan-400);
-  background: rgba(46, 196, 182, 0.1);
+  background: rgba(30, 62, 98, 0.1);
   padding: 1px 6px;
   border-radius: var(--radius-sm);
 }
@@ -416,7 +416,7 @@
 .input-area {
   padding: var(--space-4) var(--space-8) var(--space-6);
   background: linear-gradient(180deg, transparent 0%, rgba(6, 10, 20, 0.95) 40%);
-  border-top: 1px solid rgba(56, 182, 230, 0.08);
+  border-top: 1px solid rgba(30, 62, 98, 0.08);
 }
 
 .input-bar {
@@ -431,7 +431,7 @@
 .input-bar .input {
   flex: 1;
   background: rgba(14, 21, 41, 0.85);
-  border: 1px solid rgba(56, 182, 230, 0.2);
+  border: 1px solid rgba(30, 62, 98, 0.2);
   border-radius: var(--radius-xl);
   padding: 14px 20px;
   color: var(--text-primary);
@@ -443,7 +443,7 @@
 .input-bar .input:focus {
   border-color: var(--ice-400);
   background: rgba(18, 28, 54, 0.95);
-  box-shadow: 0 0 25px rgba(56, 182, 230, 0.25), 0 0 0 1px var(--ice-400);
+  box-shadow: 0 0 25px rgba(30, 62, 98, 0.25), 0 0 0 1px var(--ice-400);
 }
 
 .input-bar .btn-primary {
@@ -457,13 +457,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 20px rgba(56, 182, 230, 0.3);
+  box-shadow: 0 0 20px rgba(30, 62, 98, 0.3);
   transition: all var(--transition-fast);
 }
 
 .input-bar .btn-primary:hover:not(:disabled) {
   transform: scale(1.04);
-  box-shadow: 0 0 30px rgba(56, 182, 230, 0.5);
+  box-shadow: 0 0 30px rgba(30, 62, 98, 0.5);
 }
 
 .input-bar .btn-primary:disabled {
@@ -499,13 +499,13 @@
 
 /* ── Gemini Connect Quick Banner ── */
 .gemini-connect-banner {
-  background: linear-gradient(135deg, rgba(56, 182, 230, 0.1) 0%, rgba(74, 222, 128, 0.05) 100%);
-  border: 1px solid rgba(56, 182, 230, 0.3);
+  background: linear-gradient(135deg, rgba(30, 62, 98, 0.1) 0%, rgba(74, 222, 128, 0.05) 100%);
+  border: 1px solid rgba(30, 62, 98, 0.3);
   border-radius: var(--radius-xl);
   padding: var(--space-5);
   margin-bottom: var(--space-6);
   backdrop-filter: blur(16px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(56, 182, 230, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(30, 62, 98, 0.1);
   animation: fadeIn 0.35s ease-out;
 }
 
@@ -521,14 +521,14 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-lg);
-  background: rgba(56, 182, 230, 0.15);
-  border: 1px solid rgba(56, 182, 230, 0.3);
+  background: rgba(30, 62, 98, 0.15);
+  border: 1px solid rgba(30, 62, 98, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ice-400);
   flex-shrink: 0;
-  box-shadow: 0 0 16px rgba(56, 182, 230, 0.2);
+  box-shadow: 0 0 16px rgba(30, 62, 98, 0.2);
 }
 
 .banner-text {
@@ -579,7 +579,7 @@
   align-items: center;
   gap: var(--space-2);
   background: rgba(8, 14, 28, 0.9);
-  border: 1px solid rgba(56, 182, 230, 0.25);
+  border: 1px solid rgba(30, 62, 98, 0.25);
   border-radius: var(--radius-lg);
   padding: 8px 14px;
   flex: 1;
@@ -589,7 +589,7 @@
 
 .banner-input-wrapper:focus-within {
   border-color: var(--ice-400);
-  box-shadow: 0 0 14px rgba(56, 182, 230, 0.2);
+  box-shadow: 0 0 14px rgba(30, 62, 98, 0.2);
 }
 
 .banner-input-icon {

@@ -347,11 +347,11 @@ function ExploreContent() {
                         </div>
                       ) : (
                         <div className="result-card-icon" style={{
-                          background: resource.type === 'report' ? 'rgba(56, 182, 230, 0.1)' :
-                            resource.type === 'dataset' ? 'rgba(46, 196, 182, 0.1)' :
+                          background: resource.type === 'report' ? 'rgba(30, 62, 98, 0.1)' :
+                            resource.type === 'dataset' ? 'rgba(30, 62, 98, 0.1)' :
                             resource.type === 'publication' ? 'rgba(74, 222, 128, 0.1)' :
-                            resource.type === 'photograph' ? 'rgba(192, 132, 252, 0.1)' :
-                            resource.type === 'audio' ? 'rgba(56, 182, 230, 0.15)' :
+                            resource.type === 'photograph' ? 'rgba(11, 25, 44, 0.1)' :
+                            resource.type === 'audio' ? 'rgba(30, 62, 98, 0.15)' :
                             'rgba(245, 158, 11, 0.1)',
                           color: resource.type === 'report' ? 'var(--ice-400)' :
                             resource.type === 'dataset' ? 'var(--cyan-400)' :

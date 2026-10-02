@@ -16,7 +16,7 @@
   flex-wrap: wrap;
   gap: var(--space-4);
   padding-bottom: var(--space-4);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.08);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.08);
 }
 
 .admin-header h1 {
@@ -62,7 +62,7 @@
 
 .kpi-card {
   background: rgba(14, 21, 41, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.12);
+  border: 1px solid rgba(30, 62, 98, 0.12);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   transition: all var(--transition-base);
@@ -72,8 +72,8 @@
 }
 
 .kpi-card:hover {
-  border-color: rgba(56, 182, 230, 0.35);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 182, 230, 0.12);
+  border-color: rgba(30, 62, 98, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(30, 62, 98, 0.12);
   transform: translateY(-2px);
 }
 
@@ -85,7 +85,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-4);
-  border: 1px solid rgba(56, 182, 230, 0.15);
+  border: 1px solid rgba(30, 62, 98, 0.15);
 }
 
 .kpi-value {
@@ -115,7 +115,7 @@
 
 .admin-panel {
   background: rgba(14, 21, 41, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   backdrop-filter: blur(12px);
@@ -131,7 +131,7 @@
   color: var(--text-primary);
   margin-bottom: var(--space-5);
   padding-bottom: var(--space-3);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.06);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.06);
 }
 
 .admin-panel h3 svg {
@@ -156,13 +156,13 @@
 }
 
 .notif-item:hover {
-  background: rgba(56, 182, 230, 0.06);
-  border-color: rgba(56, 182, 230, 0.12);
+  background: rgba(30, 62, 98, 0.06);
+  border-color: rgba(30, 62, 98, 0.12);
 }
 
 .notif-item.unread {
-  background: rgba(56, 182, 230, 0.08);
-  border-color: rgba(56, 182, 230, 0.15);
+  background: rgba(30, 62, 98, 0.08);
+  border-color: rgba(30, 62, 98, 0.15);
 }
 
 .notif-icon {
@@ -177,8 +177,8 @@
 
 .notif-icon.upload_complete { background: rgba(74, 222, 128, 0.15); color: var(--aurora-400); }
 .notif-icon.review_required { background: rgba(245, 158, 11, 0.15); color: var(--warm-400); }
-.notif-icon.approval_required { background: rgba(56, 182, 230, 0.15); color: var(--ice-400); }
-.notif-icon.published { background: rgba(192, 132, 252, 0.15); color: var(--frost-400); }
+.notif-icon.approval_required { background: rgba(30, 62, 98, 0.15); color: var(--ice-400); }
+.notif-icon.published { background: rgba(11, 25, 44, 0.15); color: var(--frost-400); }
 
 .notif-content { flex: 1; min-width: 0; }
 .notif-title { display: block; font-size: 0.8125rem; font-weight: 600; color: var(--text-primary); }
@@ -203,7 +203,7 @@
 .ai-stat-item {
   padding: var(--space-4);
   background: rgba(6, 10, 20, 0.5);
-  border: 1px solid rgba(56, 182, 230, 0.08);
+  border: 1px solid rgba(30, 62, 98, 0.08);
   border-radius: var(--radius-lg);
   text-align: center;
 }
@@ -233,7 +233,7 @@
 .moderation-item {
   padding: var(--space-4);
   background: rgba(6, 10, 20, 0.5);
-  border: 1px solid rgba(56, 182, 230, 0.08);
+  border: 1px solid rgba(30, 62, 98, 0.08);
   border-radius: var(--radius-lg);
 }
 
@@ -268,7 +268,7 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-2) 0;
-  border-bottom: 1px solid rgba(56, 182, 230, 0.06);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.06);
 }
 
 .activity-item:last-child {
@@ -278,8 +278,8 @@
 .activity-icon {
   width: 36px;
   height: 36px;
-  background: rgba(56, 182, 230, 0.08);
-  border: 1px solid rgba(56, 182, 230, 0.12);
+  background: rgba(30, 62, 98, 0.08);
+  border: 1px solid rgba(30, 62, 98, 0.12);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -326,7 +326,7 @@
   background: rgba(6, 10, 20, 0.6);
   border-radius: var(--radius-full);
   overflow: hidden;
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
 }
 
 .outreach-stat-fill {
@@ -358,7 +358,7 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3) 0;
-  border-bottom: 1px solid rgba(56, 182, 230, 0.06);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.06);
 }
 
 .topic-item:last-child {

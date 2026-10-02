@@ -90,7 +90,7 @@ export default function IceBreak3DScene({
 
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x020712, 0.035);
+    scene.fog = new THREE.FogExp2(0x000000, 0.035);
 
     const width = container.clientWidth || window.innerWidth;
     const height = container.clientHeight || window.innerHeight;
@@ -111,8 +111,8 @@ export default function IceBreak3DScene({
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
 
-    // 2. Arctic Lighting Setup
-    const ambientLight = new THREE.AmbientLight(0x386088, 1.8);
+    // 2. Arctic Lighting Setup (#000000, #0B192C, #1E3E62, #FF6500)
+    const ambientLight = new THREE.AmbientLight(0x1e3e62, 2.2);
     scene.add(ambientLight);
 
     const mainMoon = new THREE.DirectionalLight(0xf0f9ff, 3.8);
@@ -120,25 +120,25 @@ export default function IceBreak3DScene({
     mainMoon.castShadow = true;
     scene.add(mainMoon);
 
-    // Dynamic Aurora Lights (cyan, green, purple)
-    const auroraCyan = new THREE.PointLight(0x38bdf8, 4.5, 28);
+    // Deep Polar Steel & Midnight Accent Lights
+    const auroraCyan = new THREE.PointLight(0x1e3e62, 5.0, 28);
     auroraCyan.position.set(-5, 6, -1);
     scene.add(auroraCyan);
 
-    const auroraGreen = new THREE.PointLight(0x34d399, 3.8, 24);
+    const auroraGreen = new THREE.PointLight(0x0b192c, 4.2, 24);
     auroraGreen.position.set(5, 7, -3);
     scene.add(auroraGreen);
 
-    const glacialGlow = new THREE.PointLight(0x06b6d4, 4.8, 18);
+    const glacialGlow = new THREE.PointLight(0x1e3e62, 5.2, 18);
     glacialGlow.position.set(0, -0.6, 2.2);
     scene.add(glacialGlow);
 
-    // Explosive Impact Strobe Flash Light (sparks when paws smash the ice)
-    const impactFlash = new THREE.PointLight(0xffffff, 0, 30);
+    // Explosive Impact Strobe Flash Light (sparks when paws smash the ice - #FF6500)
+    const impactFlash = new THREE.PointLight(0xff6500, 0, 32);
     impactFlash.position.set(0, 1.5, 0.8);
     scene.add(impactFlash);
 
-    // 3. Waving Aurora Borealis Sky Ribbon in Background
+    // 3. Waving Sky Ribbon in Background (#1E3E62)
     const auroraGeo = new THREE.PlaneGeometry(36, 12, 32, 12);
     const auroraPos = auroraGeo.attributes.position;
     for (let i = 0; i < auroraPos.count; i++) {
@@ -149,9 +149,9 @@ export default function IceBreak3DScene({
     auroraGeo.computeVertexNormals();
 
     const auroraMat = new THREE.MeshBasicMaterial({
-      color: 0x38e8ba,
+      color: 0x1e3e62,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.45,
       side: THREE.DoubleSide,
       wireframe: false,
     });
@@ -159,7 +159,7 @@ export default function IceBreak3DScene({
     auroraRibbon.position.set(0, 5, -12);
     scene.add(auroraRibbon);
 
-    // 4. Glacial Floor / Ice Floe Ground
+    // 4. Glacial Floor / Ice Floe Ground (#0B192C)
     const groundGeo = new THREE.PlaneGeometry(32, 32, 24, 24);
     const pos = groundGeo.attributes.position;
     for (let i = 0; i < pos.count; i++) {
@@ -170,8 +170,8 @@ export default function IceBreak3DScene({
     groundGeo.computeVertexNormals();
 
     const groundMat = new THREE.MeshPhysicalMaterial({
-      color: 0x0a2642,
-      roughness: 0.14,
+      color: 0x0b192c,
+      roughness: 0.18,
       metalness: 0.12,
       transmission: 0.3,
       ior: 1.31,
@@ -183,11 +183,11 @@ export default function IceBreak3DScene({
     ground.receiveShadow = true;
     scene.add(ground);
 
-    // 5. Background Iceberg Peaks
+    // 5. Background Iceberg Peaks (#1E3E62)
     const icebergMat = new THREE.MeshPhysicalMaterial({
-      color: 0xcfeafe,
-      roughness: 0.25,
-      metalness: 0.05,
+      color: 0x1e3e62,
+      roughness: 0.28,
+      metalness: 0.08,
       clearcoat: 0.8,
       flatShading: true,
     });
@@ -352,18 +352,18 @@ export default function IceBreak3DScene({
     iceWallGroup.position.set(0, 1.55, 0.6); // Centered right in front of bear
     scene.add(iceWallGroup);
 
-    // Translucent radiant ice material with clearcoat sheen and cyan luminescence
+    // Translucent radiant ice material with clearcoat sheen (#1E3E62 tone)
     const iceCrystalMat = new THREE.MeshPhysicalMaterial({
-      color: 0x98e5fa,
-      roughness: 0.08,
+      color: 0x93b5d8,
+      roughness: 0.1,
       metalness: 0.08,
       transmission: 0.45,
       ior: 1.31,
       thickness: 1.5,
       clearcoat: 1.0,
       clearcoatRoughness: 0.05,
-      emissive: 0x0284c7,
-      emissiveIntensity: 0.18,
+      emissive: 0x1e3e62,
+      emissiveIntensity: 0.25,
       flatShading: true,
       transparent: true,
       opacity: 0.92,

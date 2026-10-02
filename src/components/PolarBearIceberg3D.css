@@ -1,19 +1,20 @@
 /* ═══════════════════════════════════════════════════════════════
    POLARA — 3D Polar Bear & Iceberg WebGL Viewport (21st.dev Style)
+   PALETTE: #000000 (Canvas) | #0B192C (Surfaces) | #1E3E62 (Steel) | #FF6500 (Accent)
    ═══════════════════════════════════════════════════════════════ */
 
 .polar-bear-3d-wrapper {
   position: relative;
   width: 100%;
   height: 520px;
-  background: radial-gradient(ellipse at 50% 40%, rgba(14, 25, 52, 0.7) 0%, rgba(4, 8, 18, 0.95) 100%);
+  background: radial-gradient(ellipse at 50% 40%, rgba(30, 62, 98, 0.35) 0%, rgba(11, 25, 44, 0.95) 70%, #000000 100%);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 1px solid rgba(56, 182, 230, 0.18);
+  border: 1px solid rgba(30, 62, 98, 0.7);
   box-shadow: 
-    0 16px 48px -8px rgba(0, 0, 0, 0.6),
-    0 0 32px -4px rgba(56, 182, 230, 0.12),
-    0 0 0 1px rgba(56, 182, 230, 0.1) inset;
+    0 16px 48px -8px rgba(0, 0, 0, 0.8),
+    0 0 32px -4px rgba(30, 62, 98, 0.3),
+    0 0 0 1px rgba(30, 62, 98, 0.3) inset;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,11 +24,11 @@
 }
 
 .polar-bear-3d-wrapper:hover {
-  border-color: rgba(56, 182, 230, 0.32);
+  border-color: rgba(30, 62, 98, 0.95);
   box-shadow: 
-    0 24px 64px -12px rgba(0, 0, 0, 0.7),
-    0 0 48px -4px rgba(56, 182, 230, 0.2),
-    0 0 0 1px rgba(56, 182, 230, 0.2) inset;
+    0 24px 64px -12px rgba(0, 0, 0, 0.9),
+    0 0 48px -4px rgba(30, 62, 98, 0.5),
+    0 0 0 1px rgba(255, 101, 0, 0.25) inset;
 }
 
 .polar-bear-canvas {
@@ -49,7 +50,7 @@
   height: calc(100vh - 32px);
   z-index: 2000;
   border-radius: var(--radius-xl);
-  box-shadow: 0 0 120px rgba(0, 0, 0, 0.9), 0 0 40px rgba(56, 182, 230, 0.3);
+  box-shadow: 0 0 120px rgba(0, 0, 0, 0.95), 0 0 40px rgba(30, 62, 98, 0.6);
 }
 
 /* ── 21st.dev Style Floating Holographic Capsule HUD ── */
@@ -62,11 +63,11 @@
   align-items: center;
   gap: 12px;
   padding: 6px 14px;
-  background: rgba(6, 12, 24, 0.82);
-  border: 1px solid rgba(56, 182, 230, 0.2);
+  background: rgba(11, 25, 44, 0.9);
+  border: 1px solid rgba(30, 62, 98, 0.65);
   border-radius: var(--radius-full);
   backdrop-filter: blur(20px) saturate(1.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 16px rgba(56, 182, 230, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 16px rgba(30, 62, 98, 0.3);
   z-index: 20;
   max-width: 95%;
   flex-wrap: wrap;
@@ -83,8 +84,8 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--aurora-400);
-  box-shadow: 0 0 8px var(--aurora-400);
+  background: #FF6500;
+  box-shadow: 0 0 8px #FF6500;
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
@@ -96,7 +97,7 @@
 .hud-label {
   font-size: 0.5625rem;
   font-family: var(--font-mono);
-  color: var(--text-muted);
+  color: #94a3b8;
   letter-spacing: 0.08em;
   font-weight: 700;
   text-transform: uppercase;
@@ -106,7 +107,7 @@
 .hud-val {
   font-size: 0.6875rem;
   font-family: var(--font-mono);
-  color: var(--ice-300);
+  color: #cbd5e1;
   font-weight: 600;
   line-height: 1.2;
 }
@@ -114,7 +115,7 @@
 .hud-capsule-sep {
   width: 1px;
   height: 18px;
-  background: rgba(56, 182, 230, 0.15);
+  background: rgba(30, 62, 98, 0.5);
 }
 
 .hud-controls-group {
@@ -126,8 +127,8 @@
 .hud-btn-toggle {
   display: flex;
   align-items: center;
-  background: rgba(14, 22, 42, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.14);
+  background: rgba(11, 25, 44, 0.85);
+  border: 1px solid rgba(30, 62, 98, 0.5);
   border-radius: var(--radius-full);
   padding: 2px;
   gap: 2px;
@@ -141,7 +142,7 @@
   background: transparent;
   border: none;
   border-radius: var(--radius-full);
-  color: var(--text-tertiary);
+  color: #94a3b8;
   font-size: 0.6875rem;
   font-weight: 500;
   cursor: pointer;
@@ -149,13 +150,13 @@
 }
 
 .hud-mode-pill:hover {
-  color: var(--ice-300);
+  color: #ffffff;
 }
 
 .hud-mode-pill.active {
-  background: rgba(56, 182, 230, 0.2);
-  color: #fff;
-  box-shadow: 0 0 10px rgba(56, 182, 230, 0.2);
+  background: rgba(30, 62, 98, 0.55);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(30, 62, 98, 0.5);
 }
 
 .hud-action-pill {
@@ -163,10 +164,10 @@
   align-items: center;
   gap: 5px;
   padding: 5px 10px;
-  background: rgba(14, 22, 42, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.16);
+  background: rgba(11, 25, 44, 0.85);
+  border: 1px solid rgba(30, 62, 98, 0.5);
   border-radius: var(--radius-full);
-  color: var(--text-tertiary);
+  color: #94a3b8;
   font-size: 0.6875rem;
   font-weight: 600;
   cursor: pointer;
@@ -174,21 +175,21 @@
 }
 
 .hud-action-pill:hover {
-  color: var(--ice-300);
-  border-color: rgba(56, 182, 230, 0.3);
+  color: #ffffff;
+  border-color: rgba(30, 62, 98, 0.8);
 }
 
 .hud-action-pill.active {
-  background: rgba(74, 222, 128, 0.15);
-  border-color: rgba(74, 222, 128, 0.35);
-  color: var(--aurora-400);
+  background: rgba(30, 62, 98, 0.45);
+  border-color: rgba(255, 101, 0, 0.6);
+  color: #FF6500;
 }
 
 .hud-expand-btn {
-  background: rgba(56, 182, 230, 0.08);
-  border: 1px solid rgba(56, 182, 230, 0.18);
+  background: rgba(30, 62, 98, 0.25);
+  border: 1px solid rgba(30, 62, 98, 0.5);
   border-radius: var(--radius-sm);
-  color: var(--text-muted);
+  color: #94a3b8;
   width: 24px;
   height: 24px;
   display: flex;
@@ -199,9 +200,9 @@
 }
 
 .hud-expand-btn:hover {
-  color: var(--ice-300);
-  background: rgba(56, 182, 230, 0.18);
-  border-color: rgba(56, 182, 230, 0.35);
+  color: #ffffff;
+  background: rgba(30, 62, 98, 0.5);
+  border-color: rgba(30, 62, 98, 0.8);
 }
 
 /* ── Floating Sub-caption Pill ── */
@@ -214,11 +215,11 @@
   align-items: center;
   gap: 8px;
   padding: 5px 12px;
-  background: rgba(6, 10, 20, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.12);
+  background: rgba(11, 25, 44, 0.9);
+  border: 1px solid rgba(30, 62, 98, 0.6);
   border-radius: var(--radius-full);
   font-size: 0.6875rem;
-  color: var(--text-muted);
+  color: #94a3b8;
   backdrop-filter: blur(12px);
   pointer-events: none;
   white-space: nowrap;
@@ -228,8 +229,8 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--ice-400);
-  box-shadow: 0 0 6px var(--ice-400);
+  background: #FF6500;
+  box-shadow: 0 0 6px #FF6500;
 }
 
 @media (max-width: 768px) {

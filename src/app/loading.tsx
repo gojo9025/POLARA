@@ -18,11 +18,11 @@ export default function Loading() {
         width: '90px',
         height: '90px',
         borderRadius: '50%',
-        border: '1px solid rgba(56, 182, 230, 0.3)',
+        border: '1px solid rgba(30, 62, 98, 0.3)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 0 25px rgba(56, 182, 230, 0.15)',
+        boxShadow: '0 0 25px rgba(30, 62, 98, 0.15)',
       }}>
         {/* Radar ring */}
         <div style={{
@@ -30,7 +30,7 @@ export default function Loading() {
           width: '50px',
           height: '50px',
           borderRadius: '50%',
-          border: '1px dashed rgba(56, 182, 230, 0.25)',
+          border: '1px dashed rgba(30, 62, 98, 0.25)',
         }} />
 
         {/* Radar sweep */}
@@ -41,7 +41,7 @@ export default function Loading() {
           width: '45px',
           height: '45px',
           transformOrigin: '0 0',
-          background: 'conic-gradient(from 0deg, transparent 0deg, rgba(56, 182, 230, 0.5) 60deg, transparent 65deg)',
+          background: 'conic-gradient(from 0deg, transparent 0deg, rgba(30, 62, 98, 0.5) 60deg, transparent 65deg)',
           animation: 'radar-sweep 2.5s linear infinite',
         }} />
 

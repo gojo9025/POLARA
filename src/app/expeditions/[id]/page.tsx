@@ -170,7 +170,7 @@ export default function ExpeditionDetailPage() {
               <div className="resource-list">
                 {relatedDatasets.map(d => (
                   <Link href={`/datasets/${d.id}`} key={d.id} className="resource-item">
-                    <div className="resource-item-icon" style={{ background: 'rgba(46, 196, 182, 0.1)', color: 'var(--cyan-400)' }}>
+                    <div className="resource-item-icon" style={{ background: 'rgba(30, 62, 98, 0.1)', color: 'var(--cyan-400)' }}>
                       <BarChart3 size={16} />
                     </div>
                     <div className="resource-item-info">

@@ -567,7 +567,7 @@ export default function AskPolaraPage() {
           <div className="modal-backdrop" onClick={() => setShowKeyModal(false)}>
             <div className="modal-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '540px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(56, 182, 230, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ice-400)' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(30, 62, 98, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ice-400)' }}>
                   <Key size={22} />
                 </div>
                 <div>

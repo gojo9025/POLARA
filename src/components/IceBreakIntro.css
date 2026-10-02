@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════
    ICE BREAK INTRO PORTAL — 21ST.DEV CINEMATIC GLACIAL DESIGN
+   PALETTE: #000000 (Canvas) | #0B192C (Surfaces) | #1E3E62 (Steel) | #FF6500 (Accent)
    ═══════════════════════════════════════════════════════════════════ */
 
 .ice-break-portal {
@@ -11,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 2.5rem 1.5rem;
-  background-color: #020712;
+  background-color: #000000;
   overflow: hidden;
   user-select: none;
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -21,7 +22,7 @@
   pointer-events: none;
 }
 
-/* Glacial Aurora Backdrop */
+/* Glacial Atmosphere Backdrop */
 .ice-break-backdrop {
   position: absolute;
   inset: 0;
@@ -32,7 +33,7 @@
 .ice-break-aurora {
   position: absolute;
   inset: -20%;
-  background: radial-gradient(circle at 50% 25%, rgba(56, 189, 248, 0.28) 0%, rgba(34, 211, 238, 0.12) 35%, rgba(6, 182, 212, 0.04) 60%, transparent 75%);
+  background: radial-gradient(circle at 50% 25%, rgba(30, 62, 98, 0.45) 0%, rgba(11, 25, 44, 0.3) 40%, rgba(255, 101, 0, 0.05) 65%, transparent 75%);
   filter: blur(80px);
   animation: auroraBreath 10s ease-in-out infinite alternate;
 }
@@ -46,7 +47,7 @@
 .ice-break-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(2, 7, 18, 0.88) 85%, #020712 100%);
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(11, 25, 44, 0.85) 85%, #000000 100%);
 }
 
 /* Crystalline Frost Border Overlay */
@@ -55,7 +56,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  box-shadow: inset 0 0 120px 40px rgba(56, 189, 248, 0.15), inset 0 0 40px 10px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 120px 40px rgba(30, 62, 98, 0.3), inset 0 0 40px 10px rgba(255, 255, 255, 0.12);
   transition: opacity 0.5s ease;
 }
 
@@ -71,11 +72,11 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.35rem 0.45rem;
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(11, 25, 44, 0.85);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  border: 1px solid rgba(30, 62, 98, 0.6);
   border-radius: 9999px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 .mode-btn {
@@ -99,10 +100,10 @@
 }
 
 .mode-btn.active {
-  background: rgba(56, 189, 248, 0.18);
-  border-color: rgba(56, 189, 248, 0.4);
-  color: #38bdf8;
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+  background: rgba(30, 62, 98, 0.45);
+  border-color: rgba(30, 62, 98, 0.8);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(30, 62, 98, 0.4);
 }
 
 .mode-btn:disabled {
@@ -116,8 +117,8 @@
   font-size: 0.625rem;
   font-weight: 800;
   border-radius: 9999px;
-  background: #38bdf8;
-  color: #030712;
+  background: #FF6500;
+  color: #000000;
 }
 
 /* Centerpiece Container */
@@ -156,9 +157,9 @@
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 
-    0 25px 70px -15px rgba(0, 0, 0, 0.9),
-    0 0 50px -10px rgba(56, 189, 248, 0.35),
-    inset 0 0 0 1.5px rgba(186, 230, 253, 0.3);
+    0 25px 70px -15px rgba(0, 0, 0, 0.95),
+    0 0 50px -10px rgba(30, 62, 98, 0.5),
+    inset 0 0 0 1.5px rgba(30, 62, 98, 0.5);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
 }
 
@@ -203,7 +204,7 @@
   stroke: #ffffff;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 8px #38bdf8) drop-shadow(0 0 18px #06b6d4);
+  filter: drop-shadow(0 0 8px #1E3E62) drop-shadow(0 0 16px rgba(255, 101, 0, 0.4));
   stroke-dasharray: 1200;
   stroke-dashoffset: 1200;
   animation: crackTravel 0.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
@@ -224,7 +225,7 @@
   stroke: rgba(224, 242, 254, 0.85);
   stroke-width: 3px;
   stroke-dasharray: 20 8;
-  filter: drop-shadow(0 0 12px #38bdf8);
+  filter: drop-shadow(0 0 12px #1E3E62);
   animation: pulseImpact 0.6s ease-out forwards;
 }
 
@@ -243,7 +244,7 @@
 .ice-shockwave-flash {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(56, 189, 248, 0.8) 40%, transparent 80%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 101, 0, 0.6) 35%, rgba(30, 62, 98, 0.5) 60%, transparent 80%);
   mix-blend-mode: screen;
   pointer-events: none;
   animation: shockFlash 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -269,10 +270,10 @@
   left: 50%;
   width: 140px;
   height: 140px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(186, 230, 253, 0.75) 50%, rgba(56, 189, 248, 0.5));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(136, 177, 224, 0.6) 50%, rgba(30, 62, 98, 0.6));
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 30px rgba(30, 62, 98, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.7);
 }
 
 /* Narrative HUD */
@@ -310,11 +311,15 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #38bdf8;
-  background: rgba(14, 165, 233, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #e2e8f0;
+  background: rgba(11, 25, 44, 0.85);
+  border: 1px solid rgba(30, 62, 98, 0.65);
   border-radius: 9999px;
   backdrop-filter: blur(12px);
+}
+
+.hud-badge svg {
+  color: #FF6500;
 }
 
 .hud-snowflake {
@@ -334,8 +339,8 @@
   font-family: var(--font-mono, monospace);
   font-size: 0.6875rem;
   color: #94a3b8;
-  background: rgba(15, 23, 42, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(11, 25, 44, 0.75);
+  border: 1px solid rgba(30, 62, 98, 0.4);
   border-radius: 9999px;
 }
 
@@ -343,12 +348,12 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-  animation: pulseGreen 2s infinite;
+  background: #FF6500;
+  box-shadow: 0 0 8px #FF6500;
+  animation: pulseAmber 2s infinite;
 }
 
-@keyframes pulseGreen {
+@keyframes pulseAmber {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.8); }
 }
@@ -359,7 +364,7 @@
   font-weight: 800;
   letter-spacing: 0.04em;
   color: #ffffff;
-  text-shadow: 0 4px 24px rgba(56, 189, 248, 0.4);
+  text-shadow: 0 4px 24px rgba(30, 62, 98, 0.8);
   margin-bottom: 0.6rem;
   line-height: 1.15;
 }
@@ -389,17 +394,17 @@
   justify-content: center;
   padding: 2px;
   border-radius: 9999px;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(11, 25, 44, 0.9);
   border: none;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.35), 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 25px rgba(255, 101, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.7);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .break-ice-btn:hover:not(:disabled) {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 40px rgba(56, 189, 248, 0.6), 0 15px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 35px rgba(255, 101, 0, 0.55), 0 15px 40px rgba(0, 0, 0, 0.8);
 }
 
 .break-ice-btn:active:not(:disabled) {
@@ -414,7 +419,7 @@
 .btn-border-beam {
   position: absolute;
   inset: -100%;
-  background: conic-gradient(from 0deg, transparent 0deg, #38bdf8 60deg, #ffffff 120deg, transparent 180deg);
+  background: conic-gradient(from 0deg, transparent 0deg, #1E3E62 60deg, #FF6500 120deg, #1E3E62 180deg, transparent 240deg);
   animation: spinBeam 3.5s linear infinite;
 }
 
@@ -430,7 +435,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.85rem 2rem;
-  background: linear-gradient(180deg, #0f172a 0%, #030712 100%);
+  background: linear-gradient(180deg, #1E3E62 0%, #0B192C 100%);
   border-radius: 9999px;
   font-family: var(--font-heading, sans-serif);
   font-size: 0.95rem;
@@ -440,7 +445,7 @@
 }
 
 .btn-icon-pulse {
-  color: #38bdf8;
+  color: #FF6500;
   animation: pulseStar 1.8s infinite;
 }
 
@@ -455,8 +460,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(11, 25, 44, 0.8);
+  border: 1px solid rgba(30, 62, 98, 0.5);
   border-radius: 9999px;
   color: #e2e8f0;
   font-family: var(--font-mono, monospace);
@@ -467,9 +472,9 @@
 }
 
 .sound-toggle-btn:hover {
-  background: rgba(51, 65, 85, 0.85);
-  border-color: rgba(56, 189, 248, 0.4);
-  color: #38bdf8;
+  background: rgba(30, 62, 98, 0.45);
+  border-color: #1E3E62;
+  color: #FF6500;
 }
 
 /* Skip Button */
@@ -498,7 +503,7 @@
   width: 100%;
   max-width: 1200px;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(30, 62, 98, 0.35);
   font-family: var(--font-mono, monospace);
   font-size: 0.6875rem;
   color: #64748b;

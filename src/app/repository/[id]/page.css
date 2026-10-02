@@ -13,15 +13,15 @@
   position: relative;
   padding: var(--space-12) var(--space-8) var(--space-8);
   background: linear-gradient(180deg, rgba(14, 21, 41, 0.95) 0%, rgba(6, 10, 20, 0.85) 100%);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.12);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.12);
   overflow: hidden;
 }
 
 .rd-hero-bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 15% 40%, rgba(56, 182, 230, 0.12), transparent 60%),
-              radial-gradient(circle at 85% 60%, rgba(46, 196, 182, 0.08), transparent 50%);
+  background: radial-gradient(circle at 15% 40%, rgba(30, 62, 98, 0.12), transparent 60%),
+              radial-gradient(circle at 85% 60%, rgba(30, 62, 98, 0.08), transparent 50%);
   pointer-events: none;
 }
 
@@ -120,7 +120,7 @@
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-primary);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.08);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.08);
   padding-bottom: var(--space-2);
 }
 
@@ -146,7 +146,7 @@
 .findings-list li {
   padding: var(--space-4) var(--space-5) var(--space-4) var(--space-8);
   background: rgba(14, 21, 41, 0.6);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
   border-radius: var(--radius-lg);
   position: relative;
   font-size: 0.9375rem;
@@ -177,7 +177,7 @@
 .ds-field {
   padding: var(--space-4);
   background: rgba(14, 21, 41, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
   border-radius: var(--radius-md);
 }
 
@@ -220,7 +220,7 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   background: rgba(14, 21, 41, 0.6);
-  border: 1px solid rgba(56, 182, 230, 0.08);
+  border: 1px solid rgba(30, 62, 98, 0.08);
   border-radius: var(--radius-md);
   font-size: 0.8125rem;
 }
@@ -234,7 +234,7 @@
   color: var(--cyan-400);
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  background: rgba(46, 196, 182, 0.1);
+  background: rgba(30, 62, 98, 0.1);
   padding: 2px 8px;
   border-radius: var(--radius-sm);
 }
@@ -248,13 +248,13 @@
 /* ── AI Explanation Box ── */
 .explain-box {
   background: linear-gradient(135deg, rgba(14, 21, 41, 0.85), rgba(6, 10, 20, 0.9));
-  border: 1px solid rgba(56, 182, 230, 0.25);
+  border: 1px solid rgba(30, 62, 98, 0.25);
   border-radius: var(--radius-2xl);
   padding: var(--space-8);
   margin-bottom: var(--space-8);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 35px rgba(56, 182, 230, 0.08);
+  box-shadow: 0 0 35px rgba(30, 62, 98, 0.08);
 }
 
 .explain-box::before {
@@ -292,7 +292,7 @@
   gap: var(--space-2);
   padding: 8px 16px;
   background: rgba(14, 21, 41, 0.8);
-  border: 1px solid rgba(56, 182, 230, 0.15);
+  border: 1px solid rgba(30, 62, 98, 0.15);
   border-radius: var(--radius-full);
   color: var(--text-secondary);
   font-size: 0.8125rem;
@@ -303,16 +303,16 @@
 }
 
 .explain-btn:hover {
-  border-color: rgba(56, 182, 230, 0.4);
+  border-color: rgba(30, 62, 98, 0.4);
   color: var(--ice-300);
   background: rgba(22, 34, 62, 0.9);
 }
 
 .explain-btn.active {
-  background: linear-gradient(135deg, rgba(56, 182, 230, 0.2), rgba(46, 196, 182, 0.15));
+  background: linear-gradient(135deg, rgba(30, 62, 98, 0.2), rgba(30, 62, 98, 0.15));
   border-color: var(--ice-400);
   color: var(--ice-300);
-  box-shadow: 0 0 15px rgba(56, 182, 230, 0.2);
+  box-shadow: 0 0 15px rgba(30, 62, 98, 0.2);
 }
 
 .explain-loading {
@@ -329,7 +329,7 @@
   margin-top: var(--space-5);
   padding: var(--space-6);
   background: rgba(6, 10, 20, 0.6);
-  border: 1px solid rgba(56, 182, 230, 0.15);
+  border: 1px solid rgba(30, 62, 98, 0.15);
   border-radius: var(--radius-xl);
   backdrop-filter: blur(12px);
 }
@@ -369,13 +369,13 @@
   gap: var(--space-4);
   padding: var(--space-6);
   background: linear-gradient(135deg, rgba(14, 21, 41, 0.8), rgba(6, 10, 20, 0.9));
-  border: 1px solid rgba(56, 182, 230, 0.2);
+  border: 1px solid rgba(30, 62, 98, 0.2);
   border-radius: var(--radius-xl);
 }
 
 .ask-banner svg {
   color: var(--ice-400);
-  filter: drop-shadow(0 0 8px rgba(56, 182, 230, 0.4));
+  filter: drop-shadow(0 0 8px rgba(30, 62, 98, 0.4));
   flex-shrink: 0;
 }
 
@@ -400,7 +400,7 @@
 /* ── Sidebar Telemetry & Actions ── */
 .rd-sidebar-card {
   background: rgba(14, 21, 41, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   margin-bottom: var(--space-5);
@@ -447,14 +447,14 @@
   gap: 3px;
   padding: var(--space-3) var(--space-4);
   background: rgba(6, 10, 20, 0.5);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
   border-radius: var(--radius-md);
   text-decoration: none;
   transition: all var(--transition-fast);
 }
 
 .related-exp:hover {
-  border-color: rgba(56, 182, 230, 0.35);
+  border-color: rgba(30, 62, 98, 0.35);
   background: rgba(14, 21, 41, 0.8);
 }
 
@@ -495,7 +495,7 @@
   font-size: 0.8125rem;
   color: var(--text-secondary);
   padding: var(--space-2) 0;
-  border-bottom: 1px solid rgba(56, 182, 230, 0.06);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.06);
 }
 
 .rd-actions {

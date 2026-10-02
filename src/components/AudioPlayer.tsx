@@ -369,11 +369,11 @@ export default function AudioPlayer({ recording, autoPlay = false }: AudioPlayer
         alignItems: 'center',
         justifyContent: 'center',
         gap: '4px',
-        background: 'rgba(56, 182, 230, 0.04)',
+        background: 'rgba(30, 62, 98, 0.04)',
         borderRadius: '8px',
         padding: '0 12px',
         marginBottom: '16px',
-        border: '1px solid rgba(56, 182, 230, 0.1)',
+        border: '1px solid rgba(30, 62, 98, 0.1)',
       }}>
         {Array.from({ length: 32 }).map((_, idx) => {
           const height = isPlaying
@@ -386,7 +386,7 @@ export default function AudioPlayer({ recording, autoPlay = false }: AudioPlayer
               style={{
                 width: '4px',
                 height: `${height}px`,
-                background: isPlaying ? 'var(--ice-400)' : 'rgba(56, 182, 230, 0.25)',
+                background: isPlaying ? 'var(--ice-400)' : 'rgba(30, 62, 98, 0.25)',
                 borderRadius: '2px',
                 transition: 'height 0.1s ease',
               }}
@@ -432,7 +432,7 @@ export default function AudioPlayer({ recording, autoPlay = false }: AudioPlayer
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
-            boxShadow: '0 4px 14px rgba(56, 182, 230, 0.4)',
+            boxShadow: '0 4px 14px rgba(30, 62, 98, 0.4)',
             transition: 'transform 0.15s ease',
           }}
           title={isPlaying ? 'Pause' : 'Play'}

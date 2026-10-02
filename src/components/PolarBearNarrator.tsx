@@ -38,7 +38,7 @@ const chapters: StoryChapter[] = [
     ctaLabel: 'Explore Knowledge Vault',
     ctaHref: '/explore',
     ctaIcon: <Database size={16} />,
-    themeColor: '#38bdf8',
+    themeColor: '#1E3E62',
   },
   {
     id: 2,
@@ -55,7 +55,7 @@ const chapters: StoryChapter[] = [
     ctaLabel: 'View All 44 Expeditions',
     ctaHref: '/expeditions',
     ctaIcon: <Compass size={16} />,
-    themeColor: '#06b6d4',
+    themeColor: '#FF6500',
   },
   {
     id: 3,
@@ -72,7 +72,7 @@ const chapters: StoryChapter[] = [
     ctaLabel: 'Listen to Marine Audio',
     ctaHref: '/repository?type=Audio',
     ctaIcon: <Radio size={16} />,
-    themeColor: '#22d3ee',
+    themeColor: '#1E3E62',
   },
   {
     id: 4,
@@ -89,7 +89,7 @@ const chapters: StoryChapter[] = [
     ctaLabel: 'Inspect Cryo-Datasets',
     ctaHref: '/explore?type=Dataset',
     ctaIcon: <BarChart3 size={16} />,
-    themeColor: '#10b981',
+    themeColor: '#1E3E62',
   },
   {
     id: 5,
@@ -106,7 +106,7 @@ const chapters: StoryChapter[] = [
     ctaLabel: 'Consult POLARA AI',
     ctaHref: '/ask',
     ctaIcon: <MessageCircle size={16} />,
-    themeColor: '#a855f7',
+    themeColor: '#FF6500',
   },
 ];
 

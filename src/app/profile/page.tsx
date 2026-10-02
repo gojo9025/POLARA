@@ -28,7 +28,7 @@ export default function ProfilePage() {
     return (
       <AppLayout>
         <div style={{ maxWidth: '600px', margin: '60px auto', padding: '32px', textAlign: 'center', background: 'var(--navy-800)', borderRadius: '16px', border: '1px solid var(--border-subtle)' }}>
-          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(56, 182, 230, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'var(--ice-400)' }}>
+          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(30, 62, 98, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'var(--ice-400)' }}>
             <UserIcon size={32} />
           </div>
           <h2 style={{ marginBottom: '8px' }}>Sign In Required</h2>
@@ -76,7 +76,7 @@ export default function ProfilePage() {
               color: '#000',
               fontWeight: 800,
               fontSize: '2rem',
-              boxShadow: '0 8px 24px rgba(56, 182, 230, 0.3)',
+              boxShadow: '0 8px 24px rgba(30, 62, 98, 0.3)',
             }}>
               {user.name.charAt(0)}
             </div>
@@ -211,7 +211,7 @@ export default function ProfilePage() {
                       padding: '4px 10px',
                       borderRadius: '8px',
                       border: user.role === r ? '1px solid var(--ice-400)' : '1px solid var(--border-subtle)',
-                      background: user.role === r ? 'rgba(56, 182, 230, 0.15)' : 'var(--navy-900)',
+                      background: user.role === r ? 'rgba(30, 62, 98, 0.15)' : 'var(--navy-900)',
                       color: user.role === r ? 'var(--ice-300)' : 'var(--text-secondary)',
                       fontSize: '0.75rem',
                       cursor: 'pointer',

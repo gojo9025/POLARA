@@ -12,7 +12,7 @@
   z-index: 40;
   background: rgba(8, 14, 28, 0.85);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.1);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.1);
 }
 
 .module-topbar-inner {
@@ -77,7 +77,7 @@
   gap: var(--space-2);
   padding: 6px 14px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(56, 182, 230, 0.15);
+  border: 1px solid rgba(30, 62, 98, 0.15);
   border-radius: var(--radius-full);
   color: var(--text-secondary);
   font-size: 0.8125rem;
@@ -86,9 +86,9 @@
 }
 
 .share-btn:hover {
-  background: rgba(56, 182, 230, 0.12);
+  background: rgba(30, 62, 98, 0.12);
   color: var(--ice-300);
-  border-color: rgba(56, 182, 230, 0.3);
+  border-color: rgba(30, 62, 98, 0.3);
 }
 
 .ask-btn {
@@ -96,8 +96,8 @@
   align-items: center;
   gap: var(--space-2);
   padding: 6px 16px;
-  background: linear-gradient(135deg, rgba(56, 182, 230, 0.2), rgba(74, 222, 128, 0.15));
-  border: 1px solid rgba(56, 182, 230, 0.3);
+  background: linear-gradient(135deg, rgba(30, 62, 98, 0.2), rgba(74, 222, 128, 0.15));
+  border: 1px solid rgba(30, 62, 98, 0.3);
   border-radius: var(--radius-full);
   color: var(--ice-200);
   font-size: 0.8125rem;
@@ -107,15 +107,15 @@
 }
 
 .ask-btn:hover {
-  background: linear-gradient(135deg, rgba(56, 182, 230, 0.3), rgba(74, 222, 128, 0.25));
-  box-shadow: 0 0 16px rgba(56, 182, 230, 0.25);
+  background: linear-gradient(135deg, rgba(30, 62, 98, 0.3), rgba(74, 222, 128, 0.25));
+  box-shadow: 0 0 16px rgba(30, 62, 98, 0.25);
   color: #fff;
 }
 
 /* Progress Track */
 .module-progress-track {
   height: 3px;
-  background: rgba(56, 182, 230, 0.08);
+  background: rgba(30, 62, 98, 0.08);
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -125,7 +125,7 @@
   height: 100%;
   background: linear-gradient(90deg, var(--ice-400), var(--aurora-400));
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 10px rgba(56, 182, 230, 0.5);
+  box-shadow: 0 0 10px rgba(30, 62, 98, 0.5);
 }
 
 /* Layout Container */
@@ -154,7 +154,7 @@
 
 .module-meta-card {
   background: rgba(13, 21, 38, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.12);
+  border: 1px solid rgba(30, 62, 98, 0.12);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   backdrop-filter: blur(12px);
@@ -217,7 +217,7 @@
 /* Chapters Navigation Card */
 .chapters-nav-card {
   background: rgba(13, 21, 38, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.12);
+  border: 1px solid rgba(30, 62, 98, 0.12);
   border-radius: var(--radius-xl);
   padding: var(--space-5);
   backdrop-filter: blur(12px);
@@ -242,7 +242,7 @@
 .chapter-count {
   font-size: 0.75rem;
   font-weight: 700;
-  background: rgba(56, 182, 230, 0.12);
+  background: rgba(30, 62, 98, 0.12);
   color: var(--ice-400);
   padding: 2px 8px;
   border-radius: var(--radius-full);
@@ -269,16 +269,16 @@
 }
 
 .chapter-step-btn:hover {
-  background: rgba(56, 182, 230, 0.06);
-  border-color: rgba(56, 182, 230, 0.2);
+  background: rgba(30, 62, 98, 0.06);
+  border-color: rgba(30, 62, 98, 0.2);
   color: #fff;
 }
 
 .chapter-step-btn.active {
-  background: rgba(56, 182, 230, 0.12);
-  border-color: rgba(56, 182, 230, 0.35);
+  background: rgba(30, 62, 98, 0.12);
+  border-color: rgba(30, 62, 98, 0.35);
   color: #fff;
-  box-shadow: 0 0 16px rgba(56, 182, 230, 0.1);
+  box-shadow: 0 0 16px rgba(30, 62, 98, 0.1);
 }
 
 .step-indicator {
@@ -298,7 +298,7 @@
 .chapter-step-btn.active .step-indicator {
   background: var(--ice-500);
   color: #000;
-  box-shadow: 0 0 10px rgba(56, 182, 230, 0.5);
+  box-shadow: 0 0 10px rgba(30, 62, 98, 0.5);
 }
 
 .chapter-step-btn.completed .step-indicator {
@@ -346,7 +346,7 @@
 /* Sources Card */
 .sources-card {
   background: rgba(13, 21, 38, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.12);
+  border: 1px solid rgba(30, 62, 98, 0.12);
   border-radius: var(--radius-xl);
   padding: var(--space-5);
   backdrop-filter: blur(12px);
@@ -384,15 +384,15 @@
 }
 
 .source-link-item:hover {
-  background: rgba(56, 182, 230, 0.08);
-  border-color: rgba(56, 182, 230, 0.2);
+  background: rgba(30, 62, 98, 0.08);
+  border-color: rgba(30, 62, 98, 0.2);
   color: var(--ice-300);
 }
 
 .source-id {
   font-weight: 700;
   color: var(--ice-400);
-  background: rgba(56, 182, 230, 0.1);
+  background: rgba(30, 62, 98, 0.1);
   padding: 2px 6px;
   border-radius: 4px;
 }
@@ -411,7 +411,7 @@
 
 .chapter-article {
   background: rgba(13, 21, 38, 0.6);
-  border: 1px solid rgba(56, 182, 230, 0.12);
+  border: 1px solid rgba(30, 62, 98, 0.12);
   border-radius: var(--radius-2xl);
   padding: var(--space-10);
   backdrop-filter: blur(16px);
@@ -432,11 +432,11 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--ice-400);
-  background: rgba(56, 182, 230, 0.1);
+  background: rgba(30, 62, 98, 0.1);
   padding: 4px 12px;
   border-radius: var(--radius-full);
   margin-bottom: var(--space-3);
-  border: 1px solid rgba(56, 182, 230, 0.2);
+  border: 1px solid rgba(30, 62, 98, 0.2);
 }
 
 .chapter-title {
@@ -459,7 +459,7 @@
   margin-bottom: var(--space-8);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 1px solid rgba(56, 182, 230, 0.15);
+  border: 1px solid rgba(30, 62, 98, 0.15);
   background: #030712;
 }
 
@@ -518,12 +518,12 @@
 
 /* Takeaways Box */
 .takeaways-box {
-  background: linear-gradient(135deg, rgba(56, 182, 230, 0.06), rgba(74, 222, 128, 0.04));
-  border: 1px solid rgba(56, 182, 230, 0.25);
+  background: linear-gradient(135deg, rgba(30, 62, 98, 0.06), rgba(74, 222, 128, 0.04));
+  border: 1px solid rgba(30, 62, 98, 0.25);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   margin-bottom: var(--space-8);
-  box-shadow: 0 0 24px rgba(56, 182, 230, 0.06);
+  box-shadow: 0 0 24px rgba(30, 62, 98, 0.06);
 }
 
 .takeaways-header {
@@ -573,7 +573,7 @@
 /* Knowledge Self-Check */
 .knowledge-check-card {
   background: rgba(10, 16, 32, 0.8);
-  border: 1px solid rgba(56, 182, 230, 0.18);
+  border: 1px solid rgba(30, 62, 98, 0.18);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   margin-bottom: var(--space-8);
@@ -629,8 +629,8 @@
 }
 
 .k-option-btn:hover:not(:disabled) {
-  background: rgba(56, 182, 230, 0.08);
-  border-color: rgba(56, 182, 230, 0.25);
+  background: rgba(30, 62, 98, 0.08);
+  border-color: rgba(30, 62, 98, 0.25);
   color: #fff;
 }
 
@@ -668,8 +668,8 @@
   align-items: flex-start;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  background: rgba(56, 182, 230, 0.08);
-  border: 1px solid rgba(56, 182, 230, 0.2);
+  background: rgba(30, 62, 98, 0.08);
+  border: 1px solid rgba(30, 62, 98, 0.2);
   border-radius: var(--radius-md);
   font-size: 0.875rem;
   color: var(--ice-200);

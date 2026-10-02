@@ -81,13 +81,13 @@ export default function CollectionsPage() {
         </div>
 
         {/* Tabs */}
-        <div style={{ display: 'flex', gap: '12px', borderBottom: '1px solid rgba(56, 182, 230, 0.1)', paddingBottom: '12px', marginBottom: '28px' }}>
+        <div style={{ display: 'flex', gap: '12px', borderBottom: '1px solid rgba(30, 62, 98, 0.1)', paddingBottom: '12px', marginBottom: '28px' }}>
           <button
             onClick={() => setActiveTab('dossier')}
             style={{
               padding: '8px 18px',
               borderRadius: 'var(--radius-full)',
-              background: activeTab === 'dossier' ? 'linear-gradient(135deg, rgba(56, 182, 230, 0.2), rgba(46, 196, 182, 0.15))' : 'transparent',
+              background: activeTab === 'dossier' ? 'linear-gradient(135deg, rgba(30, 62, 98, 0.2), rgba(30, 62, 98, 0.15))' : 'transparent',
               border: activeTab === 'dossier' ? '1px solid var(--ice-400)' : '1px solid transparent',
               color: activeTab === 'dossier' ? 'var(--ice-300)' : 'var(--text-secondary)',
               fontSize: '0.875rem',
@@ -101,7 +101,7 @@ export default function CollectionsPage() {
             <Bookmark size={15} /> My Saved Dossier
             <span style={{
               fontSize: '0.6875rem',
-              background: 'rgba(56, 182, 230, 0.15)',
+              background: 'rgba(30, 62, 98, 0.15)',
               padding: '2px 8px',
               borderRadius: 'var(--radius-full)',
               color: 'var(--ice-300)',
@@ -116,7 +116,7 @@ export default function CollectionsPage() {
             style={{
               padding: '8px 18px',
               borderRadius: 'var(--radius-full)',
-              background: activeTab === 'areas' ? 'linear-gradient(135deg, rgba(56, 182, 230, 0.2), rgba(46, 196, 182, 0.15))' : 'transparent',
+              background: activeTab === 'areas' ? 'linear-gradient(135deg, rgba(30, 62, 98, 0.2), rgba(30, 62, 98, 0.15))' : 'transparent',
               border: activeTab === 'areas' ? '1px solid var(--ice-400)' : '1px solid transparent',
               color: activeTab === 'areas' ? 'var(--ice-300)' : 'var(--text-secondary)',
               fontSize: '0.875rem',
@@ -130,7 +130,7 @@ export default function CollectionsPage() {
             <Layers size={15} /> Curated Disciplines
             <span style={{
               fontSize: '0.6875rem',
-              background: 'rgba(56, 182, 230, 0.15)',
+              background: 'rgba(30, 62, 98, 0.15)',
               padding: '2px 8px',
               borderRadius: 'var(--radius-full)',
               color: 'var(--ice-300)',
@@ -149,7 +149,7 @@ export default function CollectionsPage() {
                 textAlign: 'center',
                 padding: 'var(--space-16) var(--space-8)',
                 background: 'rgba(14, 21, 41, 0.5)',
-                border: '1px dashed rgba(56, 182, 230, 0.15)',
+                border: '1px dashed rgba(30, 62, 98, 0.15)',
                 borderRadius: 'var(--radius-2xl)',
               }}>
                 <Bookmark size={40} style={{ color: 'var(--text-muted)', marginBottom: '16px' }} />
@@ -170,7 +170,7 @@ export default function CollectionsPage() {
                     key={item.id}
                     style={{
                       background: 'rgba(14, 21, 41, 0.7)',
-                      border: '1px solid rgba(56, 182, 230, 0.12)',
+                      border: '1px solid rgba(30, 62, 98, 0.12)',
                       borderRadius: 'var(--radius-xl)',
                       padding: '20px',
                       display: 'flex',
@@ -193,8 +193,8 @@ export default function CollectionsPage() {
                       <button
                         onClick={() => toggleBookmark(item)}
                         style={{
-                          background: 'rgba(56, 182, 230, 0.1)',
-                          border: '1px solid rgba(56, 182, 230, 0.25)',
+                          background: 'rgba(30, 62, 98, 0.1)',
+                          border: '1px solid rgba(30, 62, 98, 0.25)',
                           borderRadius: 'var(--radius-md)',
                           width: '28px',
                           height: '28px',
@@ -217,7 +217,7 @@ export default function CollectionsPage() {
                       {item.description}
                     </p>
 
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', borderTop: '1px solid rgba(56, 182, 230, 0.08)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', borderTop: '1px solid rgba(30, 62, 98, 0.08)' }}>
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                         {item.region}
                       </span>
@@ -252,7 +252,7 @@ export default function CollectionsPage() {
                 key={area.id}
                 style={{
                   background: 'rgba(14, 21, 41, 0.7)',
-                  border: '1px solid rgba(56, 182, 230, 0.12)',
+                  border: '1px solid rgba(30, 62, 98, 0.12)',
                   borderRadius: 'var(--radius-xl)',
                   padding: '24px',
                   textDecoration: 'none',

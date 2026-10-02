@@ -85,7 +85,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
               alignItems: 'center',
               justifyContent: 'center',
               color: '#000',
-              boxShadow: '0 8px 24px rgba(56, 182, 230, 0.5)',
+              boxShadow: '0 8px 24px rgba(30, 62, 98, 0.5)',
             }}>
               <Play size={28} style={{ marginLeft: '4px' }} />
             </div>

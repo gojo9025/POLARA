@@ -15,7 +15,7 @@
   position: relative;
   padding: var(--space-8) var(--space-8) var(--space-6);
   background: linear-gradient(180deg, rgba(14, 21, 41, 0.9) 0%, rgba(6, 10, 20, 0.8) 100%);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.12);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.12);
   backdrop-filter: blur(20px);
   overflow: hidden;
 }
@@ -27,7 +27,7 @@
   right: 15%;
   width: 500px;
   height: 250px;
-  background: radial-gradient(ellipse at center, rgba(56, 182, 230, 0.12), transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(30, 62, 98, 0.12), transparent 70%);
   filter: blur(50px);
   pointer-events: none;
 }
@@ -64,13 +64,13 @@
   transform: translateY(-50%);
   color: var(--ice-400);
   z-index: 1;
-  filter: drop-shadow(0 0 6px rgba(56, 182, 230, 0.5));
+  filter: drop-shadow(0 0 6px rgba(30, 62, 98, 0.5));
 }
 
 .search-bar .input {
   width: 100%;
   background: rgba(14, 21, 41, 0.8);
-  border: 1px solid rgba(56, 182, 230, 0.2);
+  border: 1px solid rgba(30, 62, 98, 0.2);
   border-radius: var(--radius-xl);
   color: var(--text-primary);
   font-size: 0.9375rem;
@@ -80,7 +80,7 @@
 
 .search-bar .input:focus {
   border-color: var(--ice-400);
-  box-shadow: 0 0 25px rgba(56, 182, 230, 0.25), 0 0 0 1px var(--ice-400);
+  box-shadow: 0 0 25px rgba(30, 62, 98, 0.25), 0 0 0 1px var(--ice-400);
   background: rgba(18, 28, 54, 0.9);
 }
 
@@ -98,7 +98,7 @@
 /* ── High-Tech Filter Sidebar ── */
 .filter-sidebar {
   width: 280px;
-  border-right: 1px solid rgba(56, 182, 230, 0.08);
+  border-right: 1px solid rgba(30, 62, 98, 0.08);
   padding: var(--space-5);
   overflow-y: auto;
   flex-shrink: 0;
@@ -112,7 +112,7 @@
   justify-content: space-between;
   margin-bottom: var(--space-5);
   padding-bottom: var(--space-3);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.08);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.08);
 }
 
 .filter-header h3 {
@@ -165,17 +165,17 @@
 }
 
 .filter-option:hover {
-  background: rgba(56, 182, 230, 0.06);
-  border-color: rgba(56, 182, 230, 0.12);
+  background: rgba(30, 62, 98, 0.06);
+  border-color: rgba(30, 62, 98, 0.12);
   color: var(--ice-300);
   transform: translateX(3px);
 }
 
 .filter-option.active {
-  background: linear-gradient(90deg, rgba(56, 182, 230, 0.15), rgba(46, 196, 182, 0.08));
-  border-color: rgba(56, 182, 230, 0.3);
+  background: linear-gradient(90deg, rgba(30, 62, 98, 0.15), rgba(30, 62, 98, 0.08));
+  border-color: rgba(30, 62, 98, 0.3);
   color: var(--ice-300);
-  box-shadow: 0 0 15px rgba(56, 182, 230, 0.08);
+  box-shadow: 0 0 15px rgba(30, 62, 98, 0.08);
 }
 
 .filter-option svg {
@@ -189,15 +189,15 @@
   font-family: var(--font-mono);
   color: var(--text-muted);
   background: rgba(14, 21, 41, 0.8);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
   padding: 1px 7px;
   border-radius: var(--radius-full);
 }
 
 .filter-option.active .filter-count {
   color: var(--ice-400);
-  border-color: rgba(56, 182, 230, 0.25);
-  background: rgba(56, 182, 230, 0.12);
+  border-color: rgba(30, 62, 98, 0.25);
+  background: rgba(30, 62, 98, 0.12);
 }
 
 /* ── Results Canvas ── */
@@ -218,7 +218,7 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   padding-bottom: var(--space-3);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.06);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.06);
 }
 
 .results-header > span {
@@ -235,8 +235,8 @@
   gap: var(--space-2);
   font-size: 0.75rem;
   color: var(--cyan-400);
-  background: rgba(46, 196, 182, 0.08);
-  border: 1px solid rgba(46, 196, 182, 0.15);
+  background: rgba(30, 62, 98, 0.08);
+  border: 1px solid rgba(30, 62, 98, 0.15);
   padding: 4px 12px;
   border-radius: var(--radius-full);
 }
@@ -254,7 +254,7 @@
   gap: var(--space-5);
   padding: var(--space-5) var(--space-6);
   background: rgba(14, 21, 41, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
   border-radius: var(--radius-xl);
   text-decoration: none;
   transition: all var(--transition-base);
@@ -278,8 +278,8 @@
 
 .result-card:hover {
   background: rgba(20, 30, 58, 0.85);
-  border-color: rgba(56, 182, 230, 0.35);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 182, 230, 0.12);
+  border-color: rgba(30, 62, 98, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 25px rgba(30, 62, 98, 0.12);
   transform: translateY(-2px);
 }
 
@@ -295,13 +295,13 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid rgba(56, 182, 230, 0.15);
+  border: 1px solid rgba(30, 62, 98, 0.15);
   transition: all var(--transition-fast);
 }
 
 .result-card:hover .result-card-icon {
   transform: scale(1.08);
-  box-shadow: 0 0 16px rgba(56, 182, 230, 0.2);
+  box-shadow: 0 0 16px rgba(30, 62, 98, 0.2);
 }
 
 .result-card-content {
@@ -324,7 +324,7 @@
   background: rgba(6, 10, 20, 0.6);
   padding: 2px 8px;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(56, 182, 230, 0.08);
+  border: 1px solid rgba(30, 62, 98, 0.08);
 }
 
 .result-card-content h4 {
@@ -364,7 +364,7 @@
 
 .result-keywords .tag {
   background: rgba(6, 10, 20, 0.5);
-  border: 1px solid rgba(56, 182, 230, 0.08);
+  border: 1px solid rgba(30, 62, 98, 0.08);
   color: var(--text-tertiary);
   font-size: 0.6875rem;
   border-radius: var(--radius-full);
@@ -373,7 +373,7 @@
 }
 
 .result-keywords .tag:hover {
-  border-color: rgba(56, 182, 230, 0.25);
+  border-color: rgba(30, 62, 98, 0.25);
   color: var(--ice-300);
 }
 
@@ -391,7 +391,7 @@
 .result-card:hover .result-link {
   gap: 10px;
   color: var(--cyan-300);
-  filter: drop-shadow(0 0 6px rgba(46, 196, 182, 0.5));
+  filter: drop-shadow(0 0 6px rgba(30, 62, 98, 0.5));
 }
 
 /* ── Empty State ── */
@@ -404,7 +404,7 @@
   color: var(--text-tertiary);
   text-align: center;
   background: rgba(14, 21, 41, 0.4);
-  border: 1px dashed rgba(56, 182, 230, 0.15);
+  border: 1px dashed rgba(30, 62, 98, 0.15);
   border-radius: var(--radius-2xl);
   margin-top: var(--space-6);
 }
@@ -439,7 +439,7 @@
   .filter-sidebar {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid rgba(56, 182, 230, 0.08);
+    border-bottom: 1px solid rgba(30, 62, 98, 0.08);
     max-height: 280px;
   }
 

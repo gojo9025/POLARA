@@ -53,7 +53,7 @@
 
 .page-header h1 svg {
   color: var(--ice-400);
-  filter: drop-shadow(0 0 8px rgba(56, 182, 230, 0.4));
+  filter: drop-shadow(0 0 8px rgba(30, 62, 98, 0.4));
 }
 
 .page-header p {
@@ -79,7 +79,7 @@
   gap: var(--space-4);
   margin-bottom: var(--space-5);
   padding-bottom: var(--space-3);
-  border-bottom: 1px solid rgba(56, 182, 230, 0.08);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.08);
 }
 
 .repo-cat-icon {
@@ -89,8 +89,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(56, 182, 230, 0.15);
-  box-shadow: 0 0 15px rgba(56, 182, 230, 0.15);
+  border: 1px solid rgba(30, 62, 98, 0.15);
+  box-shadow: 0 0 15px rgba(30, 62, 98, 0.15);
 }
 
 .repo-cat-header h2 {
@@ -116,7 +116,7 @@
 
 .repo-cat-header .btn:hover {
   color: var(--ice-300);
-  background: rgba(56, 182, 230, 0.08);
+  background: rgba(30, 62, 98, 0.08);
 }
 
 /* ── Repo Cat Item Grid ── */
@@ -129,7 +129,7 @@
 .repo-item {
   position: relative;
   background: rgba(14, 21, 41, 0.7);
-  border: 1px solid rgba(56, 182, 230, 0.1);
+  border: 1px solid rgba(30, 62, 98, 0.1);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   text-decoration: none;
@@ -154,8 +154,8 @@
 
 .repo-item:hover {
   background: rgba(22, 34, 62, 0.85);
-  border-color: rgba(56, 182, 230, 0.35);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 182, 230, 0.12);
+  border-color: rgba(30, 62, 98, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(30, 62, 98, 0.12);
   transform: translateY(-3px);
 }
 
@@ -193,7 +193,7 @@
   color: var(--text-tertiary);
   margin-top: auto;
   padding-top: var(--space-3);
-  border-top: 1px solid rgba(56, 182, 230, 0.06);
+  border-top: 1px solid rgba(30, 62, 98, 0.06);
 }
 
 .repo-item-meta span:last-child {
@@ -206,7 +206,7 @@
   margin-top: var(--space-12);
   padding: var(--space-8);
   background: linear-gradient(135deg, rgba(14, 21, 41, 0.9), rgba(6, 10, 20, 0.95));
-  border: 1px solid rgba(56, 182, 230, 0.25);
+  border: 1px solid rgba(30, 62, 98, 0.25);
   border-radius: var(--radius-2xl);
   display: flex;
   align-items: center;
@@ -214,7 +214,7 @@
   flex-wrap: wrap;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 35px rgba(56, 182, 230, 0.08);
+  box-shadow: 0 0 35px rgba(30, 62, 98, 0.08);
 }
 
 .repo-cta::before {
@@ -229,7 +229,7 @@
 
 .repo-cta svg {
   color: var(--ice-400);
-  filter: drop-shadow(0 0 8px rgba(56, 182, 230, 0.5));
+  filter: drop-shadow(0 0 8px rgba(30, 62, 98, 0.5));
   flex-shrink: 0;
 }
 

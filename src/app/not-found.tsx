@@ -23,7 +23,7 @@ export default function NotFound() {
         width: '500px',
         height: '500px',
         borderRadius: '50%',
-        border: '1px dashed rgba(56, 182, 230, 0.15)',
+        border: '1px dashed rgba(30, 62, 98, 0.15)',
         pointerEvents: 'none',
       }} />
       <div style={{
@@ -31,7 +31,7 @@ export default function NotFound() {
         width: '300px',
         height: '300px',
         borderRadius: '50%',
-        border: '1px solid rgba(56, 182, 230, 0.1)',
+        border: '1px solid rgba(30, 62, 98, 0.1)',
         pointerEvents: 'none',
       }} />
 
@@ -41,10 +41,10 @@ export default function NotFound() {
         maxWidth: '520px',
         textAlign: 'center',
         background: 'rgba(10, 15, 30, 0.85)',
-        border: '1px solid rgba(56, 182, 230, 0.25)',
+        border: '1px solid rgba(30, 62, 98, 0.25)',
         borderRadius: '24px',
         padding: '48px 36px',
-        boxShadow: '0 24px 64px rgba(0,0,0,0.7), 0 0 40px rgba(56, 182, 230, 0.12)',
+        boxShadow: '0 24px 64px rgba(0,0,0,0.7), 0 0 40px rgba(30, 62, 98, 0.12)',
         backdropFilter: 'blur(20px)',
       }}>
         <div style={{
