@@ -1,61 +1,250 @@
+/* ═══════════════════════════════════════════════════════════════
+   POLARA Design System — KNOWLEDGE REPOSITORY
+   Deep Polar Science Archive
+   ═══════════════════════════════════════════════════════════════ */
 
-          .repo-page { padding: var(--space-8); max-width: var(--content-max-width); }
-          .page-header { margin-bottom: var(--space-8); }
-          .page-breadcrumb {
-            display: flex; align-items: center; gap: var(--space-2);
-            font-size: 0.8125rem; color: var(--text-tertiary); margin-bottom: var(--space-4);
-          }
-          .page-breadcrumb a { color: var(--text-tertiary); }
-          .page-header h1 {
-            display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2);
-          }
+.repo-page {
+  padding: var(--space-8);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
 
-          .repo-categories { display: flex; flex-direction: column; gap: var(--space-8); }
+.page-header {
+  margin-bottom: var(--space-8);
+  position: relative;
+}
 
-          .repo-cat {
-            animation: fadeIn 0.5s ease-out forwards; opacity: 0;
-          }
+.page-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-4);
+}
 
-          .repo-cat-header {
-            display: flex; align-items: center; gap: var(--space-4);
-            margin-bottom: var(--space-4);
-          }
+.page-breadcrumb a {
+  color: var(--text-tertiary);
+  transition: color var(--transition-fast);
+}
 
-          .repo-cat-icon {
-            width: 48px; height: 48px; border-radius: var(--radius-md);
-            display: flex; align-items: center; justify-content: center;
-          }
+.page-breadcrumb a:hover {
+  color: var(--ice-400);
+}
 
-          .repo-cat-header h2 { font-size: 1.25rem; margin-bottom: 0; }
-          .repo-cat-header span { font-size: 0.75rem; color: var(--text-tertiary); }
-          .repo-cat-header .btn { margin-left: auto; }
+.page-breadcrumb span {
+  color: var(--text-primary);
+}
 
-          .repo-cat-list {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: var(--space-4);
-          }
+.page-header h1 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 40%, var(--ice-300) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-2);
+}
 
-          .repo-item {
-            background: var(--bg-card); border: 1px solid var(--border-secondary);
-            border-radius: var(--radius-lg); padding: var(--space-5);
-            text-decoration: none; transition: all var(--transition-base);
-          }
-          .repo-item:hover { border-color: var(--border-accent); box-shadow: var(--shadow-glow); transform: translateY(-2px); }
-          .repo-item h4 { font-size: 0.9375rem; margin-bottom: var(--space-2); color: var(--text-primary); }
-          .repo-item p { font-size: 0.8125rem; margin-bottom: var(--space-3); }
-          .repo-item-meta { display: flex; align-items: center; gap: var(--space-2); font-size: 0.75rem; color: var(--text-tertiary); }
+.page-header h1 svg {
+  color: var(--ice-400);
+  filter: drop-shadow(0 0 8px rgba(56, 182, 230, 0.4));
+}
 
-          .repo-cta {
-            margin-top: var(--space-8); padding: var(--space-6);
-            background: linear-gradient(135deg, rgba(56, 182, 230, 0.06), rgba(46, 196, 182, 0.04));
-            border: 1px solid var(--border-accent); border-radius: var(--radius-xl);
-            display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap;
-          }
-          .repo-cta svg { color: var(--ice-400); }
-          .repo-cta p { flex: 1; font-size: 0.9375rem; }
+.page-header p {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+}
 
-          @media (max-width: 1024px) {
-            .repo-page { padding: var(--space-16) var(--space-4) var(--space-4); }
-            .repo-cat-list { grid-template-columns: 1fr; }
-          }
-        
+/* ── Repository Categories ── */
+.repo-categories {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.repo-cat {
+  animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.repo-cat-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(56, 182, 230, 0.08);
+}
+
+.repo-cat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(56, 182, 230, 0.15);
+  box-shadow: 0 0 15px rgba(56, 182, 230, 0.15);
+}
+
+.repo-cat-header h2 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.repo-cat-header span {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--cyan-400);
+}
+
+.repo-cat-header .btn {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--ice-400);
+  transition: all var(--transition-fast);
+}
+
+.repo-cat-header .btn:hover {
+  color: var(--ice-300);
+  background: rgba(56, 182, 230, 0.08);
+}
+
+/* ── Repo Cat Item Grid ── */
+.repo-cat-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-5);
+}
+
+.repo-item {
+  position: relative;
+  background: rgba(14, 21, 41, 0.7);
+  border: 1px solid rgba(56, 182, 230, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+}
+
+.repo-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ice-500), var(--cyan-500));
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.repo-item:hover {
+  background: rgba(22, 34, 62, 0.85);
+  border-color: rgba(56, 182, 230, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 182, 230, 0.12);
+  transform: translateY(-3px);
+}
+
+.repo-item:hover::before {
+  opacity: 1;
+}
+
+.repo-item h4 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  color: var(--text-primary);
+  line-height: 1.4;
+  transition: color var(--transition-fast);
+}
+
+.repo-item:hover h4 {
+  color: var(--ice-300);
+}
+
+.repo-item p {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+  flex: 1;
+}
+
+.repo-item-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(56, 182, 230, 0.06);
+}
+
+.repo-item-meta span:last-child {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+/* ── Call To Action Banner ── */
+.repo-cta {
+  margin-top: var(--space-12);
+  padding: var(--space-8);
+  background: linear-gradient(135deg, rgba(14, 21, 41, 0.9), rgba(6, 10, 20, 0.95));
+  border: 1px solid rgba(56, 182, 230, 0.25);
+  border-radius: var(--radius-2xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 35px rgba(56, 182, 230, 0.08);
+}
+
+.repo-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ice-400), var(--cyan-400), var(--aurora-400));
+}
+
+.repo-cta svg {
+  color: var(--ice-400);
+  filter: drop-shadow(0 0 8px rgba(56, 182, 230, 0.5));
+  flex-shrink: 0;
+}
+
+.repo-cta p {
+  flex: 1;
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .repo-page {
+    padding: var(--space-6) var(--space-4);
+  }
+  .repo-cat-list {
+    grid-template-columns: 1fr;
+  }
+}

@@ -14,8 +14,82 @@ import {
   learningModules, platformStats, sampleOutreachPackage
 } from '@/lib/data';
 
+const polarStations = [
+  {
+    id: 'bharati',
+    name: 'Bharati Station',
+    location: 'Larsemann Hills, Antarctica',
+    coords: '69°24′S, 76°11′E',
+    temp: '-18.4°C',
+    wind: '14.2 kt ESE',
+    pressure: '984.6 hPa',
+    status: 'ONLINE',
+    region: 'East Antarctica',
+    iceCondition: 'Fast Ice: 1.84m',
+    sensor: 'AWS-P04 Marine Met',
+    subtext: '44th ISEA Primary Base',
+    color: 'var(--ice-400)',
+    radarX: '65%',
+    radarY: '38%',
+  },
+  {
+    id: 'maitri',
+    name: 'Maitri Station',
+    location: 'Schirmacher Oasis, Antarctica',
+    coords: '70°45′S, 11°44′E',
+    temp: '-26.8°C',
+    wind: '22.0 kt ENE',
+    pressure: '978.2 hPa',
+    status: 'ONLINE',
+    region: 'Queen Maud Land',
+    iceCondition: 'Plateau Margin: 2.42m',
+    sensor: 'Cryo-Flux Array',
+    subtext: 'Meteorological & Geomagnetic Lab',
+    color: 'var(--cyan-400)',
+    radarX: '42%',
+    radarY: '58%',
+  },
+  {
+    id: 'himadri',
+    name: 'Himadri Station',
+    location: 'Ny-Ålesund, Svalbard',
+    coords: '78°55′N, 11°56′E',
+    temp: '-8.2°C',
+    wind: '8.4 kt N',
+    pressure: '1012.4 hPa',
+    status: 'ONLINE',
+    region: 'High Arctic',
+    iceCondition: 'Fjord Terminus Active',
+    sensor: 'Atmospheric LiDAR v3',
+    subtext: 'Arctic Climate & Aerosol Watch',
+    color: 'var(--frost-400)',
+    radarX: '72%',
+    radarY: '68%',
+  },
+  {
+    id: 'indarc',
+    name: 'IndARC Subsurface Mooring',
+    location: 'Kongsfjorden Fjord, Svalbard',
+    coords: '79°01′N, 11°32′E',
+    temp: '-1.4°C',
+    wind: 'Depth: 192m',
+    pressure: 'Salinity: 34.85 PSU',
+    status: 'LOGGING',
+    region: 'Arctic Ocean',
+    iceCondition: 'Acoustic Profiling Active',
+    sensor: 'ADCP & CTD Array',
+    subtext: 'Multi-Sensor Ocean Observatory',
+    color: 'var(--aurora-400)',
+    radarX: '28%',
+    radarY: '45%',
+  }
+];
+
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeStationId, setActiveStationId] = useState('bharati');
+
+  const activeStation = polarStations.find(s => s.id === activeStationId) || polarStations[0];
 
   return (
     <AppLayout>
@@ -45,62 +119,152 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="hero-content">
-            <div className="hero-badge">
-              <Snowflake size={14} />
-              <span>India&apos;s Polar Science Knowledge Ecosystem</span>
-            </div>
+          <div className="hero-container">
+            <div className="hero-content">
+              <div className="hero-badge">
+                <Snowflake size={14} />
+                <span>India&apos;s Polar Science Knowledge Ecosystem</span>
+              </div>
 
-            <h1 className="hero-title">
-              Discover the Science<br />
-              <span className="text-gradient">Behind the Poles</span>
-            </h1>
+              <h1 className="hero-title">
+                Discover the Science<br />
+                <span className="text-gradient">Behind the Poles</span>
+              </h1>
 
-            <p className="hero-description">
-              Explore expeditions, research, datasets, publications and multimedia
-              from India&apos;s polar science ecosystem — organized, connected and made
-              accessible through POLARA.
-            </p>
+              <p className="hero-description">
+                Explore expeditions, research, datasets, publications and multimedia
+                from India&apos;s polar science ecosystem — organized, connected and made
+                accessible through POLARA.
+              </p>
 
-            <div className="hero-search">
-              <Search size={20} className="hero-search-icon" />
-              <input
-                type="text"
-                className="hero-search-input"
-                placeholder="Search polar science... (e.g., Antarctic sea ice, Arctic climate)"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && searchQuery.trim()) {
-                    window.location.href = `/explore?q=${encodeURIComponent(searchQuery)}`;
-                  }
-                }}
-              />
-              <Link
-                href={searchQuery.trim() ? `/explore?q=${encodeURIComponent(searchQuery)}` : '/explore'}
-                className="btn btn-primary"
-              >
-                Search
-              </Link>
-            </div>
-
-            <div className="hero-ctas">
-              <Link href="/explore" className="btn btn-primary btn-lg">
-                <Globe size={18} />
-                Explore Polar Knowledge
-              </Link>
-              <Link href="/ask" className="btn btn-secondary btn-lg">
-                <MessageCircle size={18} />
-                Ask POLARA
-              </Link>
-            </div>
-
-            <div className="hero-tags">
-              {['Antarctic sea ice', 'Arctic climate', 'Indian expeditions', 'Glaciology', 'Southern Ocean', 'Polar biodiversity'].map(tag => (
-                <Link href={`/explore?q=${encodeURIComponent(tag)}`} key={tag} className="tag">
-                  {tag}
+              <div className="hero-search">
+                <Search size={20} className="hero-search-icon" />
+                <input
+                  type="text"
+                  className="hero-search-input"
+                  placeholder="Search polar science... (e.g., Antarctic sea ice, Arctic climate)"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && searchQuery.trim()) {
+                      window.location.href = `/explore?q=${encodeURIComponent(searchQuery)}`;
+                    }
+                  }}
+                />
+                <Link
+                  href={searchQuery.trim() ? `/explore?q=${encodeURIComponent(searchQuery)}` : '/explore'}
+                  className="btn btn-primary"
+                >
+                  Search
                 </Link>
-              ))}
+              </div>
+
+              <div className="hero-ctas">
+                <Link href="/explore" className="btn btn-primary btn-lg">
+                  <Globe size={18} />
+                  Explore Polar Knowledge
+                </Link>
+                <Link href="/ask" className="btn btn-secondary btn-lg">
+                  <MessageCircle size={18} />
+                  Ask POLARA
+                </Link>
+              </div>
+
+              <div className="hero-tags">
+                {['Antarctic sea ice', 'Arctic climate', 'Indian expeditions', 'Glaciology', 'Southern Ocean', 'Polar biodiversity'].map(tag => (
+                  <Link href={`/explore?q=${encodeURIComponent(tag)}`} key={tag} className="tag">
+                    {tag}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* ═══ Polar Telemetry HUD & Radar Scope ═══ */}
+            <div className="telemetry-hud">
+              <div className="hud-corner hud-corner-tl" />
+              <div className="hud-corner hud-corner-tr" />
+              <div className="hud-corner hud-corner-bl" />
+              <div className="hud-corner hud-corner-br" />
+
+              <div className="hud-header">
+                <div className="hud-title-wrap">
+                  <div className="hud-live-dot" />
+                  <span className="hud-title">NCPOR Telemetry Array</span>
+                </div>
+                <span className="hud-time">UTC LIVE FEED</span>
+              </div>
+
+              {/* Station Tabs */}
+              <div className="hud-station-tabs">
+                {polarStations.map(station => (
+                  <button
+                    key={station.id}
+                    className={`hud-tab ${activeStationId === station.id ? 'active' : ''}`}
+                    onClick={() => setActiveStationId(station.id)}
+                  >
+                    {station.name.split(' ')[0]}
+                  </button>
+                ))}
+              </div>
+
+              {/* Telemetry Body */}
+              <div className="hud-telemetry-body">
+                <div className="hud-station-info">
+                  <div className="station-badge-row">
+                    <span className="badge badge-ice" style={{ color: activeStation.color, borderColor: activeStation.color }}>
+                      {activeStation.region}
+                    </span>
+                    <span style={{ fontSize: '0.6875rem', color: 'var(--aurora-400)', fontFamily: 'var(--font-mono)' }}>
+                      ● {activeStation.status}
+                    </span>
+                  </div>
+
+                  <div className="station-name">{activeStation.name}</div>
+                  <div className="station-coords">
+                    <Compass size={13} /> {activeStation.coords}
+                  </div>
+
+                  <div className="telemetry-metrics-grid">
+                    <div className="metric-card">
+                      <label>Temp / Metric</label>
+                      <span>{activeStation.temp}</span>
+                    </div>
+                    <div className="metric-card">
+                      <label>Vector / Depth</label>
+                      <span>{activeStation.wind}</span>
+                    </div>
+                    <div className="metric-card">
+                      <label>Baro / Salinity</label>
+                      <span>{activeStation.pressure}</span>
+                    </div>
+                    <div className="metric-card">
+                      <label>Condition</label>
+                      <span style={{ fontSize: '0.8125rem' }}>{activeStation.iceCondition}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Radar Scope */}
+                <div className="radar-scope-container">
+                  <div className="radar-scope">
+                    <div className="radar-ring radar-ring-1" />
+                    <div className="radar-ring radar-ring-2" />
+                    <div className="radar-crosshair-h" />
+                    <div className="radar-crosshair-v" />
+                    <div className="radar-sweep-beam" />
+                    <div
+                      className="radar-blip"
+                      style={{
+                        left: activeStation.radarX,
+                        top: activeStation.radarY,
+                        backgroundColor: activeStation.color,
+                        boxShadow: `0 0 10px ${activeStation.color}`,
+                      }}
+                    />
+                  </div>
+                  <span className="radar-caption">RADAR COORD LOCK</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
