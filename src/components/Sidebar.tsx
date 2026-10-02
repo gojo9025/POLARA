@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import {
-  Home, Search, Database, Compass, BookOpen, FileText,
-  BarChart3, Image as ImageIcon, GraduationCap, MessageCircle,
-  Megaphone, FolderOpen, Settings, LogOut, ChevronLeft,
-  ChevronRight, User, Bell, Globe, Snowflake, Menu, X
+  Home, Compass, Database, Navigation, BookOpenCheck, FileText,
+  BarChart3, Film, GraduationCap, Sparkles,
+  Megaphone, Bookmark, ShieldCheck, Settings, LogOut, ChevronLeft,
+  ChevronRight, User, Bell, Globe, Snowflake, Menu, X, PlayCircle
 } from 'lucide-react';
 
 interface NavItem {
@@ -20,17 +20,17 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: 'Home', href: '/', icon: <Home size={18} /> },
-  { label: 'Explore', href: '/explore', icon: <Search size={18} /> },
+  { label: 'Explore', href: '/explore', icon: <Compass size={18} /> },
   { label: 'Repository', href: '/repository', icon: <Database size={18} /> },
-  { label: 'Expeditions', href: '/expeditions', icon: <Compass size={18} /> },
-  { label: 'Publications', href: '/explore?type=publication', icon: <BookOpen size={18} /> },
+  { label: 'Expeditions', href: '/expeditions', icon: <Navigation size={18} /> },
+  { label: 'Publications', href: '/explore?type=publication', icon: <FileText size={18} /> },
   { label: 'Datasets', href: '/explore?type=dataset', icon: <BarChart3 size={18} /> },
-  { label: 'Media', href: '/explore?type=media', icon: <ImageIcon size={18} /> },
-  { label: 'Learning Hub', href: '/learning', icon: <GraduationCap size={18} /> },
-  { label: 'Ask POLARA', href: '/ask', icon: <MessageCircle size={18} /> },
+  { label: 'Media', href: '/explore?type=media', icon: <Film size={18} /> },
+  { label: 'Learning Hub', href: '/learning', icon: <BookOpenCheck size={18} /> },
+  { label: 'Ask POLARA', href: '/ask', icon: <Sparkles size={18} /> },
   { label: 'Outreach Studio', href: '/outreach', icon: <Megaphone size={18} />, roles: ['admin', 'researcher'] },
-  { label: 'Collections', href: '/collections', icon: <FolderOpen size={18} /> },
-  { label: 'Admin', href: '/admin', icon: <Settings size={18} />, roles: ['admin'] },
+  { label: 'Collections', href: '/collections', icon: <Bookmark size={18} /> },
+  { label: 'Admin', href: '/admin', icon: <ShieldCheck size={18} />, roles: ['admin'] },
 ];
 
 export default function Sidebar() {

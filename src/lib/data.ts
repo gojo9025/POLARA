@@ -1778,60 +1778,384 @@ export const audioRecordings: AudioRecording[] = [
 // ── Learning Modules ──
 export const learningModules: LearningModule[] = [
   {
-    id: 'lm1', title: 'What is Sea Ice and Why Does It Matter?',
-    description: 'An introductory module explaining sea ice formation, types, and its role in the global climate system.',
-    difficulty: 'beginner', topics: ['Sea Ice', 'Climate', 'Antarctica'],
-    targetAudience: 'School Students', estimatedTime: '15 min',
-    imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Amundsen_Sea%2C_Antarctica.webm/1280px--Amundsen_Sea%2C_Antarctica.webm.jpg', sourceResources: ['rep1', 'ds1'],
+    id: 'lm1',
+    title: 'What is Sea Ice and Why Does It Matter?',
+    description: 'An introductory module explaining sea ice formation, types, and its role as Earth\'s thermodynamic solar mirror.',
+    difficulty: 'beginner',
+    topics: ['Sea Ice', 'Climate', 'Antarctica', 'Albedo'],
+    targetAudience: 'School Students & General Public',
+    estimatedTime: '15 min',
+    imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Amundsen_Sea%2C_Antarctica.webm/1280px--Amundsen_Sea%2C_Antarctica.webm.jpg',
+    sourceResources: ['rep1', 'ds1', 'vid2'],
+    chapters: [
+      {
+        id: 'c1',
+        title: 'How Does Sea Ice Actually Form?',
+        subtitle: 'From Frazil Ice to Sturdy Fast-Ice Sheets',
+        content: `Unlike freshwater lakes that freeze at 0°C, salty ocean seawater must drop to approximately -1.8°C before ice crystals can form. 
+
+When seawater begins to freeze, salt ions are rejected in tiny concentrated brine droplets, leaving behind microscopic needle-like crystals of pure water ice called **frazil ice**. As wave action churns the surface, these crystals coalesce into circular, slushy disks called **pancake ice**. When temperatures plunge further, these pancakes cement together into continuous sheets of **pack ice** or attach to the coast as **fast ice** (sea ice fastened to the shoreline).`,
+        keyTakeaways: [
+          'Seawater freezes at approximately -1.8°C due to dissolved mineral salinity',
+          'Freezing ocean water naturally expels salt in a process known as brine rejection',
+          'Fast ice attaches directly to the continent and provides a stable platform for seals, penguins, and researchers',
+        ],
+        mediaUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Amundsen_Sea%2C_Antarctica.webm/1280px--Amundsen_Sea%2C_Antarctica.webm.jpg',
+        mediaType: 'image',
+        caption: 'Pancake ice floes and leads forming in the Amundsen Sea coastal zone.',
+      },
+      {
+        id: 'c2',
+        title: 'Earth\'s Great Solar Mirror: The Albedo Effect',
+        subtitle: 'Why White Ice Keeps Our Planet Cool',
+        content: `Sea ice acts as Earth's natural planetary refrigerator through a phenomenon called **albedo** (the percentage of solar radiation reflected by a surface).
+
+Pure white, snow-covered sea ice has an albedo of up to 0.85 to 0.90, reflecting almost 90% of incoming solar heat energy back into space. Conversely, dark open ocean water has an albedo of only 0.06 to 0.10, absorbing more than 90% of solar radiation. When sea ice melts, it exposes dark ocean waters, which absorb solar warmth, heating the upper ocean and causing even more ice to melt. This self-reinforcing loop is called the **ice-albedo climate feedback**.`,
+        keyTakeaways: [
+          'Albedo measures the reflectivity of Earth surfaces on a scale from 0 to 1',
+          'Snow-covered sea ice reflects up to 90% of incoming solar radiation',
+          'Melting sea ice creates an open water warming loop that accelerates global climate change',
+        ],
+        mediaUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Ross_Ice_Shelf%2C_Antarctica_2.webm/1280px--Ross_Ice_Shelf%2C_Antarctica_2.webm.jpg',
+        mediaType: 'image',
+        caption: 'Reflective vertical ice cliffs along the Southern Ocean margin.',
+      },
+      {
+        id: 'c3',
+        title: 'Indian Research Findings: ISEA-44 & Bharati Station',
+        subtitle: 'Real-time Discoveries from the Prydz Bay Sector',
+        content: `During the 44th Indian Scientific Expedition to Antarctica (ISEA-44), scientists based at Bharati Station in the Larsemann Hills recorded an anomalous **12% sea ice deficit** in the Indian Ocean sector compared to the 2010–2020 decadal average.
+
+Furthermore, coastal fast-ice formation around Bharati formed approximately two weeks later than average. Using shipboard electromagnetic induction sleds on the *MV Vasiliy Golovnin*, Indian researchers verified that satellite microwave measurements agreed with on-the-ground ice core drilling within 6% accuracy.`,
+        keyTakeaways: [
+          'India monitors East Antarctic sea ice continuously from Bharati and Maitri stations',
+          'ISEA-44 measured a 12% sea ice deficit in the Indian Ocean sector',
+          'Ground observations validate satellite radar algorithms used by global weather models',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Bharati_permanent_Antarctic_research_station.jpg',
+        mediaType: 'image',
+        caption: 'Bharati Station overlooking the coastal sea ice in the Larsemann Hills.',
+      },
+    ],
   },
   {
-    id: 'lm2', title: 'Life in Extreme Cold: Antarctic Microbes',
-    description: 'Discover how microscopic organisms survive in one of the coldest places on Earth — Antarctic freshwater lakes.',
-    difficulty: 'beginner', topics: ['Microbiology', 'Extremophiles', 'Antarctica'],
-    targetAudience: 'School Students', estimatedTime: '20 min',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/An_aerial_view_of_the_Indian_Station_Maitri%2C_Antarctica_on_February_2%2C_2005.jpg', sourceResources: ['rep2', 'ds3'],
+    id: 'lm2',
+    title: 'Life in Extreme Cold: Antarctic Microbes',
+    description: 'Discover how microscopic psychrophiles and cyanobacteria survive sub-zero temperatures and high UV in Antarctic freshwater lakes.',
+    difficulty: 'beginner',
+    topics: ['Microbiology', 'Extremophiles', 'Antarctica', 'Genomics'],
+    targetAudience: 'School & University Students',
+    estimatedTime: '20 min',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/An_aerial_view_of_the_Indian_Station_Maitri%2C_Antarctica_on_February_2%2C_2005.jpg',
+    sourceResources: ['rep2', 'ds3', 'pub3'],
+    chapters: [
+      {
+        id: 'c1',
+        title: 'What Are Psychrophiles?',
+        subtitle: 'Cold-Loving Extremophiles of the Frozen Continent',
+        content: `While human cells freeze and burst at sub-zero temperatures, **psychrophiles** (cold-loving organisms) thrive at temperatures between -20°C and +10°C. 
+
+To prevent internal cell fluids from turning into razor-sharp ice crystals, these microbes produce specialized **anti-freeze proteins (AFPs)** that bind to nascent ice crystal faces and arrest their growth. Furthermore, their cell membranes are enriched with polyunsaturated fatty acids that keep the membrane fluid and permeable even in sub-zero brine.`,
+        keyTakeaways: [
+          'Psychrophiles are specialized extremophiles adapted to freezing environments',
+          'Anti-freeze proteins prevent intracellular ice crystallization',
+          'Membrane lipids remain flexible through high unsaturated fatty acid content',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/An_aerial_view_of_the_Indian_Station_Maitri%2C_Antarctica_on_February_2%2C_2005.jpg',
+        mediaType: 'image',
+        caption: 'Maitri Station and freshwater Lake Priyadarshini in the Schirmacher Oasis.',
+      },
+      {
+        id: 'c2',
+        title: 'The Schirmacher Oasis: Microbial Treasure Chest',
+        subtitle: 'Freshwater Ecosystems next to Maitri Station',
+        content: `Near India's Maitri station in Queen Maud Land lies the **Schirmacher Oasis**, an ice-free rocky plateau hosting over 100 glacial lakes.
+
+During ISEA-44, researchers analyzed water samples from 12 distinct lakes using high-throughput 16S rRNA gene sequencing. They identified over **850 operational taxonomic units (OTUs)**. Shallow lakes were dominated by photosynthetic cyanobacteria forming thick benthic mats, while deep oligotrophic lakes harbored novel lineages of cold-adapted **Actinobacteria** capable of producing cold-active enzymes of immense pharmaceutical and industrial value.`,
+        keyTakeaways: [
+          'Over 850 microbial OTUs were cataloged across 12 Schirmacher Oasis lakes',
+          'Cyanobacteria form multi-layered microbial mats that survive under multi-year lake ice',
+          'Cold-adapted enzymes operate efficiently at low temperatures, saving energy in industrial processes',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Blue_ice_at_glacier.jpg',
+        mediaType: 'image',
+        caption: 'Glacial meltwater and ancient blue ice formations near Antarctic oasis lakes.',
+      },
+    ],
   },
   {
-    id: 'lm3', title: 'Understanding Arctic Amplification',
-    description: 'Why is the Arctic warming faster than the rest of the planet? This module explains the science behind Arctic amplification.',
-    difficulty: 'intermediate', topics: ['Arctic', 'Climate Change', 'Amplification'],
-    targetAudience: 'University Students', estimatedTime: '25 min',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Ny-%C3%85lesund%2C_Svalbard_2014.jpg', sourceResources: ['rep3', 'ds4'],
+    id: 'lm3',
+    title: 'Understanding Arctic Amplification',
+    description: 'Why is the Arctic warming nearly four times faster than the rest of the planet, and how does it alter the Indian monsoon?',
+    difficulty: 'intermediate',
+    topics: ['Arctic', 'Climate Change', 'Amplification', 'Teleconnections'],
+    targetAudience: 'University Students & Educators',
+    estimatedTime: '25 min',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Ny-%C3%85lesund%2C_Svalbard_2014.jpg',
+    sourceResources: ['rep3', 'ds4', 'pub4'],
+    chapters: [
+      {
+        id: 'c1',
+        title: 'The Polar Warming Paradox',
+        subtitle: 'Why the High Arctic Heats Up Faster Than the Tropics',
+        content: `Global average temperatures have risen by ~1.2°C since pre-industrial times, but the High Arctic has warmed by over **3.5°C to 4°C** over the same period—a phenomenon known as **Arctic Amplification**.
+
+This extreme warming is fueled by multiple positive feedback mechanisms:
+1. **Surface Albedo Feedback:** Retreating snow and sea ice replace reflective surfaces with heat-absorbing dark ocean waters.
+2. **Planck and Lapse-Rate Feedbacks:** In the stable polar boundary layer, trapped warmth remains concentrated near the surface rather than dispersing into the upper troposphere.
+3. **Oceanic Heat Advection:** North Atlantic currents carry increasing volumes of warm, saline water into Arctic fjords ("Atlantification").`,
+        keyTakeaways: [
+          'Arctic Amplification causes polar regions to warm 3 to 4 times faster than the global mean',
+          'Ice-albedo feedback is the largest single contributor to polar surface warming',
+          'Atlantification brings warm southern water masses directly into Arctic fjords like Kongsfjorden',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Ny-%C3%85lesund%2C_Svalbard_2014.jpg',
+        mediaType: 'image',
+        caption: 'Ny-Ålesund research station at 78°55′N in Svalbard, where Himadri conducts atmospheric research.',
+      },
+      {
+        id: 'c2',
+        title: 'The Arctic-Monsoon Teleconnection',
+        subtitle: 'How Melting Ice in Norway Affects Rainfall in Mumbai and Delhi',
+        content: `How can environmental changes in a Norwegian Arctic archipelago 6,000 kilometers away affect rainfall over South Asia?
+
+NCPOR researchers at Himadri Station have demonstrated that reduced September sea ice in the Barents-Kara Sea weakens the polar vortex and alters the path of the **subtropical westerly jet stream**. This triggers **Rossby wave trains**—massive planetary atmospheric waves—that propagate southeastward across Eurasia, disrupting upper-tropospheric temperature gradients over the Tibetan Plateau and altering the onset timing and intensity of the **Indian Summer Monsoon**.`,
+        keyTakeaways: [
+          'Teleconnections are atmospheric wave links connecting distant climate zones across thousands of kilometers',
+          'Barents-Kara sea ice loss excites Rossby waves that meander into South Asia',
+          'Studying the Arctic helps improve seasonal monsoon forecasting for Indian agriculture',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Airplane_view_of_Ny_Alesund%2C_Svalbard.jpg',
+        mediaType: 'image',
+        caption: 'Aerial perspective of Kongsfjorden fjord, the primary observation site for IndARC.',
+      },
+    ],
   },
   {
-    id: 'lm4', title: 'India\'s Polar Research Stations',
-    description: 'A visual tour of India\'s research stations — Maitri and Bharati in Antarctica, and Himadri in the Arctic.',
-    difficulty: 'beginner', topics: ['Research Stations', 'India', 'NCPOR'],
-    targetAudience: 'General Public', estimatedTime: '10 min',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Bharati_permanent_Antarctic_research_station.jpg', sourceResources: ['exp1', 'exp2'],
+    id: 'lm4',
+    title: 'India\'s Polar Research Stations',
+    description: 'A comprehensive virtual expedition through India\'s permanent research stations: Maitri and Bharati in Antarctica, and Himadri in the Arctic.',
+    difficulty: 'beginner',
+    topics: ['Research Stations', 'India', 'NCPOR', 'Engineering'],
+    targetAudience: 'General Public & Students',
+    estimatedTime: '15 min',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Bharati_permanent_Antarctic_research_station.jpg',
+    sourceResources: ['exp1', 'exp2', 'pub11'],
+    chapters: [
+      {
+        id: 'c1',
+        title: 'Bharati Station: Architectural Masterpiece in the Larsemann Hills',
+        subtitle: 'Commissioned in 2012 at 69°24′S, 76°11′E',
+        content: `Commissioned in 2012, **Bharati** is India's newest and most technologically advanced permanent research station in Antarctica. 
+
+Constructed from 134 prefabricated shipping containers clad in an aerodynamic insulated shell, the station is elevated on stilts to prevent snowdrifts from burying the building. Bharati operates on combined heat and power systems, treats 100% of its graywater, and houses state-of-the-art optical observatories, satellite tracking antennae for ISRO, and oceanographic labs.`,
+        keyTakeaways: [
+          'Bharati was commissioned in 2012 in the Larsemann Hills of East Antarctica',
+          'Elevated aerodynamic stilt architecture prevents snow drift accumulation',
+          'Equipped with high-speed satellite downlinks and zero-waste environmental systems',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Bharati_permanent_Antarctic_research_station.jpg',
+        mediaType: 'image',
+        caption: 'Bharati Station illuminated against the polar landscape.',
+      },
+      {
+        id: 'c2',
+        title: 'Maitri Station & Himadri Arctic Base',
+        subtitle: 'Decades of Scientific Dedication in Two Hemispheres',
+        content: `**Maitri Station** (commissioned in 1989) is located in the Schirmacher Oasis near Lake Priyadarshini in Antarctica. For over 35 years, it has conducted groundbreaking research in geomagnetism, atmospheric greenhouse gas measurements, meteorology, and human physiology under extreme isolation.
+
+**Himadri Station** was opened in 2008 in the international research settlement of Ny-Ålesund in Svalbard, Norway at 78°55′N. Operating year-round, Himadri monitors atmospheric aerosols, fjord ecology, and glaciological mass balances in the High Arctic.`,
+        keyTakeaways: [
+          'Maitri has supported Indian winter-over scientific teams continuously since 1989',
+          'Himadri established India as one of only a few nations with permanent stations in both polar regions',
+          'Both bases support international collaborations under the Antarctic Treaty and Arctic Council',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/An_aerial_view_of_the_Indian_Station_Maitri%2C_Antarctica_on_February_2%2C_2005.jpg',
+        mediaType: 'image',
+        caption: 'Aerial survey view of Maitri Station adjacent to Lake Priyadarshini.',
+      },
+    ],
   },
   {
-    id: 'lm5', title: 'The Third Pole: Himalayan Glaciers and Asia\'s Water Security',
+    id: 'lm5',
+    title: 'The Third Pole: Himalayan Glaciers & Water Security',
     description: 'Explore the high-altitude cryosphere of the Western Himalayas and understand how the Chandra Basin glaciers feed lifeline river basins.',
-    difficulty: 'intermediate', topics: ['Himalayas', 'Himansh', 'Water Security', 'Glaciers'],
-    targetAudience: 'University Students', estimatedTime: '20 min',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Batal_Glacier_Spiti_Valley_Himachal.jpg', sourceResources: ['exp6', 'ds7', 'rep5'],
+    difficulty: 'intermediate',
+    topics: ['Himalayas', 'Himansh', 'Water Security', 'Glaciers'],
+    targetAudience: 'University Students & Researchers',
+    estimatedTime: '20 min',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Batal_Glacier_Spiti_Valley_Himachal.jpg',
+    sourceResources: ['exp6', 'ds7', 'rep5'],
+    chapters: [
+      {
+        id: 'c1',
+        title: 'Why Are the Himalayas Called "The Third Pole"?',
+        subtitle: 'The Greatest Concentration of Frozen Water Outside the Polar Ice Sheets',
+        content: `The Hindu Kush Himalayan region contains more ice and snow than any other region on Earth outside Antarctica and the Arctic. For this reason, glaciologists refer to it as **The Third Pole**.
+
+Ten major Asian river systems—including the Indus, Ganges, Brahmaputra, Yangtze, and Mekong—originate in these mountains, providing freshwater to over 1.9 billion people. However, rising temperatures have caused widespread negative glacier mass balance, altering seasonal streamflows and threatening water security.`,
+        keyTakeaways: [
+          'The Himalayas contain the largest volume of ice outside the North and South Poles',
+          'Meltwater feeds river systems that support over 1.9 billion people across Asia',
+          'Negative mass balance accelerates glacier retreat and risks sudden glacial lake outburst floods (GLOFs)',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Batal_Glacier_Spiti_Valley_Himachal.jpg',
+        mediaType: 'image',
+        caption: 'Batal Glacier terminal moraine in the Chandra Basin, Himachal Pradesh.',
+      },
+      {
+        id: 'c2',
+        title: 'Himansh Observatory: Science at 4,050 Meters Altitude',
+        subtitle: 'India\'s High-Altitude Glacier Monitoring Station',
+        content: `In 2016, NCPOR commissioned **Himansh**, a high-altitude glaciological station situated at 4,050 meters above sea level in the Chandra Basin (Lahaul-Spiti, Himachal Pradesh).
+
+Scientists at Himansh monitor benchmark glaciers including Sutri Dhaka and Batal. Using automated weather stations (AWS), ground-penetrating radar, and drone photogrammetry, they measure accumulation, ablation, and ice velocities. Research shows that glacier melt currently contributes up to **58% of peak summer river runoff** in the upper Chandra river.`,
+        keyTakeaways: [
+          'Himansh operates at an altitude of 4,050m in the Western Himalayas',
+          'Continuous ablation stake measurements track ice mass loss year by year',
+          'Isotopic hydrology reveals glacial melt accounts for 58% of summer stream discharge',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Batal_Glacier_Spiti_Valley_Himachal.jpg',
+        mediaType: 'image',
+        caption: 'Himalayan mountain peaks surrounding the Himansh research camp.',
+      },
+    ],
   },
   {
-    id: 'lm6', title: 'Acoustics of the Abyss: Marine Mammal Communication Beneath Polar Ice',
+    id: 'lm6',
+    title: 'Acoustics of the Abyss: Marine Mammal Communication Beneath Polar Ice',
     description: 'Listen to and analyze how humpback whales, orcas, and Weddell seals use underwater soundwaves to hunt and communicate in dark polar seas.',
-    difficulty: 'beginner', topics: ['Bio-Acoustics', 'Whales', 'Weddell Seals', 'Hydrophone'],
-    targetAudience: 'School Students', estimatedTime: '18 min',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Weddell_seal_in_Antarctica.jpg', sourceResources: ['aud1', 'aud2', 'pub7'],
+    difficulty: 'beginner',
+    topics: ['Bio-Acoustics', 'Whales', 'Weddell Seals', 'Hydrophone'],
+    targetAudience: 'School Students & Nature Enthusiasts',
+    estimatedTime: '18 min',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Weddell_seal_in_Antarctica.jpg',
+    sourceResources: ['aud1', 'aud2', 'pub7'],
+    chapters: [
+      {
+        id: 'c1',
+        title: 'Sound Travels 4.5 Times Faster Underwater',
+        subtitle: 'Why Acoustic Telemetry Rules the Polar Oceans',
+        content: `In polar waters covered by meters of sea ice and plunged into months of total winter darkness, vision is nearly useless. Instead, marine organisms depend almost entirely on **sound**.
+
+Because water is far denser than air, acoustic sound waves travel at approximately **1,500 meters per second** in seawater—nearly 4.5 times faster than in air! Furthermore, low-frequency sound waves can travel thousands of kilometers across entire ocean basins along the **SOFAR (Sound Fixing and Ranging) channel**.`,
+        keyTakeaways: [
+          'Sound travels at ~1,500 m/s in ocean water—4.5 times faster than in air',
+          'Low-frequency acoustic waves travel thousands of kilometers without dissipating',
+          'Hydrophones allow scientists to detect marine mammals without disturbing them',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Weddell_seal_in_Antarctica.jpg',
+        mediaType: 'image',
+        caption: 'Weddell seal resting on sea ice after diving beneath fast ice for vocalization.',
+      },
+      {
+        id: 'c2',
+        title: 'The Songs of Whales and The Trills of Seals',
+        subtitle: 'Deciphering the Polar Bio-Acoustic Repertoire',
+        content: `Different polar species occupy distinct acoustic frequency niches:
+• **Weddell Seals (*Leptonychotes weddellii*):** Produce sci-fi downward frequency chirps and ultrasonic trills up to 18 kHz that echo under the fast-ice.
+• **Humpback Whales:** Male humpbacks sing elaborate, multi-themed songs that change and evolve each year across their Southern Ocean feeding grounds.
+• **Glacier "Ice Fizz":** Exploding microscopic air bubbles trapped in melting glacial ice emit intense broadband crackling sounds across polar fjords.`,
+        keyTakeaways: [
+          'Weddell seals produce ultrasonic frequency chirps for territorial defense and under-ice navigation',
+          'Humpback songs evolve culturally across the Southern Ocean feeding grounds',
+          'Glacier ice fizz creates a natural background acoustic curtain in glacial fjords',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/07/Emperor_Penguin_Manchot_empereur.jpg',
+        mediaType: 'image',
+        caption: 'Antarctic marine fauna documented by bio-acoustic survey teams.',
+      },
+    ],
   },
   {
-    id: 'lm7', title: 'From Gangotri to Bharati: 40 Years of India\'s Polar Science Odyssey',
+    id: 'lm7',
+    title: 'From Gangotri to Bharati: 40 Years of India\'s Polar Science Odyssey',
     description: 'The inspiring historical journey of Indian polar explorers — from the pioneering 1981 Operation Gangotri voyage to cutting-edge satellite-linked stations.',
-    difficulty: 'beginner', topics: ['History', 'Antarctic Treaty', 'Expeditions', 'India'],
-    targetAudience: 'General Public', estimatedTime: '15 min',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/An_aerial_view_of_the_Indian_Station_Maitri%2C_Antarctica_on_February_2%2C_2005.jpg', sourceResources: ['exp5', 'exp8', 'pub11'],
+    difficulty: 'beginner',
+    topics: ['History', 'Antarctic Treaty', 'Expeditions', 'India'],
+    targetAudience: 'General Public & Historians',
+    estimatedTime: '15 min',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/An_aerial_view_of_the_Indian_Station_Maitri%2C_Antarctica_on_February_2%2C_2005.jpg',
+    sourceResources: ['exp5', 'exp8', 'pub11'],
+    chapters: [
+      {
+        id: 'c1',
+        title: 'Operation Gangotri: The Historic 1981 Maiden Voyage',
+        subtitle: 'How 21 Scientists Put India on the Antarctic Map',
+        content: `In late 1981, India secretly launched **Operation Gangotri**, a bold scientific mission led by distinguished marine biologist Dr. S.Z. Qasim. Sailing from Mormugao harbor in Goa aboard the chartered icebreaker *MV Polar Circle*, the 21-member team navigated the treacherous Roaring Forties and landed on the Antarctic continent on **9 January 1982**.
+
+The team established an unmanned weather observatory and conducted vital baseline studies in geology, meteorology, and oceanography, paving the way for India to become a consultative party to the Antarctic Treaty in 1983.`,
+        keyTakeaways: [
+          'Operation Gangotri reached Antarctica on 9 January 1982 led by Dr. S.Z. Qasim',
+          'The voyage paved the way for India joining the Antarctic Treaty System as a Consultative Party',
+          'Dakshin Gangotri was built during the 3rd expedition in 1983 as India\'s first permanent base',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/An_aerial_view_of_the_Indian_Station_Maitri%2C_Antarctica_on_February_2%2C_2005.jpg',
+        mediaType: 'image',
+        caption: 'Historical Indian Antarctic station infrastructure in Queen Maud Land.',
+      },
+      {
+        id: 'c2',
+        title: 'Four Decades of Antarctic Science Leadership',
+        subtitle: 'Dakshin Gangotri, Maitri, and the Rise of Bharati',
+        content: `Following Dakshin Gangotri's submergence beneath heavy snow accumulation, India constructed **Maitri Station** in 1989 on the ice-free rocks of the Schirmacher Oasis. Over the following decades, Indian research expanded from basic exploratory science to advanced climate modeling, deep ice core drilling, space weather monitoring, and biotechnology.
+
+In 2012, India commissioned **Bharati** in the Larsemann Hills, establishing high-speed real-time satellite data transmission with the National Remote Sensing Centre (NRSC) in Hyderabad.`,
+        keyTakeaways: [
+          'India has conducted 44 consecutive scientific expeditions to Antarctica without interruption',
+          'Bharati enables real-time satellite data reception for India\'s Earth observation missions',
+          'NCPOR in Goa coordinates all logistics, polar research, and environmental stewardship',
+        ],
+        mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Bharati_permanent_Antarctic_research_station.jpg',
+        mediaType: 'image',
+        caption: 'Bharati Station: A symbol of modern Indian polar engineering and science.',
+      },
+    ],
   },
   {
-    id: 'lm8', title: 'The Great Ocean Conveyor: Southern Ocean Deep Water Formation',
+    id: 'lm8',
+    title: 'The Great Ocean Conveyor: Southern Ocean Deep Water Formation',
     description: 'How cold, salty Antarctic water sinks into the deep abyss in coastal polynyas and drives global thermohaline circulation across the globe.',
-    difficulty: 'advanced', topics: ['Oceanography', 'Polynyas', 'Thermohaline', 'Southern Ocean'],
-    targetAudience: 'Researchers & Graduates', estimatedTime: '30 min',
-    imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Amundsen_Sea%2C_Antarctica.webm/1280px--Amundsen_Sea%2C_Antarctica.webm.jpg', sourceResources: ['rep4', 'rep6', 'ds6'],
+    difficulty: 'advanced',
+    topics: ['Oceanography', 'Polynyas', 'Thermohaline', 'Southern Ocean'],
+    targetAudience: 'Researchers & Graduates',
+    estimatedTime: '30 min',
+    imageUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Amundsen_Sea%2C_Antarctica.webm/1280px--Amundsen_Sea%2C_Antarctica.webm.jpg',
+    sourceResources: ['rep4', 'rep6', 'ds6'],
+    chapters: [
+      {
+        id: 'c1',
+        title: 'Coastal Polynyas: The Ocean\'s Sea Ice Factories',
+        subtitle: 'Where Relentless Katabatic Winds Prevent Freezing',
+        content: `Coastal latent-heat polynyas are paradoxes of polar oceanography: persistent areas of open, ice-free ocean surrounded by freezing sea ice.
+
+Fierce gravity-driven katabatic winds rush off the Antarctic ice sheet at speeds exceeding 100 km/h, constantly blowing newly formed sea ice away from the coast. As cold dry air meets the ocean, it cools the water surface and triggers explosive sea ice production. Each time sea ice forms, salt is expelled via **brine rejection**, turning the remaining seawater extraordinarily cold (-1.9°C) and dense (salinity > 34.6 PSU).`,
+        keyTakeaways: [
+          'Polynyas remain ice-free due to ferocious katabatic winds pushing new ice offshore',
+          'Continuous sea ice production constantly pumps heavy brine into the shallow shelf water',
+          'Dense Shelf Water (DSW) is the heaviest water mass formed in the global ocean',
+        ],
+        mediaUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Amundsen_Sea%2C_Antarctica.webm/1280px--Amundsen_Sea%2C_Antarctica.webm.jpg',
+        mediaType: 'image',
+        caption: 'Sea ice leads and polynyas in the Southern Ocean viewed from research vessel.',
+      },
+      {
+        id: 'c2',
+        title: 'Antarctic Bottom Water (AABW) Cascades',
+        subtitle: 'Driving the Global Thermohaline Conveyor Belt',
+        content: `Once Dense Shelf Water accumulates on the continental shelf in areas like Prydz Bay and the Weddell Sea, its immense density forces it to cascade down the steep continental slope into the deep ocean trenches.
+
+As it plunges into the abyss, it mixes with surrounding waters to form **Antarctic Bottom Water (AABW)**—the coldest, densest, and most oxygen-rich water mass on Earth. AABW spreads northward along the ocean floor across the Atlantic, Indian, and Pacific basins, driving the lower limb of the global **Thermohaline Circulation** and ventilating the deep ocean with life-sustaining oxygen.`,
+        keyTakeaways: [
+          'Dense Shelf Water cascades down continental slopes to form Antarctic Bottom Water',
+          'Antarctic Bottom Water fills more than 50% of the global deep ocean volume',
+          'This deep water circulation regulates global heat distribution, sea level, and carbon storage',
+        ],
+        mediaUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Ross_Ice_Shelf%2C_Antarctica_2.webm/1280px--Ross_Ice_Shelf%2C_Antarctica_2.webm.jpg',
+        mediaType: 'image',
+        caption: 'The edge of the Antarctic continental shelf where bottom water cascades begin.',
+      },
+    ],
   },
 ];
 
@@ -1916,41 +2240,119 @@ export const sampleOutreachPackage: OutreachPackage = {
   ],
 };
 
-// ── Sample Quiz ──
-export const sampleQuiz: Quiz = {
-  id: 'quiz1',
-  title: 'Test Your Knowledge: Antarctic Sea Ice',
-  sourceResourceId: 'rep1',
-  difficulty: 'easy',
-  questions: [
-    {
-      id: 'q1', question: 'What is sea ice?',
-      options: ['Ice that breaks off from glaciers on land', 'Frozen ocean water that forms on the sea surface', 'Snow that falls on the ocean', 'Ice imported from the Arctic'],
-      correctAnswer: 1, explanation: 'Sea ice forms when the ocean surface gets cold enough to freeze. It\'s different from icebergs, which break off from land-based glaciers.',
-    },
-    {
-      id: 'q2', question: 'According to ISEA-44 observations, how much below average was the sea ice extent?',
-      options: ['5%', '8%', '12%', '20%'],
-      correctAnswer: 2, explanation: 'The observations showed that sea ice extent in the Indian Ocean sector was approximately 12% below the long-term average during the 2024-25 austral summer.',
-      sourceReference: 'Antarctic Sea Ice Observation Report, Finding 1',
-    },
-    {
-      id: 'q3', question: 'What is "fast ice"?',
-      options: ['Ice that moves very quickly', 'Sea ice that is attached to the coastline', 'Ice that forms and melts rapidly', 'A type of glacier'],
-      correctAnswer: 1, explanation: 'Fast ice is sea ice that is attached, or "fastened," to the coastline, sea floor, or to grounded icebergs.',
-    },
-    {
-      id: 'q4', question: 'Why does sea ice matter for climate?',
-      options: ['It provides fresh water', 'It reflects sunlight and helps regulate Earth\'s temperature', 'It prevents ships from sailing', 'It produces oxygen'],
-      correctAnswer: 1, explanation: 'Sea ice has a high albedo (reflectivity), meaning it reflects solar radiation back into space. When ice melts, the darker ocean absorbs more heat, accelerating warming.',
-    },
-    {
-      id: 'q5', question: 'Which Indian research station is located in the Larsemann Hills region of Antarctica?',
-      options: ['Maitri', 'Bharati', 'Himadri', 'Dakshin Gangotri'],
-      correctAnswer: 1, explanation: 'India\'s Bharati station is located in the Larsemann Hills region of East Antarctica. It was commissioned in 2012.',
-    },
-  ],
-};
+// ── Sample Quizzes ──
+export const quizzes: Quiz[] = [
+  {
+    id: 'quiz1',
+    title: 'Test Your Knowledge: Antarctic Sea Ice & Albedo',
+    sourceResourceId: 'rep1',
+    difficulty: 'easy',
+    questions: [
+      {
+        id: 'q1', question: 'What is sea ice?',
+        options: ['Ice that breaks off from glaciers on land', 'Frozen ocean water that forms on the sea surface', 'Snow that falls on the ocean', 'Ice imported from the Arctic'],
+        correctAnswer: 1, explanation: 'Sea ice forms when the ocean surface gets cold enough to freeze. It\'s different from icebergs, which break off from land-based glaciers.',
+      },
+      {
+        id: 'q2', question: 'According to ISEA-44 observations, how much below average was the sea ice extent?',
+        options: ['5%', '8%', '12%', '20%'],
+        correctAnswer: 2, explanation: 'The observations showed that sea ice extent in the Indian Ocean sector was approximately 12% below the long-term average during the 2024-25 austral summer.',
+        sourceReference: 'Antarctic Sea Ice Observation Report, Finding 1',
+      },
+      {
+        id: 'q3', question: 'What is "fast ice"?',
+        options: ['Ice that moves very quickly', 'Sea ice that is attached to the coastline', 'Ice that forms and melts rapidly', 'A type of glacier'],
+        correctAnswer: 1, explanation: 'Fast ice is sea ice that is attached, or "fastened," to the coastline, sea floor, or to grounded icebergs.',
+      },
+      {
+        id: 'q4', question: 'Why does sea ice matter for global climate?',
+        options: ['It provides fresh drinking water to ships', 'It reflects sunlight through the albedo effect and cools Earth', 'It prevents ships from sailing into polar zones', 'It generates atmospheric oxygen'],
+        correctAnswer: 1, explanation: 'Sea ice has an albedo of up to 0.90, reflecting nearly 90% of solar radiation back into space. Melting ice exposes dark ocean water which absorbs heat.',
+      },
+      {
+        id: 'q5', question: 'Which Indian research station is located in the Larsemann Hills region of Antarctica?',
+        options: ['Maitri', 'Bharati', 'Himadri', 'Dakshin Gangotri'],
+        correctAnswer: 1, explanation: 'India\'s Bharati station is located in the Larsemann Hills region of East Antarctica (commissioned in 2012). Maitri is located in the Schirmacher Oasis.',
+      },
+    ],
+  },
+  {
+    id: 'quiz2',
+    title: 'Arctic Amplification & The Monsoon Teleconnection',
+    sourceResourceId: 'rep3',
+    difficulty: 'medium',
+    questions: [
+      {
+        id: 'q2-1', question: 'At what rate is the High Arctic warming compared to the rest of the planet?',
+        options: ['At the exact same rate', 'Twice as fast', 'Nearly 4 times faster', 'Slower than the tropics'],
+        correctAnswer: 2, explanation: 'Arctic Amplification causes the polar regions to warm nearly 3.5 to 4 times faster than the global mean temperature increase.',
+      },
+      {
+        id: 'q2-2', question: 'What is a climate "teleconnection"?',
+        options: ['A satellite phone system used on expeditions', 'A statistical/physical climate link between widely separated regions', 'An underwater internet cable connecting stations', 'A radar tracking system for storms'],
+        correctAnswer: 1, explanation: 'Teleconnections refer to atmospheric and oceanic wave links that transmit climate anomalies thousands of kilometers across continents.',
+      },
+      {
+        id: 'q2-3', question: 'Where is India\'s permanent Arctic research base, Himadri, located?',
+        options: ['Reykjavik, Iceland', 'Nuuk, Greenland', 'Ny-Ålesund, Svalbard (Norway)', 'Tromsø, Norway'],
+        correctAnswer: 2, explanation: 'Himadri was established in 2008 at the international research settlement of Ny-Ålesund in the Svalbard archipelago at 78°55′N.',
+      },
+      {
+        id: 'q2-4', question: 'What is "IndARC"?',
+        options: ['India\'s Arctic research icebreaker', 'An underwater moored ocean observatory in Kongsfjorden', 'An atmospheric ozone lidar at Bharati', 'A polar satellite launched by ISRO'],
+        correctAnswer: 1, explanation: 'IndARC is India\'s multi-sensor sub-surface oceanographic mooring deployed in the deep waters of Kongsfjorden, Svalbard since 2014.',
+      },
+    ],
+  },
+  {
+    id: 'quiz3',
+    title: 'Extremophiles & Antarctic Lake Microbiology',
+    sourceResourceId: 'rep2',
+    difficulty: 'medium',
+    questions: [
+      {
+        id: 'q3-1', question: 'What biological term describes organisms that thrive at sub-zero temperatures?',
+        options: ['Thermophiles', 'Psychrophiles', 'Halophiles', 'Acidophiles'],
+        correctAnswer: 1, explanation: 'Psychrophiles are cold-loving microorganisms adapted to function, grow, and reproduce at sub-zero to low temperatures.',
+      },
+      {
+        id: 'q3-2', question: 'How do Antarctic psychrophiles prevent their cells from bursting due to ice crystals?',
+        options: ['They generate high internal body heat', 'They produce specialized anti-freeze proteins (AFPs)', 'They hibernate in vacuum cocoons', 'They absorb heavy mineral salts'],
+        correctAnswer: 1, explanation: 'Anti-freeze proteins (AFPs) bind directly to nascent ice crystal faces, preventing them from growing and puncturing cell membranes.',
+      },
+      {
+        id: 'q3-3', question: 'Which lake near India\'s Maitri station is designated as an Antarctic Specially Protected Area?',
+        options: ['Lake Vostok', 'Lake Priyadarshini', 'Lake Baikal', 'Lake Radok'],
+        correctAnswer: 1, explanation: 'Lake Priyadarshini is the pristine freshwater lake in the Schirmacher Oasis that supplies water to Maitri Station and hosts unique benthic microbial mats.',
+      },
+    ],
+  },
+  {
+    id: 'quiz4',
+    title: 'The Third Pole: Himalayan Glaciers & Water Security',
+    sourceResourceId: 'exp6',
+    difficulty: 'advanced',
+    questions: [
+      {
+        id: 'q4-1', question: 'Why is the Hindu Kush Himalayan region referred to as "The Third Pole"?',
+        options: ['It is located at the geographic magnetic equator', 'It holds the largest concentration of frozen ice outside the North and South Poles', 'It was discovered by the third British expedition', 'It has three distinct peak zones'],
+        correctAnswer: 1, explanation: 'The Hindu Kush Himalayas contain more glacier ice and snowpack than any other region outside Antarctica and Greenland.',
+      },
+      {
+        id: 'q4-2', question: 'What is the altitude of NCPOR\'s Himansh glaciological station in Himachal Pradesh?',
+        options: ['1,800 meters', '2,500 meters', '4,050 meters', '5,800 meters'],
+        correctAnswer: 2, explanation: 'Himansh is situated at 4,050 meters above sea level in the Chandra Basin (Lahaul-Spiti, Himachal Pradesh).',
+      },
+      {
+        id: 'q4-3', question: 'What is a "GLOF" in high-altitude glaciology?',
+        options: ['Glacial Light Optical Frequency', 'Glacial Lake Outburst Flood', 'Geophysical Land Observation Flight', 'Global Latitude Ozone Filter'],
+        correctAnswer: 1, explanation: 'A Glacial Lake Outburst Flood (GLOF) occurs when a natural moraine dam holding back a high-altitude glacier melt lake suddenly fails, causing catastrophic downstream flash floods.',
+      },
+    ],
+  },
+];
+
+export const sampleQuiz: Quiz = quizzes[0];
 
 // ── Platform Statistics ──
 export const platformStats = {

@@ -152,6 +152,17 @@ export interface AudioRecording extends Resource {
   scientificNotes?: string;
 }
 
+export interface LearningChapter {
+  id: string;
+  title: string;
+  subtitle?: string;
+  content: string;
+  keyTakeaways: string[];
+  mediaUrl?: string;
+  mediaType?: 'image' | 'video' | 'audio';
+  caption?: string;
+}
+
 export interface LearningModule {
   id: string;
   title: string;
@@ -162,6 +173,7 @@ export interface LearningModule {
   estimatedTime: string;
   imageUrl: string;
   sourceResources: string[];
+  chapters?: LearningChapter[];
 }
 
 export interface Quiz {
