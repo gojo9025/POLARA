@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import PolarBearIceberg3D from '@/components/PolarBearIceberg3D';
+import IceBreakIntro from '@/components/IceBreakIntro';
+import PolarBearNarrator from '@/components/PolarBearNarrator';
 import './page.css';
 import AppLayout from '@/components/AppLayout';
 import {
@@ -96,8 +98,10 @@ export default function HomePage() {
   const activeStation = polarStations.find(s => s.id === activeStationId) || polarStations[0];
 
   return (
-    <AppLayout>
-      <div className="home-page">
+    <>
+      <IceBreakIntro />
+      <AppLayout>
+        <div className="home-page">
         {/* ═══ Hero Section ═══ */}
         <section className="hero">
           <div className="hero-bg">
@@ -177,6 +181,14 @@ export default function HomePage() {
                   <MessageCircle size={18} />
                   Ask POLARA
                 </Link>
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('replay-polar-intro'))}
+                  className="btn btn-secondary btn-lg"
+                  title="Replay cinematic polar bear ice break intro"
+                >
+                  <Sparkles size={18} />
+                  Ice-Break Intro
+                </button>
               </div>
 
               <div className="hero-tags">
@@ -387,6 +399,9 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
+        {/* ═══ Grand Static Polar Bear Scrollytelling Guide (21st.dev) ═══ */}
+        <PolarBearNarrator />
 
         {/* ═══ Featured Expeditions ═══ */}
         <section className="section">
@@ -643,5 +658,6 @@ export default function HomePage() {
         </footer>
       </div>
     </AppLayout>
+    </>
   );
 }

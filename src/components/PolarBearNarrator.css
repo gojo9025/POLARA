@@ -1,0 +1,618 @@
+/* ═══════════════════════════════════════════════════════════════════
+   POLAR BEAR NARRATOR — 21ST.DEV SCROLLYTELLING GRAND COMPONENT
+   ═══════════════════════════════════════════════════════════════════ */
+
+.polar-narrator-scrolly-section {
+  position: relative;
+  min-height: 280vh;
+  padding: 5rem 1.5rem;
+  background: #020712;
+  overflow: visible;
+}
+
+/* Background Ambient Lighting */
+.scrolly-ambient-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.scrolly-aurora-glow {
+  position: sticky;
+  top: 10%;
+  left: 10%;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.65;
+  transition: background 0.8s ease;
+}
+
+.scrolly-ice-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
+}
+
+/* Main Two-Column Layout Container */
+.scrolly-layout-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1380px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(380px, 540px) 1fr;
+  gap: 3.5rem;
+  align-items: flex-start;
+}
+
+/* ═══ LEFT PINNED STICKY STAGE (THE COLOSSAL POLAR BEAR) ═══ */
+.polar-bear-sticky-stage {
+  position: sticky;
+  top: 90px;
+  height: calc(100vh - 110px);
+  max-height: 840px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 20;
+}
+
+.polar-bear-anchor-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 21st.dev Border Beam Container */
+.bear-border-beam-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 28px;
+  background: conic-gradient(from 180deg at 50% 50%, transparent 0deg, rgba(56, 189, 248, 0.5) 90deg, rgba(255, 255, 255, 0.8) 180deg, transparent 270deg);
+  animation: bearBeamSpin 8s linear infinite;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@keyframes bearBeamSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.polar-bear-grand-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 20, 38, 0.75);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.85),
+    0 0 40px -10px rgba(56, 189, 248, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Status Header */
+.bear-card-header {
+  position: absolute;
+  top: 1rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.85rem;
+  background: rgba(3, 7, 18, 0.65);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+
+.bear-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 10px #38bdf8;
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.bear-name {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #f1f5f9;
+}
+
+.bear-loc {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  color: #38bdf8;
+}
+
+.icon-shield {
+  color: #38bdf8;
+}
+
+/* Colossal Polar Bear Image Viewport */
+.bear-image-viewport {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 280px;
+  overflow: hidden;
+}
+
+.bear-grand-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: contrast(1.05) brightness(0.96);
+  transform: scale(1.02);
+  transition: transform 0.5s ease;
+}
+
+.bear-grand-card:hover .bear-grand-image {
+  transform: scale(1.04);
+}
+
+/* Particle Breath Mist */
+.bear-breath-particles {
+  position: absolute;
+  top: 48%;
+  left: 48%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.breath-puff {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(186, 230, 253, 0.15) 50%, transparent 80%);
+  filter: blur(8px);
+}
+
+.puff-1 {
+  width: 50px;
+  height: 35px;
+  animation: breathExhale 4s ease-out infinite;
+}
+
+.puff-2 {
+  width: 70px;
+  height: 50px;
+  animation: breathExhale 4s ease-out infinite 1.2s;
+}
+
+.puff-3 {
+  width: 90px;
+  height: 60px;
+  animation: breathExhale 4s ease-out infinite 2.4s;
+}
+
+@keyframes breathExhale {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  25% { opacity: 0.7; }
+  100% { transform: translate(30px, -25px) scale(1.6); opacity: 0; }
+}
+
+.bear-rim-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: box-shadow 0.8s ease;
+}
+
+/* ═══ HOLOGRAPHIC NARRATIVE SPEECH CAPSULE ═══ */
+.holographic-speech-capsule {
+  position: relative;
+  z-index: 20;
+  padding: 1.25rem 1.4rem;
+  background: rgba(3, 7, 18, 0.88);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.speech-capsule-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.speech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border-radius: 9999px;
+  border: 1px solid currentColor;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.voice-listen-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 9999px;
+  color: #38bdf8;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.voice-listen-pill:hover {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: #38bdf8;
+  transform: translateY(-1px);
+}
+
+.voice-listen-pill.speaking {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+  color: #10b981;
+}
+
+/* Audio Equalizer Bars */
+.audio-equalizer {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  margin-left: 2px;
+}
+
+.audio-equalizer .bar {
+  width: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.bar-1 { animation: eqJump 0.6s infinite alternate; }
+.bar-2 { animation: eqJump 0.8s infinite alternate 0.15s; }
+.bar-3 { animation: eqJump 0.5s infinite alternate 0.3s; }
+.bar-4 { animation: eqJump 0.7s infinite alternate 0.1s; }
+
+@keyframes eqJump {
+  0% { height: 3px; }
+  100% { height: 12px; }
+}
+
+.speech-dialogue-body {
+  min-height: 80px;
+}
+
+.speech-dialogue-text {
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #e2e8f0;
+  font-style: italic;
+}
+
+/* Chapter Step Pills */
+.chapter-step-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.step-pill {
+  width: 22px;
+  height: 6px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.step-pill.active {
+  width: 40px;
+}
+
+.step-counter {
+  margin-left: auto;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+/* ═══ RIGHT SCROLLING NARRATIVE TRACK ═══ */
+.narrative-scrolling-track {
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+  padding-bottom: 6rem;
+}
+
+.scrolly-intro-notice {
+  padding: 1.5rem 0 0.5rem 0;
+}
+
+.notice-chip {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 9999px;
+  margin-bottom: 0.85rem;
+}
+
+.scrolly-intro-notice h2 {
+  font-family: var(--font-heading, sans-serif);
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.scrolly-intro-notice p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  max-width: 640px;
+}
+
+/* Narrative Story Cards */
+.narrative-card {
+  position: relative;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(3, 7, 18, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.25rem 2.25rem;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.narrative-card.card-focused {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 20px 60px -10px rgba(56, 189, 248, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.04);
+  transform: translateX(6px);
+}
+
+.narrative-card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.chapter-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chapter-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+}
+
+.chapter-index-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.1em;
+}
+
+.narrative-card-title {
+  font-family: var(--font-heading, sans-serif);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.narrative-quote {
+  border-left: 3px solid rgba(56, 189, 248, 0.6);
+  padding-left: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Key Metrics Bento */
+.chapter-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.chapter-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-v {
+  font-family: var(--font-heading, sans-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.stat-l {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-family: var(--font-mono, monospace);
+}
+
+/* CTA Explore Button */
+.chapter-cta-row {
+  display: flex;
+  align-items: center;
+}
+
+.chapter-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.4rem;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  color: #ffffff;
+  font-family: var(--font-heading, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.chapter-explore-btn:hover {
+  background: rgba(30, 41, 59, 0.9);
+  transform: translateX(4px);
+}
+
+.btn-arrow {
+  transition: transform 0.2s ease;
+}
+
+.chapter-explore-btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* Conclusion Final Card */
+.scrolly-conclusion-card {
+  position: relative;
+  border-radius: 28px;
+  background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, rgba(15, 23, 42, 0.8) 70%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.conclusion-icon {
+  color: #38bdf8;
+  filter: drop-shadow(0 0 12px #38bdf8);
+}
+
+.scrolly-conclusion-card h3 {
+  font-family: var(--font-heading, sans-serif);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.scrolly-conclusion-card p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  max-width: 520px;
+  line-height: 1.55;
+}
+
+.conclusion-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1080px) {
+  .scrolly-layout-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .polar-bear-sticky-stage {
+    position: relative;
+    top: 0;
+    height: auto;
+    max-height: none;
+  }
+
+  .polar-bear-grand-card {
+    height: 580px;
+  }
+}
+
+@media (max-width: 640px) {
+  .chapter-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .narrative-card {
+    padding: 1.5rem;
+  }
+
+  .scrolly-conclusion-card {
+    padding: 2rem 1.25rem;
+  }
+}
