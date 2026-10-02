@@ -1,57 +1,223 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import Sidebar from '@/components/Sidebar';
-import { Search, Bell, User } from 'lucide-react';
+import { Search, Bell, User, Command, Check, Eye, AlertCircle, Sparkles, ExternalLink, LogOut, ChevronRight } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useAuth } from '@/lib/auth';
+import { notifications } from '@/lib/data';
+import SoundscapeToggle from '@/components/SoundscapeToggle';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [search, setSearch] = React.useState('');
+  const { user, isAuthenticated, logout } = useAuth();
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (search.trim()) {
-      router.push(`/explore?q=${encodeURIComponent(search)}`);
-    }
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [notifList, setNotifList] = useState(notifications);
+
+  const notifRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handleOutside = (e: MouseEvent) => {
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setNotifOpen(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, []);
+
+  const openCommandPalette = () => {
+    window.dispatchEvent(new Event('open-command-palette'));
   };
 
-  const pathNameDisplay = pathname === '/' ? 'Dashboard' : pathname.replace('/', '').charAt(0).toUpperCase() + pathname.slice(2);
+  const markAllRead = () => {
+    setNotifList((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
+
+  const unreadCount = notifList.filter((n) => !n.read).length;
+
+  const breadcrumbs = pathname
+    .split('/')
+    .filter(Boolean)
+    .map((seg, idx, arr) => {
+      const url = '/' + arr.slice(0, idx + 1).join('/');
+      const label = seg.charAt(0).toUpperCase() + seg.slice(1).replace(/-/g, ' ');
+      return { url, label };
+    });
 
   return (
     <div className="app-layout">
       <Sidebar />
       <div className="app-main-wrapper" style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, height: '100vh', overflow: 'hidden' }}>
-        <header className="global-topbar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 24px', background: 'rgba(6, 10, 20, 0.85)', backdropFilter: 'blur(20px) saturate(1.4)', borderBottom: '1px solid rgba(56, 182, 230, 0.06)', zIndex: 10, flexWrap: 'wrap', gap: '16px' }}>
-          <div className="topbar-breadcrumb" style={{ fontSize: '14px', color: '#6b7a9e', fontWeight: 500, display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
-            Dashboard &nbsp; <span style={{color: '#45567a'}}>&gt;</span> &nbsp; <span style={{color: '#e8ecf4'}}>{pathNameDisplay}</span>
+        
+        {/* Top Telemetry News Ticker */}
+        <div className="topbar-ticker">
+          <div className="ticker-badge">
+            <span className="ticker-live-dot" />
+            <span>NCPOR POLAR ADVISORY</span>
           </div>
-          
-          <form className="topbar-search" onSubmit={handleSearch} style={{ position: 'relative', flex: '1 1 200px', maxWidth: '400px', minWidth: '200px' }}>
-            <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#45567a' }} />
-            <input 
-              type="text" 
-              placeholder="Search data..." 
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              style={{ width: '100%', padding: '8px 16px 8px 36px', borderRadius: '8px', border: '1px solid rgba(56, 182, 230, 0.12)', background: 'rgba(15, 22, 41, 0.8)', color: '#e8ecf4', fontSize: '13px', outline: 'none' }} 
-            />
-          </form>
+          <div className="ticker-text">
+            <span>● 44th ISEA Maitri-Bharati inland traverse operations active in Queen Maud Land</span>
+            <span>● Svalbard IndARC sub-surface mooring telemetry nominal (Temp: -1.4°C, Depth: 192m)</span>
+            <span>● Bharati Station fast-ice satellite monitoring active via EOS-04 synthetic aperture radar</span>
+          </div>
+        </div>
 
-          <div className="topbar-user" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <button style={{ background: 'transparent', border: 'none', color: '#6b7a9e', cursor: 'pointer' }}><Bell size={18} /></button>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: '#e8ecf4' }}>Dr. A. Frost</div>
-                <div style={{ fontSize: '11px', color: '#6b7a9e' }}>Lead Researcher</div>
-              </div>
-              <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, rgba(56, 182, 230, 0.3), rgba(46, 196, 182, 0.3))', border: '1px solid rgba(56, 182, 230, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#5cc9ef' }}>
-                <User size={16} />
-              </div>
+        {/* Global Command Topbar */}
+        <header className="global-topbar">
+          {/* Breadcrumbs */}
+          <nav className="topbar-breadcrumb" aria-label="Breadcrumb">
+            <Link href="/" className="breadcrumb-link">Dashboard</Link>
+            {breadcrumbs.length > 0 && (
+              <>
+                {breadcrumbs.map((b, i) => (
+                  <React.Fragment key={b.url}>
+                    <ChevronRight size={13} className="breadcrumb-sep" />
+                    {i === breadcrumbs.length - 1 ? (
+                      <span className="breadcrumb-current">{b.label}</span>
+                    ) : (
+                      <Link href={b.url} className="breadcrumb-link">{b.label}</Link>
+                    )}
+                  </React.Fragment>
+                ))}
+              </>
+            )}
+          </nav>
+          
+          {/* Global Search / Command Palette Trigger */}
+          <div className="topbar-search-trigger" onClick={openCommandPalette} role="button" tabIndex={0}>
+            <Search size={15} className="search-trigger-icon" />
+            <span className="search-trigger-text">Search polar science, datasets, telemetry...</span>
+            <div className="search-trigger-kbd">
+              <Command size={11} />
+              <span>K</span>
+            </div>
+          </div>
+
+          {/* Right Action Icons */}
+          <div className="topbar-actions">
+            {/* Arctic Soundscape Atmosphere */}
+            <SoundscapeToggle />
+
+            {/* Notifications Popover */}
+            <div className="popover-anchor" ref={notifRef}>
+              <button
+                className={`topbar-icon-btn ${notifOpen ? 'active' : ''}`}
+                onClick={() => setNotifOpen(!notifOpen)}
+                aria-label="View notifications"
+                aria-expanded={notifOpen}
+              >
+                <Bell size={18} />
+                {unreadCount > 0 && <span className="notif-badge">{unreadCount}</span>}
+              </button>
+
+              {notifOpen && (
+                <div className="notif-dropdown">
+                  <div className="dropdown-header">
+                    <div>
+                      <div className="dropdown-title">Telemetry Alerts</div>
+                      <div className="dropdown-subtitle">{unreadCount} unread operational alerts</div>
+                    </div>
+                    {unreadCount > 0 && (
+                      <button className="mark-read-btn" onClick={markAllRead}>
+                        Mark all read
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="dropdown-list">
+                    {notifList.map((n) => (
+                      <div key={n.id} className={`dropdown-item ${n.read ? 'read' : 'unread'}`}>
+                        <div className={`dropdown-item-icon ${n.type}`}>
+                          {n.type === 'upload_complete' ? <Check size={14} /> :
+                           n.type === 'review_required' ? <Eye size={14} /> :
+                           n.type === 'approval_required' ? <AlertCircle size={14} /> :
+                           <Sparkles size={14} />}
+                        </div>
+                        <div className="dropdown-item-content">
+                          <div className="item-title">{n.title}</div>
+                          <div className="item-msg">{n.message}</div>
+                        </div>
+                        {!n.read && <div className="unread-pip" />}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="dropdown-footer">
+                    <Link href="/admin" onClick={() => setNotifOpen(false)} className="dropdown-footer-link">
+                      Open Mission Control Logs <ExternalLink size={12} />
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* User Profile Popover */}
+            <div className="popover-anchor" ref={profileRef}>
+              <button
+                className="topbar-user-btn"
+                onClick={() => setProfileOpen(!profileOpen)}
+                aria-label="User profile menu"
+                aria-expanded={profileOpen}
+              >
+                <div className="user-text-col">
+                  <div className="user-name">{user ? user.name : 'Dr. A. Frost'}</div>
+                  <div className="user-sub">{user ? user.role.toUpperCase() : 'LEAD SCIENTIST'}</div>
+                </div>
+                <div className="user-avatar-pip">
+                  <User size={15} />
+                </div>
+              </button>
+
+              {profileOpen && (
+                <div className="profile-dropdown">
+                  <div className="profile-head">
+                    <div className="profile-head-name">{user ? user.name : 'Dr. A. Frost'}</div>
+                    <div className="profile-head-email">{user ? user.email : 'frost.polar@ncpor.gov.in'}</div>
+                    <span className="badge badge-ice" style={{ marginTop: '6px' }}>
+                      {user ? user.institution || 'NCPOR Goa' : 'National Centre for Polar and Ocean Research'}
+                    </span>
+                  </div>
+
+                  <div className="profile-menu">
+                    <Link href="/collections" className="profile-link" onClick={() => setProfileOpen(false)}>
+                      My Saved Research Dossiers
+                    </Link>
+                    <Link href="/explore" className="profile-link" onClick={() => setProfileOpen(false)}>
+                      Scientific Explorations
+                    </Link>
+                    <Link href="/admin" className="profile-link" onClick={() => setProfileOpen(false)}>
+                      Observatory Settings
+                    </Link>
+                  </div>
+
+                  <div className="profile-foot">
+                    {isAuthenticated ? (
+                      <button className="profile-logout-btn" onClick={() => { logout(); setProfileOpen(false); }}>
+                        <LogOut size={14} /> Sign Out of Platform
+                      </button>
+                    ) : (
+                      <Link href="/login" className="profile-login-link" onClick={() => setProfileOpen(false)}>
+                        Sign In for Full Clearance
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </header>
+
+        {/* Main Content Area */}
         <main className="app-main" style={{ flex: 1, overflowY: 'auto', background: '#060a14', padding: 0 }}>
           {children}
         </main>

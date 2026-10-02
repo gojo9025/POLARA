@@ -1,8 +1,20 @@
 'use client';
 
-import { AuthProvider } from '@/lib/auth';
 import { ReactNode } from 'react';
+import { AuthProvider } from '@/lib/auth';
+import { ToastProvider } from '@/lib/toast';
+import { BookmarkProvider } from '@/lib/bookmarks';
+import CommandPalette from '@/components/CommandPalette';
 
 export function Providers({ children }: { children: ReactNode }) {
-  return <AuthProvider>{children}</AuthProvider>;
+  return (
+    <ToastProvider>
+      <AuthProvider>
+        <BookmarkProvider>
+          {children}
+          <CommandPalette />
+        </BookmarkProvider>
+      </AuthProvider>
+    </ToastProvider>
+  );
 }

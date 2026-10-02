@@ -8,8 +8,10 @@ import { getAllResources, researchAreas } from '@/lib/data';
 import './page.css';
 import {
   Search, Filter, FileText, BarChart3, BookOpen,
-  Image as ImageIcon, Play, Compass, ArrowRight, X, Sparkles
+  Image as ImageIcon, Play, Compass, ArrowRight, X, Sparkles,
+  Bookmark, BookmarkCheck
 } from 'lucide-react';
+import { useBookmarks } from '@/lib/bookmarks';
 
 const typeIcons: Record<string, React.ReactNode> = {
   report: <FileText size={16} />,
@@ -40,6 +42,7 @@ function ExploreContent() {
   const [yearFilter, setYearFilter] = useState('all');
   const [regionFilter, setRegionFilter] = useState('all');
 
+  const { isBookmarked, toggleBookmark } = useBookmarks();
   const allResources = getAllResources();
 
   const filtered = useMemo(() => {
@@ -234,6 +237,28 @@ function ExploreContent() {
                         </span>
                         <span className="badge badge-cyan">{resource.researchArea}</span>
                         <span className="result-year">{resource.year}</span>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleBookmark(resource);
+                          }}
+                          className="result-bookmark-btn"
+                          title={isBookmarked(resource.id) ? 'Remove from dossier' : 'Save to dossier'}
+                          style={{
+                            marginLeft: 'auto',
+                            background: 'transparent',
+                            border: 'none',
+                            color: isBookmarked(resource.id) ? 'var(--ice-400)' : 'var(--text-muted)',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            padding: '4px',
+                            transition: 'color var(--transition-fast)',
+                          }}
+                        >
+                          {isBookmarked(resource.id) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
+                        </button>
                       </div>
                       <h4>{resource.title}</h4>
                       <p className="truncate-2">{resource.description}</p>

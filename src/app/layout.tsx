@@ -14,19 +14,59 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "POLARA — Polar Outreach, Learning & Research Archive",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://polara.ncpor.res.in'),
+  title: {
+    default: "POLARA — Polar Outreach, Learning & Research Archive",
+    template: "%s | POLARA",
+  },
   description:
-    "An AI-powered polar science knowledge ecosystem that connects expeditions, research, datasets and media into a searchable repository and transforms verified scientific knowledge into educational and multi-channel outreach content.",
+    "Autonomous AI-powered polar science knowledge ecosystem that connects Indian Antarctic and Arctic expeditions, datasets, research publications, and interactive learning into an accessible scientific repository (NCPOR, Ministry of Earth Sciences).",
   keywords: [
     "polar science",
     "Antarctica",
     "Arctic",
     "NCPOR",
-    "research",
+    "ISEA-44",
+    "Bharati Station",
+    "Maitri Station",
+    "Himadri Station",
+    "IndARC",
+    "Southern Ocean",
+    "sea ice variability",
+    "glaciology",
+    "climate science",
     "knowledge repository",
     "polar outreach",
-    "education",
+    "open science data",
   ],
+  authors: [{ name: "National Centre for Polar and Ocean Research (NCPOR)" }],
+  creator: "National Centre for Polar and Ocean Research (NCPOR), Ministry of Earth Sciences, Govt. of India",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://polara.ncpor.res.in",
+    siteName: "POLARA",
+    title: "POLARA — Polar Outreach, Learning & Research Archive",
+    description:
+      "Explore India's scientific expeditions, cryosphere research, real-time station telemetry, and source-grounded polar AI intelligence.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "POLARA — Polar Science Knowledge Ecosystem",
+    description:
+      "Connecting India's polar research expeditions, datasets, and discoveries through an autonomous knowledge portal.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({

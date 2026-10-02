@@ -9,8 +9,11 @@ import './page.css';
 import {
   FileText, ArrowRight, Compass, BookOpen, BarChart3,
   MessageCircle, Sparkles, GraduationCap, Globe, Users,
-  Calendar, MapPin, Tag, ExternalLink, Microscope, Copy, Check
+  Calendar, MapPin, Tag, ExternalLink, Microscope, Copy, Check,
+  Download, Bookmark, BookmarkCheck, Share2, Code2
 } from 'lucide-react';
+import { useBookmarks } from '@/lib/bookmarks';
+import { useToast } from '@/lib/toast';
 
 export default function ResourceDetailPage() {
   const params = useParams();
@@ -18,6 +21,10 @@ export default function ResourceDetailPage() {
   const [explainMode, setExplainMode] = useState<string | null>(null);
   const [explanation, setExplanation] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [showCitation, setShowCitation] = useState(false);
+
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { success, info } = useToast();
 
   if (!resource) {
     return (
@@ -53,6 +60,57 @@ export default function ResourceDetailPage() {
     }, 1200);
   };
 
+  const handleCopyBibtex = () => {
+    const bibtex = `@article{polara_${resource.id}_${resource.year},
+  title = {${resource.title}},
+  author = {${resource.authors?.join(' and ') || 'NCPOR Polar Science Team'}},
+  institution = {National Centre for Polar and Ocean Research (NCPOR)},
+  year = {${resource.year}},
+  url = {https://polara.ncpor.res.in/repository/${resource.id}},
+  note = {Polar Outreach, Learning & Research Archive}
+}`;
+    navigator.clipboard.writeText(bibtex);
+    success('Citation Copied', 'BibTeX citation copied to clipboard');
+  };
+
+  const handleDownloadPackage = () => {
+    const dataContent = JSON.stringify({
+      resourceId: resource.id,
+      title: resource.title,
+      type: resource.type,
+      region: resource.region,
+      researchArea: resource.researchArea,
+      year: resource.year,
+      authors: resource.authors,
+      abstract: report?.abstract || publication?.abstract || resource.description,
+      findings: report?.findings || [],
+      variables: dataset?.variables || [],
+      doi: `10.5067/POLAR-${resource.id.toUpperCase()}`,
+      license: 'Open Access (CC-BY 4.0 NCPOR)',
+      exportedAt: new Date().toISOString(),
+    }, null, 2);
+
+    const blob = new Blob([dataContent], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `polara-${resource.id}-dossier.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    success('Dataset Exported', `Generated scientific package for ${resource.id}`);
+  };
+
+  const handleShare = () => {
+    if (typeof window !== 'undefined') {
+      navigator.clipboard.writeText(window.location.href);
+      success('Link Copied', 'Resource URL copied to clipboard');
+    }
+  };
+
+  const bookmarked = isBookmarked(resource.id);
+
   return (
     <AppLayout>
       <div className="resource-detail">
@@ -60,10 +118,47 @@ export default function ResourceDetailPage() {
         <div className="rd-hero">
           <div className="rd-hero-bg" />
           <div className="rd-hero-content">
-            <div className="page-breadcrumb">
-              <Link href="/">Home</Link> / <Link href="/explore">Explore</Link> / <span>{resource.type}</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+              <div className="page-breadcrumb">
+                <Link href="/">Home</Link> / <Link href="/explore">Explore</Link> / <span>{resource.type}</span>
+              </div>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <button
+                  onClick={() => toggleBookmark(resource)}
+                  className="btn btn-secondary btn-sm"
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  {bookmarked ? <BookmarkCheck size={14} style={{ color: 'var(--ice-400)' }} /> : <Bookmark size={14} />}
+                  <span>{bookmarked ? 'Saved to Dossier' : 'Save Resource'}</span>
+                </button>
+                <button
+                  onClick={handleCopyBibtex}
+                  className="btn btn-ghost btn-sm"
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+                  title="Copy BibTeX Citation"
+                >
+                  <Code2 size={14} /> Cite
+                </button>
+                <button
+                  onClick={handleDownloadPackage}
+                  className="btn btn-ghost btn-sm"
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+                  title="Download Scientific Package"
+                >
+                  <Download size={14} /> Export
+                </button>
+                <button
+                  onClick={handleShare}
+                  className="btn btn-ghost btn-sm"
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+                  title="Share Link"
+                >
+                  <Share2 size={14} />
+                </button>
+              </div>
             </div>
-            <div className="rd-badges">
+
+            <div className="rd-badges" style={{ marginTop: '12px' }}>
               <span className="badge badge-ice">{resource.type.charAt(0).toUpperCase() + resource.type.slice(1)}</span>
               <span className="badge badge-cyan">{resource.researchArea}</span>
               <span className="badge badge-aurora">{resource.region}</span>
@@ -74,6 +169,9 @@ export default function ResourceDetailPage() {
               {resource.authors && <span><Users size={14} /> {resource.authors.join(', ')}</span>}
               <span><Calendar size={14} /> {resource.year}</span>
               <span><MapPin size={14} /> {resource.region}</span>
+              <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--cyan-400)' }}>
+                DOI: 10.5067/POLAR-{resource.id.toUpperCase()}
+              </span>
             </div>
           </div>
         </div>
