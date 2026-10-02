@@ -4,12 +4,15 @@ import React from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import AppLayout from '@/components/AppLayout';
-import { getExpeditionById, getRelatedResources, reports, datasets, publications, photographs, videos } from '@/lib/data';
+import { getExpeditionById, getRelatedResources, reports, datasets, publications, photographs, videos, audioRecordings } from '@/lib/data';
+import AudioPlayer from '@/components/AudioPlayer';
+import VideoPlayer from '@/components/VideoPlayer';
+import PhotoLightbox from '@/components/PhotoLightbox';
 import './page.css';
 import {
   MapPin, Calendar, Users, Compass, FileText, BarChart3,
   BookOpen, Image as ImageIcon, Play, GraduationCap,
-  ArrowRight, ExternalLink, MessageCircle, Sparkles
+  ArrowRight, ExternalLink, MessageCircle, Sparkles, Volume2
 } from 'lucide-react';
 
 export default function ExpeditionDetailPage() {
@@ -30,18 +33,29 @@ export default function ExpeditionDetailPage() {
     );
   }
 
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = React.useState<number | null>(null);
+
   const relatedReports = reports.filter(r => r.expeditionId === expedition.id);
   const relatedDatasets = datasets.filter(d => d.expeditionId === expedition.id);
   const relatedPubs = publications.filter(p => p.relatedExpedition === expedition.id);
   const relatedPhotos = photographs.filter(p => p.expeditionId === expedition.id);
   const relatedVideos = videos.filter(v => v.expeditionId === expedition.id);
+  const relatedAudios = audioRecordings.filter(a => a.expeditionId === expedition.id);
 
   return (
     <AppLayout>
       <div className="detail-page">
         {/* Hero */}
-        <div className="detail-hero">
-          <div className="detail-hero-bg" />
+        <div className="detail-hero" style={{ position: 'relative', overflow: 'hidden' }}>
+          <div
+            className="detail-hero-bg"
+            style={{
+              backgroundImage: `url(${expedition.imageUrl})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: 0.22,
+            }}
+          />
           <div className="detail-hero-content">
             <div className="page-breadcrumb">
               <Link href="/">Home</Link> / <Link href="/expeditions">Expeditions</Link> / <span>{expedition.expeditionNumber}</span>
@@ -200,19 +214,64 @@ export default function ExpeditionDetailPage() {
           {/* Photographs */}
           {relatedPhotos.length > 0 && (
             <section className="detail-section" id="photos">
-              <h3><ImageIcon size={18} /> Photographs ({relatedPhotos.length})</h3>
-              <div className="photo-grid">
-                {relatedPhotos.map(photo => (
-                  <div key={photo.id} className="photo-card">
-                    <div className="photo-card-image" />
-                    <div className="photo-card-info">
-                      <h4>{photo.title}</h4>
-                      <p>{photo.photographer} · {photo.date}</p>
+              <h3><ImageIcon size={18} /> Field Photographs ({relatedPhotos.length})</h3>
+              <div className="photo-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+                {relatedPhotos.map((photo, idx) => (
+                  <div
+                    key={photo.id}
+                    className="photo-card"
+                    style={{ cursor: 'pointer', overflow: 'hidden', borderRadius: '12px', background: 'var(--navy-900)', border: '1px solid var(--border-subtle)' }}
+                    onClick={() => setSelectedPhotoIndex(idx)}
+                  >
+                    <div style={{ height: '180px', overflow: 'hidden', position: 'relative' }}>
+                      <img
+                        src={photo.imageUrl || photo.highResUrl}
+                        alt={photo.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    </div>
+                    <div className="photo-card-info" style={{ padding: '12px' }}>
+                      <h4 style={{ margin: '0 0 4px 0', fontSize: '0.95rem' }}>{photo.title}</h4>
+                      <p style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-tertiary)' }}>{photo.photographer} · {photo.date}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </section>
+          )}
+
+          {/* Videos */}
+          {relatedVideos.length > 0 && (
+            <section className="detail-section" id="videos">
+              <h3><Play size={18} /> Expedition Video Footage ({relatedVideos.length})</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px' }}>
+                {relatedVideos.map(video => (
+                  <VideoPlayer key={video.id} video={video} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Hydrophone Audio Recordings */}
+          {relatedAudios.length > 0 && (
+            <section className="detail-section" id="audios">
+              <h3><Volume2 size={18} /> Hydrophone Audio & Bio-Acoustics ({relatedAudios.length})</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px' }}>
+                {relatedAudios.map(audio => (
+                  <AudioPlayer key={audio.id} recording={audio} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {selectedPhotoIndex !== null && relatedPhotos.length > 0 && (
+            <PhotoLightbox
+              photos={relatedPhotos}
+              currentIndex={selectedPhotoIndex}
+              isOpen={selectedPhotoIndex !== null}
+              onClose={() => setSelectedPhotoIndex(null)}
+              onNavigate={(i) => setSelectedPhotoIndex(i)}
+            />
           )}
 
           {/* Ask POLARA about this expedition */}

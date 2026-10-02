@@ -12,6 +12,7 @@ export interface User {
   institution?: string;
   researchAreas?: string[];
   avatar?: string;
+  bio?: string;
 }
 
 export type ResourceType =
@@ -21,6 +22,7 @@ export type ResourceType =
   | 'publication'
   | 'photograph'
   | 'video'
+  | 'audio'
   | 'activity'
   | 'learning_module';
 
@@ -125,14 +127,29 @@ export interface Photograph extends Resource {
   tags: string[];
   copyright: string;
   highResUrl: string;
+  cameraInfo?: string;
 }
 
 export interface Video extends Resource {
   type: 'video';
   duration: string;
   thumbnailUrl: string;
+  videoUrl?: string;
+  fallbackUrl?: string;
   source: string;
   transcript?: string;
+  resolution?: string;
+}
+
+export interface AudioRecording extends Resource {
+  type: 'audio';
+  duration: string;
+  audioUrl: string;
+  source: string;
+  spectrogramUrl?: string;
+  samplingRate?: string;
+  frequencyRange?: string;
+  scientificNotes?: string;
 }
 
 export interface LearningModule {

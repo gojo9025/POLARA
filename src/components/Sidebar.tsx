@@ -125,15 +125,17 @@ export default function Sidebar() {
         <div className="sidebar-footer">
           {isAuthenticated && user ? (
             <div className="sidebar-user">
-              <div className="sidebar-user-avatar">
-                <User size={16} />
-              </div>
-              {!collapsed && (
-                <div className="sidebar-user-info">
-                  <span className="sidebar-user-name">{user.name}</span>
-                  <span className="sidebar-user-role">{user.role}</span>
+              <Link href="/profile" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: 'inherit', flex: 1, overflow: 'hidden' }}>
+                <div className="sidebar-user-avatar">
+                  <User size={16} />
                 </div>
-              )}
+                {!collapsed && (
+                  <div className="sidebar-user-info">
+                    <span className="sidebar-user-name">{user.name}</span>
+                    <span className="sidebar-user-role">{user.role}</span>
+                  </div>
+                )}
+              </Link>
               {!collapsed && (
                 <button className="sidebar-logout" onClick={logout} aria-label="Sign out">
                   <LogOut size={16} />

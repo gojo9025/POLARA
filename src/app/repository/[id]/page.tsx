@@ -4,7 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import AppLayout from '@/components/AppLayout';
-import { getResourceById, getExpeditionById, reports, datasets, publications } from '@/lib/data';
+import { getResourceById, getExpeditionById, reports, datasets, publications, photographs, videos, audioRecordings } from '@/lib/data';
+import AudioPlayer from '@/components/AudioPlayer';
+import VideoPlayer from '@/components/VideoPlayer';
+import PhotoLightbox from '@/components/PhotoLightbox';
 import './page.css';
 import {
   FileText, ArrowRight, Compass, BookOpen, BarChart3,
@@ -15,6 +18,8 @@ import {
 import { useBookmarks } from '@/lib/bookmarks';
 import { useToast } from '@/lib/toast';
 
+import { askPolarAI } from '@/lib/ai';
+
 export default function ResourceDetailPage() {
   const params = useParams();
   const resource = getResourceById(params.id as string);
@@ -24,7 +29,8 @@ export default function ResourceDetailPage() {
   const [showCitation, setShowCitation] = useState(false);
 
   const { isBookmarked, toggleBookmark } = useBookmarks();
-  const { success, info } = useToast();
+  const { success, info, error: showError } = useToast();
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   if (!resource) {
     return (
@@ -44,20 +50,34 @@ export default function ResourceDetailPage() {
   const report = reports.find(r => r.id === resource.id);
   const dataset = datasets.find(d => d.id === resource.id);
   const publication = publications.find(p => p.id === resource.id);
+  const photo = photographs.find(p => p.id === resource.id);
+  const video = videos.find(v => v.id === resource.id);
+  const audio = audioRecordings.find(a => a.id === resource.id);
 
-  const handleExplain = (mode: string) => {
+  const handleExplain = async (mode: string) => {
     setExplainMode(mode);
     setIsGenerating(true);
-    setTimeout(() => {
-      const explanations: Record<string, string> = {
-        researcher: `**Technical Summary**\n\nThis study presents quantitative observations of sea ice extent and variability in the Indian Ocean sector of Antarctica (60°S–70°S, 40°E–100°E) during the 2024-25 austral summer. The methodology combines satellite-derived passive microwave sea ice concentration data with ship-based electromagnetic induction measurements of ice thickness.\n\nKey quantitative results include a 12% deficit in sea ice extent relative to the 2010-2020 climatological mean, a two-week delay in fast ice formation near Bharati Station (69.4°S, 76.2°E), and excellent inter-method agreement (r² = 0.94) between satellite and in-situ observations. Spatial heterogeneity in first-year ice thickness was attributed to mesoscale wind variability in the Prydz Bay region, consistent with thermodynamic-dynamic sea ice models.`,
-        student: `**Simple Explanation** 🎓\n\nImagine the ocean around Antarctica like a giant pond that freezes over every winter. Scientists from India went there to measure how much of it was frozen.\n\n**What they found:**\n• There was about 12% less frozen ocean than what's been normal in recent years\n• The ice near India's Bharati station started forming about 2 weeks later than usual\n• They measured from their ship AND from satellites in space — and both methods gave almost the same answers!\n\n**Why it matters:**\nWhen there's less sea ice, the dark ocean water absorbs more sunlight and heat. This makes things even warmer, creating a cycle. Understanding this helps us prepare for climate changes that affect everyone, including weather patterns in India.`,
-        school: `**Easy Explanation** 📚\n\nDid you know that the ocean around Antarctica freezes in winter? It's called sea ice!\n\nIndian scientists traveled all the way to Antarctica to study this frozen ocean. They found that there's been less ice than usual lately. The ice is also forming later in the year.\n\nThink of it like this: Sea ice is like a giant mirror on the ocean. It reflects sunlight back to space. When the mirror gets smaller, more sunlight heats up the water, which melts even more ice!\n\nScientists use ships and even satellites in space to measure the ice — pretty cool, right? 🛰️`,
-        public: `**Why It Matters**\n\nAntarctica's frozen ocean is shrinking. During India's 44th Antarctic Expedition, researchers found 12% less ice than the recent average — and ice formation near India's Bharati research station was delayed by two weeks.\n\nThis matters because sea ice reflects sunlight and helps regulate Earth's temperature. Less ice means more warming in a self-reinforcing cycle with global consequences.\n\nThe research demonstrates India's growing role in polar science, with observations from both ships and satellites providing high-confidence data on these critical environmental changes.`,
-      };
-      setExplanation(explanations[mode] || explanations.researcher);
+    try {
+      const res = await askPolarAI({
+        prompt: `Provide a comprehensive scientific synthesis and analysis for this resource in ${mode} mode.`,
+        mode: mode === 'researcher' ? 'research' : (mode as 'student' | 'public' | 'educator'),
+        context: {
+          resourceTitle: resource.title,
+          resourceType: resource.type,
+          region: resource.region,
+          abstract: report?.abstract || publication?.abstract || resource.description,
+          findings: report?.findings,
+          variables: dataset?.variables,
+          expedition: expedition?.name,
+        },
+      });
+      setExplanation(res.answer);
+      success('AI Explanation Generated', `Generated ${mode} synthesis using ${res.modelUsed}`);
+    } catch (err: unknown) {
+      showError('AI Generation Error', (err as Error).message);
+    } finally {
       setIsGenerating(false);
-    }, 1200);
+    }
   };
 
   const handleCopyBibtex = () => {
@@ -183,6 +203,57 @@ export default function ResourceDetailPage() {
               <h3>{report || publication ? 'Abstract' : 'Description'}</h3>
               <p className="rd-abstract">{report?.abstract || publication?.abstract || resource.description}</p>
             </section>
+
+            {/* Interactive Media Players for Photos, Videos, and Audios */}
+            {audio && (
+              <section className="rd-section">
+                <AudioPlayer recording={audio} />
+              </section>
+            )}
+
+            {video && (
+              <section className="rd-section">
+                <VideoPlayer video={video} />
+              </section>
+            )}
+
+            {photo && (
+              <section className="rd-section">
+                <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-subtle)', background: '#000', textAlign: 'center' }}>
+                  <img
+                    src={photo.highResUrl || photo.imageUrl}
+                    alt={photo.title}
+                    style={{ width: '100%', maxHeight: '520px', objectFit: 'contain', display: 'block', cursor: 'pointer' }}
+                    onClick={() => setLightboxOpen(true)}
+                  />
+                  <div style={{ padding: '16px 20px', background: 'var(--navy-900)', textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                    <div>
+                      <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', display: 'block' }}>
+                        Photographer: <strong style={{ color: 'var(--text-primary)' }}>{photo.photographer}</strong> • Location: {photo.location}
+                      </span>
+                      {photo.cameraInfo && (
+                        <span style={{ fontSize: '0.75rem', color: 'var(--ice-400)', fontFamily: 'monospace' }}>
+                          Camera EXIF: {photo.cameraInfo}
+                        </span>
+                      )}
+                    </div>
+                    <button className="btn btn-primary btn-sm" onClick={() => setLightboxOpen(true)}>
+                      View Fullscreen Lightbox
+                    </button>
+                  </div>
+                </div>
+
+                {lightboxOpen && (
+                  <PhotoLightbox
+                    photos={[photo]}
+                    currentIndex={0}
+                    isOpen={lightboxOpen}
+                    onClose={() => setLightboxOpen(false)}
+                    onNavigate={() => {}}
+                  />
+                )}
+              </section>
+            )}
 
             {/* Key Findings */}
             {report?.findings && (

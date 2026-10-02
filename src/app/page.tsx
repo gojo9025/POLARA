@@ -307,7 +307,16 @@ export default function HomePage() {
           <div className="expedition-grid">
             {expeditions.map((exp, i) => (
               <Link href={`/expeditions/${exp.id}`} key={exp.id} className="expedition-card" style={{ animationDelay: `${i * 100}ms` }}>
-                <div className="expedition-card-image">
+                <div
+                  className="expedition-card-image"
+                  style={{
+                    backgroundImage: `url(${exp.imageUrl})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    minHeight: '160px',
+                    position: 'relative'
+                  }}
+                >
                   <div className="expedition-card-overlay" />
                   <div className="expedition-card-region">
                     <span className="badge badge-ice">{exp.region}</span>
