@@ -34,10 +34,64 @@ POLARA Scientific Archive Ground Truth & Reference Corpus:
   - 6th Indian Himalayan Glaciological Expedition (IHGE-6, 2024): Benchmark mass balance studies in Chandra Basin, Himachal Pradesh.
 `;
 
+export async function GET() {
+  const hasServerKey = !!(
+    (process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim().length > 10) ||
+    (process.env.NEXT_PUBLIC_GEMINI_API_KEY && process.env.NEXT_PUBLIC_GEMINI_API_KEY.trim().length > 10)
+  );
+  return NextResponse.json({
+    status: 'online',
+    hasServerKey,
+    recommendedModel: 'gemini-1.5-flash',
+    supportedModels: ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-pro'],
+    engine: hasServerKey ? 'Google Gemini 1.5 Flash' : 'POLARA Neural RAG',
+  });
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const body: AIRequestPayload = await req.json();
-    const { prompt, messages, mode = 'research', context, apiKey: clientKey } = body;
+    const body: any = await req.json();
+    const { prompt, messages, mode = 'research', context, apiKey: clientKey, action } = body;
+
+    // Check for API key (Client header -> Client body -> Environment)
+    const activeKey =
+      req.headers.get('x-gemini-api-key') ||
+      clientKey ||
+      process.env.GEMINI_API_KEY ||
+      process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+
+    // Key verification check
+    if (action === 'verify_key') {
+      const keyToTest = (clientKey || activeKey || '').trim();
+      if (!keyToTest || keyToTest.length < 10) {
+        return NextResponse.json({ valid: false, error: 'API key is too short or empty' }, { status: 400 });
+      }
+      try {
+        const testRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${keyToTest}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: 'Ping: Return OK' }] }],
+              generationConfig: { maxOutputTokens: 5 },
+            }),
+          }
+        );
+        if (testRes.ok) {
+          return NextResponse.json({
+            valid: true,
+            model: 'gemini-1.5-flash',
+            message: 'Gemini API key is verified and operational',
+          });
+        }
+        const errJson = await testRes.json().catch(() => ({}));
+        const errMsg = errJson?.error?.message || `HTTP ${testRes.status} Error`;
+        return NextResponse.json({ valid: false, error: errMsg }, { status: 400 });
+      } catch (err: unknown) {
+        return NextResponse.json({ valid: false, error: (err as Error).message }, { status: 500 });
+      }
+    }
 
     const userPrompt = prompt || (messages && messages.length > 0 ? messages[messages.length - 1].content : '');
 
@@ -48,12 +102,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check for API key (Client header -> Client body -> Environment)
-    const activeKey =
-      req.headers.get('x-gemini-api-key') ||
-      clientKey ||
-      process.env.GEMINI_API_KEY ||
-      process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    let geminiWarning: string | null = null;
 
     if (activeKey && activeKey.trim().length > 10) {
       try {
@@ -62,13 +111,14 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({
             answer: geminiResponse.text,
             sources: geminiResponse.sources,
-            modelUsed: 'gemini-1.5-flash',
+            modelUsed: geminiResponse.modelUsed || 'gemini-1.5-flash',
             mode,
             status: 'success',
           });
         }
       } catch (geminiErr: unknown) {
-        console.warn('Gemini API call failed, falling back to POLARA neural engine:', (geminiErr as Error).message);
+        geminiWarning = (geminiErr as Error).message;
+        console.warn('Gemini API call failed, falling back to POLARA neural engine:', geminiWarning);
       }
     }
 
@@ -82,6 +132,7 @@ export async function POST(req: NextRequest) {
       mode,
       status: 'success',
       suggestions: ragResponse.suggestions,
+      warning: geminiWarning ? `Notice: Gemini API fallback triggered (${geminiWarning}). Served by POLARA Grounded Neural Engine.` : undefined,
     });
   } catch (error: unknown) {
     console.error('AI Route Error:', error);
@@ -132,39 +183,52 @@ Always maintain accuracy. When referencing Indian polar initiatives, mention Mai
     });
   }
 
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+  // Model fallback chain: gemini-1.5-flash -> gemini-2.0-flash -> gemini-1.5-pro
+  const modelsToTry = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-pro'];
+  let lastError: Error | null = null;
 
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents,
-      systemInstruction: {
-        parts: [{ text: systemInstruction }],
-      },
-      generationConfig: {
-        temperature: 0.3,
-        maxOutputTokens: 1200,
-      },
-    }),
-  });
+  for (const model of modelsToTry) {
+    try {
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents,
+          systemInstruction: {
+            parts: [{ text: systemInstruction }],
+          },
+          generationConfig: {
+            temperature: 0.3,
+            maxOutputTokens: 1400,
+          },
+        }),
+      });
 
-  if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`Gemini API Error ${res.status}: ${errorText}`);
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Gemini (${model}) ${res.status}: ${errorText}`);
+      }
+
+      const data = await res.json();
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (!text) {
+        throw new Error(`No candidate content received from Gemini (${model})`);
+      }
+
+      const sources = extractSourcesForQuery(userPrompt + ' ' + (context?.resourceTitle || ''));
+      return { text, sources, modelUsed: model };
+    } catch (err: unknown) {
+      lastError = err as Error;
+      // If error is 404 or model not found, try next model; if key is invalid, rethrow immediately
+      if (lastError.message.includes('API_KEY_INVALID') || lastError.message.includes('400')) {
+        throw lastError;
+      }
+    }
   }
 
-  const data = await res.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (!text) {
-    throw new Error('No candidate content received from Gemini');
-  }
-
-  // Synthesize sources based on query concepts
-  const sources = extractSourcesForQuery(userPrompt + ' ' + (context?.resourceTitle || ''));
-
-  return { text, sources };
+  throw lastError || new Error('Failed to obtain Gemini completion from available models');
 }
 
 function extractSourcesForQuery(text: string) {

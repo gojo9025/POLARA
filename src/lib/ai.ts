@@ -85,3 +85,25 @@ export async function askPolarAI(options: {
 
   return await response.json();
 }
+
+export async function verifyGeminiKey(apiKey: string): Promise<{ valid: boolean; model?: string; message?: string; error?: string }> {
+  try {
+    const res = await fetch('/api/ai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'verify_key', apiKey }),
+    });
+    return await res.json();
+  } catch (err: unknown) {
+    return { valid: false, error: (err as Error).message };
+  }
+}
+
+export async function getServerAIStatus(): Promise<{ hasServerKey: boolean; engine: string; recommendedModel: string }> {
+  try {
+    const res = await fetch('/api/ai');
+    return await res.json();
+  } catch {
+    return { hasServerKey: false, engine: 'POLARA Neural RAG', recommendedModel: 'gemini-1.5-flash' };
+  }
+}
