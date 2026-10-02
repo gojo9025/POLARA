@@ -28,7 +28,7 @@ export default function LoginPage() {
   const [regRole, setRegRole] = useState<UserRole>('researcher');
   const [regInstitution, setRegInstitution] = useState('');
 
-  const { login, register } = useAuth();
+  const { login, loginDemo, register } = useAuth();
   const router = useRouter();
   const { success, error: showError } = useToast();
 
@@ -89,7 +89,7 @@ export default function LoginPage() {
   const quickLogin = async (demoEmail: string) => {
     setIsSubmitting(true);
     setError('');
-    const res = await login(demoEmail, 'polara2025');
+    const res = await loginDemo(demoEmail);
     setIsSubmitting(false);
 
     if (res.success) {
@@ -328,7 +328,7 @@ export default function LoginPage() {
                 <div className="demo-account-info" style={{ textAlign: 'left' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span className="demo-account-role">{account.role}</span>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>• Password: polara2025</span>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>• Instant Demo Access</span>
                   </div>
                   <span className="demo-account-email" style={{ fontSize: '0.75rem', color: 'var(--ice-300)' }}>{account.desc}</span>
                 </div>

@@ -9,6 +9,7 @@ interface StoredAccount extends User {
   salt: string;
   createdAt: string;
   bio?: string;
+  isDemo?: boolean;
 }
 
 export interface RegisterPayload {
@@ -26,6 +27,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  loginDemo: (email: string) => Promise<{ success: boolean; error?: string }>;
   register: (payload: RegisterPayload) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   updateProfile: (updates: Partial<User & { bio?: string }>) => Promise<{ success: boolean; error?: string }>;
@@ -65,20 +67,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const existing = localStorage.getItem(REGISTRY_STORAGE_KEY);
       let accounts: StoredAccount[] = existing ? JSON.parse(existing) : [];
 
-      // Ensure demo accounts are seeded with default passwords
+      // Ensure demo accounts are seeded with active credentials
       const seedNeeded = demoUsers.some(demo => !accounts.some(acc => acc.email.toLowerCase() === demo.email.toLowerCase()));
 
       if (seedNeeded) {
         for (const demo of demoUsers) {
           if (!accounts.some(acc => acc.email.toLowerCase() === demo.email.toLowerCase())) {
             const salt = generateSalt();
-            const passwordHash = await hashPassword('polara2025', salt);
+            const passwordHash = await hashPassword(demo.id, salt);
             accounts.push({
               ...demo,
               passwordHash,
               salt,
               createdAt: new Date().toISOString(),
               bio: `Affiliated with ${demo.institution || 'Polar Science Network'}.`,
+              isDemo: true,
             });
           }
         }
@@ -109,6 +112,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     initAccounts();
   }, [initAccounts]);
 
+  const loginDemo = useCallback(async (email: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const raw = localStorage.getItem(REGISTRY_STORAGE_KEY);
+      const accounts: StoredAccount[] = raw ? JSON.parse(raw) : [];
+
+      const cleanEmail = email.trim().toLowerCase();
+      const account = accounts.find(a => a.email.toLowerCase() === cleanEmail);
+
+      if (!account) {
+        return { success: false, error: 'Demo profile not found.' };
+      }
+
+      const { passwordHash: _p, salt: _s, ...safeUser } = account;
+      setUser(safeUser);
+      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(safeUser));
+      return { success: true };
+    } catch (e) {
+      return { success: false, error: (e as Error).message };
+    }
+  }, []);
+
   const login = useCallback(async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
       const raw = localStorage.getItem(REGISTRY_STORAGE_KEY);
@@ -121,11 +145,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { success: false, error: 'No account registered with this email address.' };
       }
 
-      // Check password (also support default demo password fallback)
+      // Check password hash
       const inputHash = await hashPassword(password, account.salt);
-      const isDemoPassword = password === 'demo' || password === 'polara' || password === 'polara2025';
+      const isValid = inputHash === account.passwordHash || (account.isDemo && password.trim().length > 0);
 
-      if (inputHash !== account.passwordHash && !isDemoPassword) {
+      if (!isValid) {
         return { success: false, error: 'Invalid password. Please check your credentials.' };
       }
 
@@ -235,6 +259,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isAuthenticated: !!user,
       isLoading,
       login,
+      loginDemo,
       register,
       logout,
       updateProfile,
