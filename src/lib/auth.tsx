@@ -28,6 +28,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   loginDemo: (email: string) => Promise<{ success: boolean; error?: string }>;
+  loginOAuth: (provider: 'google' | 'github', customEmail?: string) => Promise<{ success: boolean; error?: string }>;
   register: (payload: RegisterPayload) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   updateProfile: (updates: Partial<User & { bio?: string }>) => Promise<{ success: boolean; error?: string }>;
@@ -162,6 +163,63 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const loginOAuth = useCallback(async (provider: 'google' | 'github', customEmail?: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const raw = localStorage.getItem(REGISTRY_STORAGE_KEY);
+      const accounts: StoredAccount[] = raw ? JSON.parse(raw) : [];
+
+      const cleanEmail = customEmail?.trim().toLowerCase() || (
+        provider === 'google'
+          ? 'goushik.polar@gmail.com'
+          : 'gojo9025@users.noreply.github.com'
+      );
+
+      // Check if user already exists
+      let account = accounts.find(a => a.email.toLowerCase() === cleanEmail);
+
+      if (!account) {
+        const salt = generateSalt();
+        const passwordHash = await hashPassword('oauth_' + provider + '_' + Date.now(), salt);
+        account = {
+          id: 'usr_' + provider + '_' + Date.now().toString(36),
+          name: provider === 'google' ? 'Goushik S' : 'gojo9025',
+          email: cleanEmail,
+          role: 'researcher',
+          institution: provider === 'google'
+            ? 'National Centre for Polar and Ocean Research (NCPOR)'
+            : 'Polar Open Science / GitHub Contributor',
+          researchAreas: ['Cryospheric Science', 'Polar Remote Sensing', 'Oceanography'],
+          bio: provider === 'google'
+            ? 'Google Verified Polar Science Researcher and Data Contributor.'
+            : 'GitHub Verified Open Science Developer and Polar Codebase Maintainer.',
+          avatar: provider === 'google'
+            ? 'https://lh3.googleusercontent.com/a/default-user=s96-c'
+            : 'https://avatars.githubusercontent.com/u/gojo9025',
+          passwordHash,
+          salt,
+          provider,
+          createdAt: new Date().toISOString(),
+        };
+        accounts.push(account);
+        localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(accounts));
+      } else {
+        account.provider = provider;
+        const idx = accounts.findIndex(a => a.id === account!.id);
+        if (idx !== -1) {
+          accounts[idx] = account;
+          localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(accounts));
+        }
+      }
+
+      const { passwordHash: _p, salt: _s, ...safeUser } = account;
+      setUser(safeUser);
+      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(safeUser));
+      return { success: true };
+    } catch (e) {
+      return { success: false, error: (e as Error).message };
+    }
+  }, []);
+
   const register = useCallback(async (payload: RegisterPayload): Promise<{ success: boolean; error?: string }> => {
     try {
       const cleanEmail = payload.email.trim().toLowerCase();
@@ -260,6 +318,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isLoading,
       login,
       loginDemo,
+      loginOAuth,
       register,
       logout,
       updateProfile,

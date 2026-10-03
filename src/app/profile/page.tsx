@@ -81,11 +81,27 @@ export default function ProfilePage() {
               {user.name.charAt(0)}
             </div>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                 <h1 style={{ fontSize: '1.75rem', margin: 0 }}>{user.name}</h1>
                 <span className="badge badge-aurora" style={{ textTransform: 'capitalize' }}>
                   {user.role}
                 </span>
+                {user.provider && (
+                  <span className="badge" style={{
+                    background: user.provider === 'google' ? 'rgba(66, 133, 244, 0.15)' : 'rgba(30, 62, 98, 0.35)',
+                    border: `1px solid ${user.provider === 'google' ? 'rgba(66, 133, 244, 0.4)' : 'rgba(30, 62, 98, 0.6)'}`,
+                    color: user.provider === 'google' ? '#93c5fd' : '#e0e7ff',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    fontSize: '0.72rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    fontWeight: 600,
+                  }}>
+                    {user.provider === 'google' ? 'Google OAuth' : user.provider === 'github' ? 'GitHub SSO' : 'Email Auth'}
+                  </span>
+                )}
               </div>
               <p style={{ color: 'var(--text-secondary)', margin: '4px 0 0 0', fontSize: '0.95rem' }}>
                 {user.email} • {user.institution || 'Affiliation Pending'}
