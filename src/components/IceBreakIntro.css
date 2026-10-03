@@ -33,7 +33,7 @@
 .ice-break-aurora {
   position: absolute;
   inset: -20%;
-  background: radial-gradient(circle at 50% 25%, rgba(30, 62, 98, 0.45) 0%, rgba(11, 25, 44, 0.3) 40%, rgba(255, 101, 0, 0.05) 65%, transparent 75%);
+  background: radial-gradient(circle at 50% 25%, rgba(30, 62, 98, 0.45) 0%, rgba(11, 25, 44, 0.3) 40%, rgba(216, 201, 168, 0.05) 65%, transparent 75%);
   filter: blur(80px);
   animation: auroraBreath 10s ease-in-out infinite alternate;
 }
@@ -117,7 +117,7 @@
   font-size: 0.625rem;
   font-weight: 800;
   border-radius: 9999px;
-  background: #FF6500;
+  background: #D8C9A8;
   color: #000000;
 }
 
@@ -204,7 +204,7 @@
   stroke: #ffffff;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 8px #1E3E62) drop-shadow(0 0 16px rgba(255, 101, 0, 0.4));
+  filter: drop-shadow(0 0 8px #1E3E62) drop-shadow(0 0 16px rgba(216, 201, 168, 0.4));
   stroke-dasharray: 1200;
   stroke-dashoffset: 1200;
   animation: crackTravel 0.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
@@ -244,7 +244,7 @@
 .ice-shockwave-flash {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 101, 0, 0.6) 35%, rgba(30, 62, 98, 0.5) 60%, transparent 80%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(216, 201, 168, 0.6) 35%, rgba(30, 62, 98, 0.5) 60%, transparent 80%);
   mix-blend-mode: screen;
   pointer-events: none;
   animation: shockFlash 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -319,7 +319,7 @@
 }
 
 .hud-badge svg {
-  color: #FF6500;
+  color: #D8C9A8;
 }
 
 .hud-snowflake {
@@ -348,8 +348,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #FF6500;
-  box-shadow: 0 0 8px #FF6500;
+  background: #D8C9A8;
+  box-shadow: 0 0 8px #D8C9A8;
   animation: pulseAmber 2s infinite;
 }
 
@@ -386,7 +386,6 @@
   flex-wrap: wrap;
 }
 
-/* 21st.dev Style Border Beam Button */
 .break-ice-btn {
   position: relative;
   display: inline-flex;
@@ -398,13 +397,13 @@
   border: none;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 0 25px rgba(255, 101, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 25px rgba(216, 201, 168, 0.3), 0 10px 30px rgba(0, 0, 0, 0.7);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .break-ice-btn:hover:not(:disabled) {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 35px rgba(255, 101, 0, 0.55), 0 15px 40px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 35px rgba(216, 201, 168, 0.55), 0 15px 40px rgba(0, 0, 0, 0.8);
 }
 
 .break-ice-btn:active:not(:disabled) {
@@ -419,7 +418,7 @@
 .btn-border-beam {
   position: absolute;
   inset: -100%;
-  background: conic-gradient(from 0deg, transparent 0deg, #1E3E62 60deg, #FF6500 120deg, #1E3E62 180deg, transparent 240deg);
+  background: conic-gradient(from 0deg, transparent 0deg, #1E3E62 60deg, #D8C9A8 120deg, #1E3E62 180deg, transparent 240deg);
   animation: spinBeam 3.5s linear infinite;
 }
 
@@ -445,7 +444,7 @@
 }
 
 .btn-icon-pulse {
-  color: #FF6500;
+  color: #D8C9A8;
   animation: pulseStar 1.8s infinite;
 }
 
@@ -474,7 +473,7 @@
 .sound-toggle-btn:hover {
   background: rgba(30, 62, 98, 0.45);
   border-color: #1E3E62;
-  color: #FF6500;
+  color: #F5EFE3;
 }
 
 /* Skip Button */

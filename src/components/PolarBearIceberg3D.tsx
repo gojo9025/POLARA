@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { Sparkles, Eye, Sun, Moon, CloudSnow, Wind, Maximize2, Minimize2 } from 'lucide-react';
 import './PolarBearIceberg3D.css';
 
@@ -20,14 +21,14 @@ export default function PolarBearIceberg3D({
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // HUD Interactive States
-  const [atmosphere, setAtmosphere] = useState<'aurora' | 'day' | 'twilight'>('aurora');
+  const [atmosphere, setAtmosphere] = useState<'aurora' | 'day' | 'twilight'>('day');
   const [weather, setWeather] = useState<'flurry' | 'blizzard' | 'calm'>('flurry');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isWalking, setIsWalking] = useState(true);
   const [bearingHeading, setBearingHeading] = useState(78);
 
   const sceneStateRef = useRef({
-    atmosphere: 'aurora',
+    atmosphere: 'day',
     weather: 'flurry',
     isWalking: true,
     mouse: { x: 0, y: 0, targetX: 0, targetY: 0 },
@@ -217,394 +218,170 @@ export default function PolarBearIceberg3D({
     oceanMesh.position.y = 0;
     scene.add(oceanMesh);
 
-    // 5. Articulated Anatomically Accurate 3D Polar Bear (Ursus maritimus)
+    // 5. Realistic 3D Polar Bear Model Loading
     const bearGroup = new THREE.Group();
     bearGroup.position.set(0, 1.6, 0); // Position atop the iceberg plateau
     icebergGroup.add(bearGroup);
 
-    // Premium Multi-Layered Polar Bear Fur & Anatomical Materials
-    const bearFurMat = new THREE.MeshPhysicalMaterial({
-      color: 0xf5f3ea, // Realistic natural creamy-white polar coat
-      roughness: 0.74,
-      metalness: 0.03,
-      sheen: 0.9,
-      sheenColor: new THREE.Color(0xffffff),
-      sheenRoughness: 0.45,
-      clearcoat: 0.05,
-      clearcoatRoughness: 0.4,
-      flatShading: false,
-    });
+    // Procedural Penguins
+    function createPenguin() {
+      const group = new THREE.Group();
+      
+      // Body (Black Capsule)
+      const bodyGeo = new THREE.CapsuleGeometry(0.3, 0.6, 4, 12);
+      const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.8 });
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      body.position.y = 0.6;
+      group.add(body);
 
-    const bearFurDenseMat = new THREE.MeshPhysicalMaterial({
-      color: 0xeae6da, // Slightly warmer undertone for shoulders and withers
-      roughness: 0.78,
-      metalness: 0.02,
-      sheen: 0.75,
-      sheenColor: new THREE.Color(0xfcfbf7),
-    });
+      // Belly (White Capsule)
+      const bellyGeo = new THREE.CapsuleGeometry(0.26, 0.55, 4, 12);
+      const bellyMat = new THREE.MeshStandardMaterial({ color: 0xeeeeee, roughness: 0.9 });
+      const belly = new THREE.Mesh(bellyGeo, bellyMat);
+      belly.position.set(0, 0.58, 0.1);
+      group.add(belly);
 
-    const bearMuzzleMat = new THREE.MeshPhysicalMaterial({
-      color: 0xfaf9f5, // Clean frosty muzzle fur
-      roughness: 0.65,
-      metalness: 0.02,
-      sheen: 0.8,
-      sheenColor: new THREE.Color(0xffffff),
-    });
+      // Eyes (White spheres)
+      const eyeGeo = new THREE.SphereGeometry(0.05, 8, 8);
+      const eyeMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+      const pupilGeo = new THREE.SphereGeometry(0.02, 8, 8);
+      const pupilMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+      
+      const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+      rightEye.position.set(0.12, 1.05, 0.25);
+      const rightPupil = new THREE.Mesh(pupilGeo, pupilMat);
+      rightPupil.position.set(0.01, 0, 0.04);
+      rightEye.add(rightPupil);
+      group.add(rightEye);
 
-    const bearDarkMat = new THREE.MeshStandardMaterial({
-      color: 0x111215, // Leathery charcoal-black for rhinarium (nose) and lips
-      roughness: 0.35,
-      metalness: 0.15,
-    });
+      const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+      leftEye.position.set(-0.12, 1.05, 0.25);
+      const leftPupil = new THREE.Mesh(pupilGeo, pupilMat);
+      leftPupil.position.set(-0.01, 0, 0.04);
+      leftEye.add(leftPupil);
+      group.add(leftEye);
 
-    const bearClawMat = new THREE.MeshStandardMaterial({
-      color: 0x18181c, // Keratin dark claws
-      roughness: 0.28,
-      metalness: 0.2,
-    });
+      // Beak (Orange Cone)
+      const beakGeo = new THREE.ConeGeometry(0.08, 0.2, 8);
+      const beakMat = new THREE.MeshStandardMaterial({ color: 0xff8800 });
+      const beak = new THREE.Mesh(beakGeo, beakMat);
+      beak.rotation.x = Math.PI / 2;
+      beak.position.set(0, 0.95, 0.35);
+      group.add(beak);
 
-    const bearEyeMat = new THREE.MeshPhysicalMaterial({
-      color: 0x06070a, // Dark expressive polar bear eye
-      roughness: 0.03,
-      metalness: 0.1,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.04,
-    });
+      // Flippers (Black flattened capsules)
+      const flipperGeo = new THREE.CapsuleGeometry(0.1, 0.4, 4, 8);
+      const rightFlipper = new THREE.Mesh(flipperGeo, bodyMat);
+      rightFlipper.position.set(0.35, 0.6, 0);
+      rightFlipper.rotation.z = -Math.PI / 8;
+      group.add(rightFlipper);
 
-    // Main Torso Root Group (attached to bearGroup and referenced for breathing/bobbing)
-    const torsoMesh = new THREE.Group();
-    torsoMesh.position.set(0, 0.82, 0);
-    bearGroup.add(torsoMesh);
+      const leftFlipper = new THREE.Mesh(flipperGeo, bodyMat);
+      leftFlipper.position.set(-0.35, 0.6, 0);
+      leftFlipper.rotation.z = Math.PI / 8;
+      group.add(leftFlipper);
 
-    // Deep Thoracic Ribcage (polar bears have a deep, hydrodynamic chest for diving and swimming)
-    const ribcageGeo = new THREE.CylinderGeometry(0.46, 0.52, 0.92, 18, 6);
-    ribcageGeo.rotateZ(Math.PI / 2);
-    const ribcage = new THREE.Mesh(ribcageGeo, bearFurMat);
-    ribcage.position.set(0.12, 0.02, 0);
-    ribcage.scale.set(1.0, 1.14, 0.90);
-    ribcage.castShadow = true;
-    ribcage.receiveShadow = true;
-    torsoMesh.add(ribcage);
+      // Feet (Orange flattened cones)
+      const footGeo = new THREE.ConeGeometry(0.15, 0.3, 3);
+      const rightFoot = new THREE.Mesh(footGeo, beakMat);
+      rightFoot.rotation.x = -Math.PI / 2;
+      rightFoot.position.set(0.15, 0.05, 0.15);
+      group.add(rightFoot);
 
-    // Pronounced Shoulder Hump (Withers) - Signature of Ursus (polar & grizzly bears)
-    const withersGeo = new THREE.SphereGeometry(0.42, 16, 14);
-    const withers = new THREE.Mesh(withersGeo, bearFurDenseMat);
-    withers.position.set(0.42, 0.32, 0);
-    withers.scale.set(1.15, 0.92, 0.82);
-    withers.castShadow = true;
-    torsoMesh.add(withers);
+      const leftFoot = new THREE.Mesh(footGeo, beakMat);
+      leftFoot.rotation.x = -Math.PI / 2;
+      leftFoot.position.set(-0.15, 0.05, 0.15);
+      group.add(leftFoot);
 
-    // Pectoral Muscle Girdle (under chest between front legs)
-    const pectoralGeo = new THREE.BoxGeometry(0.65, 0.30, 0.60);
-    const pectoral = new THREE.Mesh(pectoralGeo, bearFurMat);
-    pectoral.position.set(0.36, -0.16, 0);
-    pectoral.castShadow = true;
-    torsoMesh.add(pectoral);
-
-    // Lumbar & Flank (tapers upward into the loin, preventing the flat cow belly)
-    const flankGeo = new THREE.CylinderGeometry(0.42, 0.47, 0.62, 16, 4);
-    flankGeo.rotateZ(Math.PI / 2);
-    const flank = new THREE.Mesh(flankGeo, bearFurMat);
-    flank.position.set(-0.46, 0.04, 0);
-    flank.scale.set(1.0, 1.05, 0.86);
-    flank.castShadow = true;
-    torsoMesh.add(flank);
-
-    // Pelvic Haunches / Broad Muscular Rump
-    const rumpGeo = new THREE.SphereGeometry(0.48, 16, 14);
-    const rump = new THREE.Mesh(rumpGeo, bearFurDenseMat);
-    rump.position.set(-0.74, 0.06, 0);
-    rump.scale.set(1.08, 1.05, 0.88);
-    rump.castShadow = true;
-    torsoMesh.add(rump);
-
-    // Stubby Furry Tail (tucked tight against the rump, angled downwards)
-    const tailGroup = new THREE.Group();
-    tailGroup.position.set(-1.16, 0.12, 0);
-    tailGroup.rotation.z = -Math.PI / 3.8;
-    const tailGeo = new THREE.ConeGeometry(0.08, 0.20, 10);
-    const tailMesh = new THREE.Mesh(tailGeo, bearFurMat);
-    tailMesh.position.y = -0.08;
-    tailMesh.castShadow = true;
-    tailGroup.add(tailMesh);
-    torsoMesh.add(tailGroup);
-
-    // Neck & Head Pivot Group (Organically anchored to the shoulder hump)
-    const headPivot = new THREE.Group();
-    headPivot.position.set(0.80, 1.02, 0);
-    bearGroup.add(headPivot);
-
-    // Elongated muscular swimming neck (distinctive to Polar Bears)
-    const neckGeo = new THREE.CylinderGeometry(0.30, 0.42, 0.65, 16);
-    neckGeo.rotateZ(-Math.PI / 4.2);
-    const neckMesh = new THREE.Mesh(neckGeo, bearFurDenseMat);
-    neckMesh.position.set(0.18, -0.04, 0);
-    neckMesh.scale.set(1.0, 1.15, 0.88);
-    neckMesh.castShadow = true;
-    headPivot.add(neckMesh);
-
-    // Throat Dewlap / Thick fur along lower neck
-    const throatGeo = new THREE.CylinderGeometry(0.22, 0.34, 0.54, 12);
-    throatGeo.rotateZ(-Math.PI / 4.4);
-    const throatMesh = new THREE.Mesh(throatGeo, bearFurMat);
-    throatMesh.position.set(0.18, -0.16, 0);
-    throatMesh.scale.set(1.0, 0.8, 0.75);
-    headPivot.add(throatMesh);
-
-    // Elongated Roman-Profile Skull (Flat top, sloping brow, wide jaw muscles)
-    const skullGroup = new THREE.Group();
-    skullGroup.position.set(0.48, 0.16, 0);
-    headPivot.add(skullGroup);
-
-    // Cranium
-    const craniumGeo = new THREE.SphereGeometry(0.29, 16, 14);
-    const cranium = new THREE.Mesh(craniumGeo, bearFurMat);
-    cranium.scale.set(1.22, 0.85, 0.86); // Flattened, elongated skull
-    cranium.castShadow = true;
-    skullGroup.add(cranium);
-
-    // Broad Zygomatic Cheeks (jaw muscle mass)
-    const cheekL = new THREE.Mesh(new THREE.SphereGeometry(0.15, 10, 10), bearFurMat);
-    cheekL.position.set(-0.02, -0.06, 0.17);
-    cheekL.scale.set(1.1, 0.8, 0.7);
-    skullGroup.add(cheekL);
-
-    const cheekR = new THREE.Mesh(new THREE.SphereGeometry(0.15, 10, 10), bearFurMat);
-    cheekR.position.set(-0.02, -0.06, -0.17);
-    cheekR.scale.set(1.1, 0.8, 0.7);
-    skullGroup.add(cheekR);
-
-    // Substantial Polar Bear Muzzle (Boxy, wedge-shaped predator snout - NOT a cone!)
-    const muzzleGeo = new THREE.BoxGeometry(0.40, 0.21, 0.25);
-    const muzzle = new THREE.Mesh(muzzleGeo, bearMuzzleMat);
-    muzzle.position.set(0.30, -0.04, 0);
-    muzzle.castShadow = true;
-    skullGroup.add(muzzle);
-
-    // Upper Nasal Bridge (Smooth slope from forehead to nose tip)
-    const bridgeGeo = new THREE.CylinderGeometry(0.12, 0.19, 0.36, 12);
-    bridgeGeo.rotateZ(-Math.PI / 2);
-    const bridge = new THREE.Mesh(bridgeGeo, bearMuzzleMat);
-    bridge.position.set(0.22, 0.05, 0);
-    bridge.scale.set(1.0, 0.8, 0.95);
-    skullGroup.add(bridge);
-
-    // Lower Mandible / Chin with dark lip line
-    const chinGeo = new THREE.BoxGeometry(0.32, 0.085, 0.21);
-    const chin = new THREE.Mesh(chinGeo, bearMuzzleMat);
-    chin.position.set(0.26, -0.145, 0);
-    skullGroup.add(chin);
-
-    // Dark Lip Seam (Subtle line between upper muzzle and jaw)
-    const lipGeo = new THREE.BoxGeometry(0.34, 0.02, 0.23);
-    const lip = new THREE.Mesh(lipGeo, bearDarkMat);
-    lip.position.set(0.29, -0.10, 0);
-    skullGroup.add(lip);
-
-    // Broad Leathery Polar Bear Nose (Rhinarium)
-    const rhinariumGroup = new THREE.Group();
-    rhinariumGroup.position.set(0.50, -0.01, 0);
-    skullGroup.add(rhinariumGroup);
-
-    const nosePadGeo = new THREE.BoxGeometry(0.08, 0.11, 0.17);
-    const nosePad = new THREE.Mesh(nosePadGeo, bearDarkMat);
-    nosePad.rotation.z = -0.15;
-    rhinariumGroup.add(nosePad);
-
-    // Nostril recesses (left & right)
-    const nostrilGeo = new THREE.SphereGeometry(0.022, 8, 8);
-    nostrilGeo.scale(0.8, 1.2, 0.7);
-    const nostrilL = new THREE.Mesh(nostrilGeo, new THREE.MeshBasicMaterial({ color: 0x050507 }));
-    nostrilL.position.set(0.042, -0.01, 0.048);
-    rhinariumGroup.add(nostrilL);
-
-    const nostrilR = new THREE.Mesh(nostrilGeo, new THREE.MeshBasicMaterial({ color: 0x050507 }));
-    nostrilR.position.set(0.042, -0.01, -0.048);
-    rhinariumGroup.add(nostrilR);
-
-    // Eyes: Deep-set, dark almond eyes with dark orbital rim fur
-    const createEye = (isLeft: boolean) => {
-      const eyeZ = isLeft ? 0.16 : -0.16;
-      // Dark orbital fur ring
-      const orbitGeo = new THREE.RingGeometry(0.022, 0.052, 12);
-      orbitGeo.rotateY(isLeft ? Math.PI / 2 : -Math.PI / 2);
-      const orbit = new THREE.Mesh(orbitGeo, bearDarkMat);
-      orbit.position.set(0.14, 0.08, eyeZ);
-      skullGroup.add(orbit);
-
-      // Eye eyeball
-      const eyeSphere = new THREE.Mesh(new THREE.SphereGeometry(0.032, 10, 10), bearEyeMat);
-      eyeSphere.position.set(0.145, 0.08, eyeZ);
-      skullGroup.add(eyeSphere);
-
-      // Subtle brow ridge above eye
-      const browGeo = new THREE.BoxGeometry(0.11, 0.035, 0.055);
-      const brow = new THREE.Mesh(browGeo, bearFurDenseMat);
-      brow.position.set(0.12, 0.12, eyeZ);
-      brow.rotation.z = 0.15;
-      skullGroup.add(brow);
-    };
-    createEye(true);
-    createEye(false);
-
-    // Ears: Small, rounded, thick-furred cups (arctic cold adaptation)
-    const createEar = (isLeft: boolean) => {
-      const earGroup = new THREE.Group();
-      const earZ = isLeft ? 0.21 : -0.21;
-      earGroup.position.set(-0.06, 0.23, earZ);
-      earGroup.rotation.y = isLeft ? 0.35 : -0.35;
-      earGroup.rotation.x = isLeft ? 0.2 : -0.2;
-
-      // Outer fur cup
-      const outerEarGeo = new THREE.SphereGeometry(0.08, 10, 10);
-      outerEarGeo.scale(0.6, 1.1, 0.7);
-      const outerEar = new THREE.Mesh(outerEarGeo, bearFurDenseMat);
-      outerEar.castShadow = true;
-      earGroup.add(outerEar);
-
-      // Inner ear recess
-      const innerEarGeo = new THREE.SphereGeometry(0.05, 8, 8);
-      innerEarGeo.scale(0.4, 0.9, 0.5);
-      const innerEar = new THREE.Mesh(innerEarGeo, new THREE.MeshStandardMaterial({ color: 0x4a433e, roughness: 0.9 }));
-      innerEar.position.set(0.02, 0, 0);
-      earGroup.add(innerEar);
-
-      skullGroup.add(earGroup);
-    };
-    createEar(true);
-    createEar(false);
-
-    // Legs & Paws (Front Left, Front Right, Back Left, Back Right)
-    const createLeg = (isFront: boolean, isLeft: boolean) => {
-      const legGroup = new THREE.Group();
-      const zOffset = isLeft ? 0.35 : -0.35;
-      const xOffset = isFront ? 0.56 : -0.64;
-      legGroup.position.set(xOffset, 0.82, zOffset);
-
-      if (isFront) {
-        // FRONT FORELEG: Heavy shoulder deltoid, straight muscular column, huge snowshoe paw
-        const deltoidGeo = new THREE.SphereGeometry(0.24, 12, 10);
-        deltoidGeo.scale(1.0, 1.25, 0.85);
-        const deltoid = new THREE.Mesh(deltoidGeo, bearFurDenseMat);
-        deltoid.position.set(0, -0.12, 0);
-        deltoid.castShadow = true;
-        legGroup.add(deltoid);
-
-        const forearmGeo = new THREE.CylinderGeometry(0.18, 0.16, 0.52, 12);
-        const forearm = new THREE.Mesh(forearmGeo, bearFurMat);
-        forearm.position.y = -0.44;
-        forearm.castShadow = true;
-        legGroup.add(forearm);
-
-        // Huge broad snowshoe front paw (up to 30 cm in wild polar bears)
-        const pawGroup = new THREE.Group();
-        pawGroup.position.set(0.08, -0.74, 0);
-        legGroup.add(pawGroup);
-
-        // Main Paw Pad (flattened, rounded)
-        const pawPadGeo = new THREE.CylinderGeometry(0.21, 0.23, 0.11, 14);
-        pawPadGeo.scale(1.25, 1.0, 0.95);
-        const pawPad = new THREE.Mesh(pawPadGeo, bearFurMat);
-        pawPad.castShadow = true;
-        pawGroup.add(pawPad);
-
-        // Dark sole / plantar pad underneath
-        const soleGeo = new THREE.CylinderGeometry(0.17, 0.18, 0.02, 12);
-        soleGeo.scale(1.2, 1.0, 0.9);
-        const sole = new THREE.Mesh(soleGeo, bearDarkMat);
-        sole.position.y = -0.055;
-        pawGroup.add(sole);
-
-        // 5 Front Toes with Curved Dark Keratin Claws
-        for (let t = 0; t < 5; t++) {
-          const toeAngle = ((t - 2) / 2) * 0.42;
-          const toeDist = 0.23;
-          const tx = Math.cos(toeAngle) * toeDist;
-          const tz = Math.sin(toeAngle) * toeDist * 0.9;
-
-          const toeSphere = new THREE.Mesh(new THREE.SphereGeometry(0.052, 8, 8), bearFurMat);
-          toeSphere.position.set(tx, -0.01, tz);
-          toeSphere.scale.set(1.1, 0.9, 0.9);
-          pawGroup.add(toeSphere);
-
-          const clawGeo = new THREE.ConeGeometry(0.021, 0.08, 6);
-          clawGeo.rotateZ(-Math.PI / 2.3);
-          const claw = new THREE.Mesh(clawGeo, bearClawMat);
-          claw.position.set(tx + 0.06, -0.03, tz);
-          pawGroup.add(claw);
+      // Enable shadows
+      group.traverse(child => {
+        if (child instanceof THREE.Mesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
         }
+      });
 
-        return { group: legGroup, upper: deltoid, lower: forearm, paw: pawGroup };
-      } else {
-        // HIND LEG: Broad muscular haunch/thigh, angled stifle (knee), backward hock joint
-        const thighGeo = new THREE.SphereGeometry(0.27, 12, 10);
-        thighGeo.scale(0.9, 1.35, 0.85);
-        const thigh = new THREE.Mesh(thighGeo, bearFurDenseMat);
-        thigh.position.set(0, -0.12, 0);
-        thigh.castShadow = true;
-        legGroup.add(thigh);
+      // Scale down to match realistic size compared to bear
+      group.scale.set(0.5, 0.5, 0.5);
 
-        // Calf / lower leg with natural stifle angle
-        const calfGeo = new THREE.CylinderGeometry(0.17, 0.15, 0.48, 12);
-        calfGeo.rotateZ(0.14);
-        const calf = new THREE.Mesh(calfGeo, bearFurMat);
-        calf.position.set(-0.03, -0.42, 0);
-        calf.castShadow = true;
-        legGroup.add(calf);
+      return group;
+    }
 
-        // Prominent Hock Joint (Bear Heel)
-        const hockGeo = new THREE.SphereGeometry(0.10, 8, 8);
-        const hock = new THREE.Mesh(hockGeo, bearFurDenseMat);
-        hock.position.set(-0.09, -0.55, 0);
-        legGroup.add(hock);
+    const penguins: THREE.Group[] = [];
+    const penguinPositions = [
+      { x: 1.5, z: 2.5, rotY: -Math.PI / 4 },
+      { x: -2.0, z: 1.8, rotY: Math.PI / 3 },
+      { x: 2.2, z: -1.5, rotY: -Math.PI * 0.8 },
+      { x: -1.2, z: -2.2, rotY: Math.PI * 0.9 },
+      { x: 2.5, z: 2.0, rotY: -Math.PI / 3 },
+    ];
 
-        // Elongated Hind Snowshoe Paw
-        const pawGroup = new THREE.Group();
-        pawGroup.position.set(0.04, -0.74, 0);
-        legGroup.add(pawGroup);
+    penguinPositions.forEach(pos => {
+      const penguin = createPenguin();
+      penguin.position.set(pos.x, 1.4, pos.z);
+      penguin.rotation.y = pos.rotY;
+      icebergGroup.add(penguin);
+      penguins.push(penguin);
+    });
 
-        const pawPadGeo = new THREE.CylinderGeometry(0.18, 0.20, 0.10, 14);
-        pawPadGeo.scale(1.35, 1.0, 0.88);
-        const pawPad = new THREE.Mesh(pawPadGeo, bearFurMat);
-        pawPad.castShadow = true;
-        pawGroup.add(pawPad);
+    let mixer: THREE.AnimationMixer | null = null;
+    let bearModel: THREE.Object3D | null = null;
+    
+    // Fallback mesh while loading or if missing
+    const fallbackGeo = new THREE.CylinderGeometry(0.5, 0.8, 1.5, 16);
+    const fallbackMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.1, transmission: 0.9, thickness: 0.5 });
+    const fallbackMesh = new THREE.Mesh(fallbackGeo, fallbackMat);
+    fallbackMesh.position.y = 0.75;
+    bearGroup.add(fallbackMesh);
 
-        const sole = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.16, 0.02, 12), bearDarkMat);
-        sole.position.y = -0.052;
-        pawGroup.add(sole);
+    try {
+      const loader = new GLTFLoader();
+      loader.load(
+        '/images/polar.glb',
+        (gltf) => {
+          bearGroup.remove(fallbackMesh);
+          bearModel = gltf.scene;
+          
+          // Auto-scale and center the model dynamically regardless of its original exported size
+          const box = new THREE.Box3().setFromObject(bearModel);
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const center = box.getCenter(new THREE.Vector3());
+          
+          const targetSize = 2.2; // Ideal size for the iceberg
+          const scale = targetSize / maxDim;
+          bearModel.scale.setScalar(scale);
+          
+          bearModel.position.x = -center.x * scale;
+          bearModel.position.y = -center.y * scale + (size.y * scale) / 2; // Sit on top of ice
+          bearModel.position.z = -center.z * scale;
+          
+          bearModel.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+            }
+          });
 
-        // 5 Hind Toes with Claws
-        for (let t = 0; t < 5; t++) {
-          const toeAngle = ((t - 2) / 2) * 0.38;
-          const toeDist = 0.21;
-          const tx = Math.cos(toeAngle) * toeDist;
-          const tz = Math.sin(toeAngle) * toeDist * 0.85;
+          bearGroup.add(bearModel);
 
-          const toeSphere = new THREE.Mesh(new THREE.SphereGeometry(0.048, 8, 8), bearFurMat);
-          toeSphere.position.set(tx, -0.01, tz);
-          toeSphere.scale.set(1.1, 0.9, 0.9);
-          pawGroup.add(toeSphere);
-
-          const clawGeo = new THREE.ConeGeometry(0.019, 0.07, 6);
-          clawGeo.rotateZ(-Math.PI / 2.3);
-          const claw = new THREE.Mesh(clawGeo, bearClawMat);
-          claw.position.set(tx + 0.05, -0.03, tz);
-          pawGroup.add(claw);
+          // Setup Animations if present
+          if (gltf.animations && gltf.animations.length > 0) {
+            mixer = new THREE.AnimationMixer(bearModel);
+            // Try to find a walking animation, fallback to first
+            const walkAnim = gltf.animations.find(a => a.name.toLowerCase().includes('walk')) || gltf.animations[0];
+            const action = mixer.clipAction(walkAnim);
+            action.play();
+          }
+        },
+        undefined,
+        (error) => {
+          console.warn("Could not load polar_bear.glb. Ensure it is placed in public/images/", error);
         }
-
-        return { group: legGroup, upper: thigh, lower: calf, paw: pawGroup };
-      }
-    };
-
-    const legFL = createLeg(true, true);
-    const legFR = createLeg(true, false);
-    const legBL = createLeg(false, true);
-    const legBR = createLeg(false, false);
-
-    bearGroup.add(legFL.group);
-    bearGroup.add(legFR.group);
-    bearGroup.add(legBL.group);
-    bearGroup.add(legBR.group);
+      );
+    } catch (e) {
+      console.error(e);
+    }
 
     // 6. Aurora Borealis Sky Ribbons (Undulating Curtains in the Sky)
     const auroraGroup = new THREE.Group();
@@ -773,6 +550,13 @@ export default function PolarBearIceberg3D({
       camera.position.lerp(new THREE.Vector3(targetCamX, targetCamY, targetCamZ), 0.05);
       camera.lookAt(0, 1.4, 0);
 
+      // Animate Penguins waddling/breathing
+      penguins.forEach((penguin, i) => {
+        const offset = i * Math.PI / 2;
+        penguin.rotation.z = Math.sin(elapsed * 2 + offset) * 0.05;
+        penguin.position.y = 1.4 + Math.abs(Math.sin(elapsed * 4 + offset)) * 0.03;
+      });
+
       // Iceberg Buoyancy Physics (gentle floating)
       icebergGroup.position.y = Math.sin(elapsed * 0.8) * 0.08;
       icebergGroup.rotation.z = Math.sin(elapsed * 0.5) * 0.015;
@@ -797,10 +581,12 @@ export default function PolarBearIceberg3D({
       }
       oceanMesh.geometry.attributes.position.needsUpdate = true;
 
-      // Polar Bear Walking Kinematics & Movement
-      if (state.isWalking) {
-        walkCycle += delta * 3.8;
+      // Polar Bear Kinematics & Movement (GLTF)
+      if (mixer) {
+        mixer.update(delta);
+      }
 
+      if (state.isWalking) {
         // Polar Bear traversing back and forth on the iceberg plateau
         bearTravelX += delta * 0.35 * bearDirection;
         if (bearTravelX > 1.2) {
@@ -810,51 +596,17 @@ export default function PolarBearIceberg3D({
         }
 
         bearGroup.position.x = bearTravelX;
-        // Smoothly rotate bear toward walking direction
-        const targetRotY = bearDirection > 0 ? 0 : Math.PI;
+        
+        // Ensure bear turns around properly. Most downloaded GLTFs face +Z.
+        // If walking +X, it needs to rotate Math.PI/2.
+        const targetRotY = bearDirection > 0 ? Math.PI / 2 : -Math.PI / 2;
         bearGroup.rotation.y = THREE.MathUtils.lerp(bearGroup.rotation.y, targetRotY, 0.08);
-
-        // Quadruped Leg Swing (Natural alternating predator gait)
-        const swingL = Math.sin(walkCycle) * 0.35;
-        const swingR = Math.sin(walkCycle + Math.PI) * 0.35;
-
-        legFL.group.rotation.z = swingL;
-        legFL.paw.rotation.z = -swingL * 0.35;
-        legBR.group.rotation.z = swingL * 0.82;
-        legBR.paw.rotation.z = -swingL * 0.28;
-
-        legFR.group.rotation.z = swingR;
-        legFR.paw.rotation.z = -swingR * 0.35;
-        legBL.group.rotation.z = swingR * 0.82;
-        legBL.paw.rotation.z = -swingR * 0.28;
-
-        // Spine and Torso Natural Bobbing
-        torsoMesh.position.y = 0.82 + Math.abs(Math.sin(walkCycle * 2)) * 0.035;
-        torsoMesh.rotation.x = Math.sin(walkCycle) * 0.025;
-        headPivot.rotation.z = Math.sin(walkCycle) * 0.035;
-      } else {
-        // Idle breathing when paused
-        legFL.group.rotation.z = 0;
-        legFL.paw.rotation.z = 0;
-        legFR.group.rotation.z = 0;
-        legFR.paw.rotation.z = 0;
-        legBL.group.rotation.z = 0;
-        legBL.paw.rotation.z = 0;
-        legBR.group.rotation.z = 0;
-        legBR.paw.rotation.z = 0;
-        torsoMesh.position.y = 0.82 + Math.sin(elapsed * 1.5) * 0.018;
-        headPivot.rotation.z = 0;
       }
 
-      // Breathing Chest Expansion (Organic respiration)
-      const breath = 1 + Math.sin(elapsed * 1.8) * 0.028;
-      torsoMesh.scale.set(breath, breath, 1);
-
-      // Bear Head Tracking Cursor Position organically
-      const headTargetY = (state.mouse.x * 0.45 * bearDirection);
-      const headTargetX = (-state.mouse.y * 0.35);
-      headPivot.rotation.y = THREE.MathUtils.lerp(headPivot.rotation.y, headTargetY, 0.08);
-      headPivot.rotation.x = THREE.MathUtils.lerp(headPivot.rotation.x, headTargetX, 0.08);
+      // Bear Tracking Cursor Position slightly
+      const targetZ = (state.mouse.x * 0.1 * bearDirection);
+      const targetX = (-state.mouse.y * 0.1);
+      bearGroup.rotation.z = THREE.MathUtils.lerp(bearGroup.rotation.z, targetX, 0.05);
 
       // Update Bearing Heading in state
       const currentHeading = Math.round(((bearGroup.rotation.y + Math.PI) / (Math.PI * 2)) * 360) % 360;
@@ -906,102 +658,6 @@ export default function PolarBearIceberg3D({
       className={`polar-bear-3d-wrapper ${isFullscreen ? 'fullscreen-mode' : ''} ${className}`}
     >
       <canvas ref={canvasRef} className="polar-bear-canvas" />
-
-      {/* 21st.dev Style Floating Holographic HUD Overlay */}
-      <div className="hud-overlay-capsule">
-        {/* Left: Station & Bearing Compass */}
-        <div className="hud-capsule-item">
-          <span className="live-pulse-dot" />
-          <div className="hud-metric-col">
-            <span className="hud-label">ICE-FLOE GPS</span>
-            <span className="hud-val">79°02′N, 11°34′E</span>
-          </div>
-        </div>
-
-        <div className="hud-capsule-sep" />
-
-        {/* Center: Interactive Mode Switchers */}
-        <div className="hud-controls-group">
-          {/* Atmosphere Button */}
-          <div className="hud-btn-toggle">
-            <button
-              className={`hud-mode-pill ${atmosphere === 'aurora' ? 'active' : ''}`}
-              onClick={() => setAtmosphere('aurora')}
-              title="Aurora Borealis Night"
-            >
-              <Sparkles size={13} />
-              <span>Aurora</span>
-            </button>
-            <button
-              className={`hud-mode-pill ${atmosphere === 'twilight' ? 'active' : ''}`}
-              onClick={() => setAtmosphere('twilight')}
-              title="Arctic Twilight Sunset"
-            >
-              <Moon size={13} />
-              <span>Twilight</span>
-            </button>
-            <button
-              className={`hud-mode-pill ${atmosphere === 'day' ? 'active' : ''}`}
-              onClick={() => setAtmosphere('day')}
-              title="Midnight Sun Daylight"
-            >
-              <Sun size={13} />
-              <span>Day</span>
-            </button>
-          </div>
-
-          {/* Weather Toggle */}
-          <div className="hud-btn-toggle">
-            <button
-              className={`hud-mode-pill ${weather === 'flurry' ? 'active' : ''}`}
-              onClick={() => setWeather('flurry')}
-              title="Flurry Snow"
-            >
-              <CloudSnow size={13} />
-            </button>
-            <button
-              className={`hud-mode-pill ${weather === 'blizzard' ? 'active' : ''}`}
-              onClick={() => setWeather('blizzard')}
-              title="Blizzard Gale"
-            >
-              <Wind size={13} />
-            </button>
-          </div>
-
-          {/* Bear Walk / Rest Toggle */}
-          <button
-            className={`hud-action-pill ${isWalking ? 'active' : ''}`}
-            onClick={() => setIsWalking(!isWalking)}
-            title={isWalking ? 'Pause Polar Bear Movement' : 'Resume Walking'}
-          >
-            <Eye size={13} />
-            <span>{isWalking ? 'Prowling' : 'Resting'}</span>
-          </button>
-        </div>
-
-        <div className="hud-capsule-sep" />
-
-        {/* Right: Fullscreen Toggle & Bearing */}
-        <div className="hud-capsule-item">
-          <div className="hud-metric-col" style={{ textAlign: 'right' }}>
-            <span className="hud-label">SVALBARD DRIFT</span>
-            <span className="hud-val">{bearingHeading}° NNE</span>
-          </div>
-          <button
-            className="hud-expand-btn"
-            onClick={() => setIsFullscreen(!isFullscreen)}
-            title={isFullscreen ? 'Exit Fullscreen' : 'Expand 3D Scene'}
-          >
-            {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Floating Interactive Callout Pill */}
-      <div className="polar-bear-caption-pill">
-        <span className="caption-dot" />
-        <span>Drag to orbit • Move cursor to guide polar bear gaze</span>
-      </div>
     </div>
   );
 }

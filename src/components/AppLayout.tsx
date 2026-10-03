@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Sidebar from '@/components/Sidebar';
-import { Search, Bell, User, Command, Check, Eye, AlertCircle, Sparkles, ExternalLink, LogOut, ChevronRight } from 'lucide-react';
+import { Search, Bell, User, Command, Check, Eye, AlertCircle, Sparkles, ExternalLink, LogOut, ChevronRight, Menu, X } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import { notifications } from '@/lib/data';
@@ -15,6 +15,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { user, isAuthenticated, logout } = useAuth();
 
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [notifList, setNotifList] = useState(notifications);

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 interface IceBreak3DSceneProps {
   isBreaking: boolean;
@@ -202,150 +203,67 @@ export default function IceBreak3DScene({
     rightBerg.rotation.y = -0.3;
     scene.add(rightBerg);
 
-    // 6. Build 3D Articulated Polar Bear Group
+    // 6. Realistic 3D Polar Bear Model Loading
     const bearGroup = new THREE.Group();
     bearGroup.position.set(0, 0, -1.2); // Positioned closely behind the ice wall
     scene.add(bearGroup);
 
-    const bearFurMat = new THREE.MeshStandardMaterial({
-      color: 0xf8fafc,
-      roughness: 0.78,
-      metalness: 0.06,
-    });
+    let mixer: THREE.AnimationMixer | null = null;
+    let bearModel: THREE.Object3D | null = null;
 
-    const bearDarkMat = new THREE.MeshStandardMaterial({
-      color: 0x090d16,
-      roughness: 0.25,
-      metalness: 0.1,
-    });
+    // Fallback mesh while loading or if missing
+    const fallbackGeo = new THREE.CylinderGeometry(0.5, 0.8, 1.5, 16);
+    const fallbackMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.1, transmission: 0.9, thickness: 0.5 });
+    const fallbackMesh = new THREE.Mesh(fallbackGeo, fallbackMat);
+    fallbackMesh.position.y = 0.75;
+    bearGroup.add(fallbackMesh);
 
-    // Massive Muscular Torso
-    const torsoGeo = new THREE.CapsuleGeometry(0.85, 2.0, 16, 16);
-    torsoGeo.rotateX(Math.PI / 2);
-    const torso = new THREE.Mesh(torsoGeo, bearFurMat);
-    torso.position.set(0, 1.45, 0);
-    torso.castShadow = true;
-    bearGroup.add(torso);
+    try {
+      const loader = new GLTFLoader();
+      loader.load(
+        '/images/polar.glb',
+        (gltf) => {
+          bearGroup.remove(fallbackMesh);
+          bearModel = gltf.scene;
+          
+          // Auto-scale and center the model dynamically
+          const box = new THREE.Box3().setFromObject(bearModel);
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const center = box.getCenter(new THREE.Vector3());
+          
+          const targetSize = 2.8; // Ideal size for the breaking intro
+          const scale = targetSize / maxDim;
+          bearModel.scale.setScalar(scale);
+          
+          bearModel.position.x = -center.x * scale;
+          bearModel.position.y = -center.y * scale + (size.y * scale) / 2; // Floor align
+          bearModel.position.z = -center.z * scale;
+          
+          bearModel.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+            }
+          });
 
-    // Massive Shoulders
-    const shoulderGeo = new THREE.SphereGeometry(0.8, 16, 16);
-    const shoulder = new THREE.Mesh(shoulderGeo, bearFurMat);
-    shoulder.position.set(0, 1.65, 0.75);
-    shoulder.scale.set(1.25, 1.05, 0.95);
-    bearGroup.add(shoulder);
+          bearGroup.add(bearModel);
 
-    // Neck & Head Pivot
-    const headPivot = new THREE.Group();
-    headPivot.position.set(0, 1.82, 1.25);
-    bearGroup.add(headPivot);
-
-    const neckGeo = new THREE.CylinderGeometry(0.52, 0.68, 0.8, 14);
-    neckGeo.rotateX(Math.PI / 4);
-    const neck = new THREE.Mesh(neckGeo, bearFurMat);
-    neck.position.set(0, 0.16, 0.24);
-    headPivot.add(neck);
-
-    // Bear Head
-    const headGeo = new THREE.SphereGeometry(0.5, 16, 16);
-    headGeo.scale(1.05, 0.95, 1.2);
-    const head = new THREE.Mesh(headGeo, bearFurMat);
-    head.position.set(0, 0.38, 0.65);
-    head.castShadow = true;
-    headPivot.add(head);
-
-    // Snout
-    const snoutGeo = new THREE.ConeGeometry(0.28, 0.6, 14);
-    snoutGeo.rotateX(Math.PI / 2);
-    const snout = new THREE.Mesh(snoutGeo, bearFurMat);
-    snout.position.set(0, 0.3, 1.15);
-    headPivot.add(snout);
-
-    // Roaring Jaw (lowered slightly during the roar smash)
-    const jawGeo = new THREE.BoxGeometry(0.26, 0.14, 0.45);
-    const jaw = new THREE.Mesh(jawGeo, bearFurMat);
-    jaw.position.set(0, 0.16, 1.05);
-    headPivot.add(jaw);
-
-    // Nose
-    const noseGeo = new THREE.SphereGeometry(0.095, 10, 10);
-    const nose = new THREE.Mesh(noseGeo, bearDarkMat);
-    nose.position.set(0, 0.3, 1.46);
-    headPivot.add(nose);
-
-    // Eyes with subtle cyan eye-shine
-    const eyeGeo = new THREE.SphereGeometry(0.048, 8, 8);
-    const eyeL = new THREE.Mesh(eyeGeo, bearDarkMat);
-    eyeL.position.set(0.26, 0.48, 0.95);
-    headPivot.add(eyeL);
-
-    const eyeR = new THREE.Mesh(eyeGeo, bearDarkMat);
-    eyeR.position.set(-0.26, 0.48, 0.95);
-    headPivot.add(eyeR);
-
-    // Ears
-    const earGeo = new THREE.SphereGeometry(0.13, 10, 10);
-    earGeo.scale(0.8, 1, 0.5);
-    const earL = new THREE.Mesh(earGeo, bearFurMat);
-    earL.position.set(0.38, 0.72, 0.5);
-    headPivot.add(earL);
-
-    const earR = new THREE.Mesh(earGeo, bearFurMat);
-    earR.position.set(-0.38, 0.72, 0.5);
-    headPivot.add(earR);
-
-    // Massive Front Paws (that smash through the ice)
-    const createFrontPaw = (isLeft: boolean) => {
-      const armGroup = new THREE.Group();
-      armGroup.position.set(isLeft ? 0.78 : -0.78, 1.55, 0.75);
-
-      const upperArm = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.32, 0.26, 0.9, 12),
-        bearFurMat
+          if (gltf.animations && gltf.animations.length > 0) {
+            mixer = new THREE.AnimationMixer(bearModel);
+            const walkAnim = gltf.animations.find(a => a.name.toLowerCase().includes('walk') || a.name.toLowerCase().includes('run')) || gltf.animations[0];
+            const action = mixer.clipAction(walkAnim);
+            action.play();
+          }
+        },
+        undefined,
+        (error) => {
+          console.warn("Could not load polar_bear.glb. Ensure it is placed in public/images/", error);
+        }
       );
-      upperArm.position.y = -0.4;
-      armGroup.add(upperArm);
-
-      const foreArmGroup = new THREE.Group();
-      foreArmGroup.position.set(0, -0.8, 0);
-      armGroup.add(foreArmGroup);
-
-      const foreArm = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.28, 0.24, 0.8, 12),
-        bearFurMat
-      );
-      foreArm.position.y = -0.34;
-      foreArmGroup.add(foreArm);
-
-      // Huge Ice-Crushing Claw / Paw
-      const paw = new THREE.Mesh(
-        new THREE.BoxGeometry(0.46, 0.2, 0.48),
-        bearFurMat
-      );
-      paw.position.set(0, -0.75, 0.14);
-      paw.castShadow = true;
-      foreArmGroup.add(paw);
-
-      // Claws
-      for (let c = -2; c <= 2; c++) {
-        const claw = new THREE.Mesh(
-          new THREE.ConeGeometry(0.028, 0.16, 6),
-          bearDarkMat
-        );
-        claw.rotation.x = Math.PI / 2;
-        claw.position.set(c * 0.09, -0.75, 0.4);
-        foreArmGroup.add(claw);
-      }
-
-      bearGroup.add(armGroup);
-      return { armGroup, foreArmGroup };
-    };
-
-    const leftArm = createFrontPaw(true);
-    const rightArm = createFrontPaw(false);
-
-    // Initial stance
-    leftArm.armGroup.rotation.x = -0.4;
-    rightArm.armGroup.rotation.x = -0.4;
+    } catch (e) {
+      console.error(e);
+    }
 
     // 7. Crystalline Ice Wall (36 Glowing Faceted Diamond Ice Blocks)
     const iceWallGroup = new THREE.Group();
@@ -469,15 +387,13 @@ export default function IceBreak3DScene({
       }
       pAttr.needsUpdate = true;
 
+      if (mixer) {
+        mixer.update(delta);
+      }
+
       // Idle Bear Animation (Breathing & Head look)
       if (!isBreaking) {
-        torso.scale.x = 1 + Math.sin(time * 2) * 0.02;
-        headPivot.rotation.y = Math.sin(time * 1.2) * 0.08;
-        headPivot.rotation.x = Math.sin(time * 1.5) * 0.05;
-
-        // Subtle paw flexing against the ice
-        leftArm.armGroup.rotation.x = -0.4 + Math.sin(time * 2.5) * 0.04;
-        rightArm.armGroup.rotation.x = -0.4 - Math.sin(time * 2.5) * 0.04;
+        bearGroup.scale.y = 1 + Math.sin(time * 2) * 0.02;
       } else {
         // BREAKING SEQUENCE IN 3D!
         shatterProgress += delta;
@@ -495,20 +411,14 @@ export default function IceBreak3DScene({
           // Wind-up: Bear rears up and lunges forward!
           const t = shatterProgress / 0.35;
           bearGroup.position.z = -1.2 + t * 1.2; // Rushing forward
-          headPivot.rotation.x = -0.35 + t * 0.65; // Roaring forward
-          jaw.position.y = 0.16 - t * 0.12; // Roaring open mouth!
-          leftArm.armGroup.rotation.x = -0.4 - t * 0.85; // Raising paws high
-          rightArm.armGroup.rotation.x = -0.4 - t * 0.85;
-          leftArm.armGroup.rotation.z = -t * 0.35;
-          rightArm.armGroup.rotation.z = t * 0.35;
+          bearGroup.position.y = t * 1.0;
+          bearGroup.rotation.x = -0.5 * t; // Rearing up
         } else if (shatterProgress < 0.7) {
           // IMPACT SMASH: Paws slam forward through the ice!
           const t = (shatterProgress - 0.35) / 0.35;
           bearGroup.position.z = 0.0 + t * 1.8; // Breaking right through the ice plane!
-          bearGroup.position.y = Math.sin(t * Math.PI) * 0.45;
-          leftArm.armGroup.rotation.x = -1.25 + t * 1.55; // Slamming forward down
-          rightArm.armGroup.rotation.x = -1.25 + t * 1.55;
-          headPivot.rotation.x = 0.3 - t * 0.4;
+          bearGroup.position.y = 1.0 - Math.sin(t * Math.PI) * 1.0;
+          bearGroup.rotation.x = -0.5 + t * 0.8;
         } else {
           // Full forward lunge through the shattered portal toward camera
           const t = Math.min((shatterProgress - 0.7) / 1.0, 1);

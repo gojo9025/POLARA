@@ -6,7 +6,6 @@
 /* ── Hero — Dramatic Aurora ── */
 .hero {
   position: relative;
-  padding: var(--space-16) var(--space-8) var(--space-12);
   overflow: hidden;
   min-height: 85vh;
   display: flex;
@@ -69,28 +68,30 @@
 }
 
 .hero-container {
-  display: grid;
-  grid-template-columns: 1fr 1.08fr;
-  gap: var(--space-8);
+  display: flex;
   align-items: center;
   max-width: var(--content-max-width);
   margin: 0 auto;
   width: 100%;
-  position: relative;
-  z-index: 1;
+  position: static;
+  z-index: 10;
+  padding: var(--space-16) var(--space-8) var(--space-12);
+  pointer-events: none;
 }
 
 @media (max-width: 1024px) {
   .hero-container {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
+    flex-direction: column;
+    padding-top: calc(var(--space-16) + 40px);
   }
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 10;
+  max-width: 620px;
   animation: fadeIn 0.8s ease-out;
+  pointer-events: auto;
 }
 
 .hero-badge {
@@ -224,36 +225,40 @@
    21st.dev Style Hero Showcase Column & Switcher Bar
    ═══════════════════════════════════════════════════════════════ */
 .hero-showcase-column {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   width: 100%;
+  height: 100%;
+  pointer-events: none; /* Let clicks pass to background visual */
+}
+
+/* Re-enable pointer events for specific visuals and HUDs inside the showcase */
+.hero-showcase-column > * {
+  pointer-events: auto;
 }
 
 .hero-switcher-bar {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(11, 25, 44, 0.92);
-  border: 1px solid rgba(30, 62, 98, 0.75);
-  border-radius: var(--radius-full);
-  padding: 4px;
-  backdrop-filter: blur(20px) saturate(1.4);
-  width: fit-content;
-  align-self: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(30, 62, 98, 0.2);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  z-index: 20;
 }
 
 .switcher-pill {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 6px 14px;
+  padding: 8px 16px;
   border-radius: var(--radius-full);
-  background: transparent;
-  border: 1px solid transparent;
+  background: rgba(11, 25, 44, 0.92);
+  border: 1px solid rgba(30, 62, 98, 0.75);
+  backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   color: var(--text-tertiary);
   font-family: var(--font-sans);
   font-size: 0.75rem;
@@ -1505,6 +1510,8 @@
 
   .hero-ctas {
     flex-direction: column;
+    align-items: stretch;
+    width: 100%;
   }
 
   .section {
@@ -1513,6 +1520,7 @@
 
   .stats-bar-inner {
     gap: var(--space-6);
+    padding-bottom: var(--space-2);
   }
 
   .flow-arrow {

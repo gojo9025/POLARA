@@ -21,7 +21,7 @@ export default function IceBreakIntro() {
   const [isVisible, setIsVisible] = useState(false);
   const [isBreaking, setIsBreaking] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [viewMode, setViewMode] = useState<'3d' | 'cinematic'>('cinematic');
+  const [viewMode, setViewMode] = useState<'3d' | 'cinematic'>('3d');
   const [crackStage, setCrackStage] = useState(0); // 0: resting, 1: cracking, 2: shattered
   const [shards, setShards] = useState<Shard[]>([]);
   const audioCtxRef = useRef<AudioContext | null>(null);
