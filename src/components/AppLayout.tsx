@@ -61,24 +61,28 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="app-main-wrapper">
         {/* Global Command Topbar */}
         <header className="global-topbar">
-          {/* Breadcrumbs */}
-          <nav className="topbar-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/" className="breadcrumb-link">Dashboard</Link>
-            {breadcrumbs.length > 0 && (
-              <>
-                {breadcrumbs.map((b, i) => (
-                  <React.Fragment key={b.url}>
-                    <ChevronRight size={13} className="breadcrumb-sep" />
-                    {i === breadcrumbs.length - 1 ? (
-                      <span className="breadcrumb-current">{b.label}</span>
-                    ) : (
-                      <Link href={b.url} className="breadcrumb-link">{b.label}</Link>
-                    )}
-                  </React.Fragment>
-                ))}
-              </>
-            )}
-          </nav>
+          {/* Institutional Masthead / Breadcrumbs */}
+          {breadcrumbs.length === 0 ? (
+            <div className="topbar-institution-tag" title="National Centre for Polar and Ocean Research • MoES, Govt. of India">
+              <span className="inst-badge">MoES • NCPOR</span>
+              <span className="inst-sep">/</span>
+              <span className="inst-title">National Polar Science Portal</span>
+            </div>
+          ) : (
+            <nav className="topbar-breadcrumb" aria-label="Breadcrumb">
+              <Link href="/" className="breadcrumb-link">POLARA</Link>
+              {breadcrumbs.map((b, i) => (
+                <React.Fragment key={b.url}>
+                  <ChevronRight size={13} className="breadcrumb-sep" />
+                  {i === breadcrumbs.length - 1 ? (
+                    <span className="breadcrumb-current">{b.label}</span>
+                  ) : (
+                    <Link href={b.url} className="breadcrumb-link">{b.label}</Link>
+                  )}
+                </React.Fragment>
+              ))}
+            </nav>
+          )}
           
           {/* Center Search Trigger & Live Polar Telemetry Badge */}
           <div className="topbar-center-group">

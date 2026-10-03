@@ -12,7 +12,7 @@ import {
   Search, ArrowRight, Compass, BookOpen, BarChart3,
   GraduationCap, MessageCircle, Snowflake, Globe, FileText,
   Image as ImageIcon, Play, Users, TrendingUp, Sparkles, Megaphone,
-  Box, Radio
+  Box, Radio, Database
 } from 'lucide-react';
 import {
   expeditions, researchAreas, reports, publications,
@@ -93,7 +93,7 @@ const polarStations = [
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeStationId, setActiveStationId] = useState('bharati');
-  const [heroVisualMode, setHeroVisualMode] = useState<'3d' | 'cinematic' | 'telemetry'>('3d');
+  const [heroVisualMode, setHeroVisualMode] = useState<'3d' | 'cinematic' | 'telemetry'>('cinematic');
 
   const activeStation = polarStations.find(s => s.id === activeStationId) || polarStations[0];
 
@@ -136,18 +136,17 @@ export default function HomePage() {
             >
               <div className="hero-badge">
                 <Snowflake size={14} />
-                <span>India&apos;s Polar Science Knowledge Ecosystem</span>
+                <span>NCPOR • MINISTRY OF EARTH SCIENCES • GOVT. OF INDIA</span>
               </div>
 
               <h1 className="hero-title">
-                Discover the Science<br />
-                <span className="text-gradient">Behind the Poles</span>
+                Sovereign Polar & Oceanographic<br />
+                <span className="text-gradient">Scientific Research Archive</span>
               </h1>
 
               <p className="hero-description">
-                Explore expeditions, research, datasets, publications and multimedia
-                from India&apos;s polar science ecosystem — organized, connected and made
-                accessible through POLARA.
+                The unified national data gateway for longitudinal cryospheric records, ice-core paleoclimatology,
+                oceanographic telemetry, and 44 historic Indian scientific expeditions across Antarctica, the Arctic, and the Himalayas.
               </p>
 
               <div className="hero-search">
@@ -155,7 +154,7 @@ export default function HomePage() {
                 <input
                   type="text"
                   className="hero-search-input"
-                  placeholder="Search polar science... (e.g., Antarctic sea ice, Arctic climate)"
+                  placeholder="Search 1,400+ polar research datasets, expedition logs, station telemetry..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => {
@@ -168,31 +167,32 @@ export default function HomePage() {
                   href={searchQuery.trim() ? `/explore?q=${encodeURIComponent(searchQuery)}` : '/explore'}
                   className="btn btn-primary"
                 >
-                  Search
+                  Search Archive
                 </Link>
               </div>
 
               <div className="hero-ctas">
                 <Link href="/explore" className="btn btn-primary btn-lg">
-                  <Globe size={18} />
-                  Explore Polar Knowledge
+                  <Database size={18} />
+                  Access Research Archives
                 </Link>
                 <Link href="/ask" className="btn btn-secondary btn-lg">
                   <MessageCircle size={18} />
-                  Ask POLARA
+                  Ask POLARA AI
                 </Link>
                 <button
                   onClick={() => window.dispatchEvent(new CustomEvent('replay-polar-intro'))}
-                  className="btn btn-secondary btn-lg"
-                  title="Replay cinematic polar bear ice break intro"
+                  className="hero-replay-btn"
+                  title="Replay Cryospheric Intro"
                 >
-                  <Sparkles size={18} />
-                  Ice-Break Intro
+                  <Sparkles size={14} />
+                  <span>Replay Intro</span>
                 </button>
               </div>
 
               <div className="hero-tags">
-                {['Antarctic sea ice', 'Arctic climate', 'Indian expeditions', 'Glaciology', 'Southern Ocean', 'Polar biodiversity'].map(tag => (
+                <span className="hero-tags-label">Curated Domains:</span>
+                {['Antarctic Sea Ice', 'Arctic Climate & IndARC', '44th ISEA Expeditions', 'Western Himalayan Glaciology', 'Southern Ocean Biogeochemistry'].map(tag => (
                   <Link href={`/explore?q=${encodeURIComponent(tag)}`} key={tag} className="tag">
                     {tag}
                   </Link>
@@ -205,22 +205,12 @@ export default function HomePage() {
               {/* Floating Switcher Bar */}
               <div className="hero-switcher-bar">
                 <button
-                  className={`switcher-pill ${heroVisualMode === '3d' ? 'active' : ''}`}
-                  onClick={() => setHeroVisualMode('3d')}
-                  title="Interactive 3D Polar Bear walking on Iceberg"
-                >
-                  <Box size={14} />
-                  <span>3D Polar Bear</span>
-                  <span className="switcher-chip">Three.js</span>
-                </button>
-
-                <button
                   className={`switcher-pill ${heroVisualMode === 'cinematic' ? 'active' : ''}`}
                   onClick={() => setHeroVisualMode('cinematic')}
-                  title="8K High-Resolution Glacial Imagery"
+                  title="8K High-Resolution Glacial Expedition Feed"
                 >
                   <Sparkles size={14} />
-                  <span>8K Glacial Cam</span>
+                  <span>Expedition Cam (8K)</span>
                 </button>
 
                 <button
@@ -230,6 +220,16 @@ export default function HomePage() {
                 >
                   <Radio size={14} />
                   <span>Station Telemetry</span>
+                </button>
+
+                <button
+                  className={`switcher-pill ${heroVisualMode === '3d' ? 'active' : ''}`}
+                  onClick={() => setHeroVisualMode('3d')}
+                  title="Interactive 3D Geometry Simulation"
+                >
+                  <Box size={14} />
+                  <span>3D Simulation</span>
+                  <span className="switcher-chip">Three.js</span>
                 </button>
               </div>
 
@@ -381,16 +381,16 @@ export default function HomePage() {
         <section className="stats-bar">
           <div className="stats-bar-inner">
             <div className="stats-bar-note">
-              <Sparkles size={14} />
-              <span>Prototype Dataset</span>
+              <Radio size={14} className="stats-live-dot" />
+              <span>SYNCHRONIZED POLAR ARCHIVE</span>
             </div>
             {[
-              { value: platformStats.totalResources.toLocaleString(), label: 'Knowledge Resources', icon: <FileText size={16} /> },
-              { value: platformStats.expeditions.toString(), label: 'Expeditions', icon: <Compass size={16} /> },
-              { value: platformStats.publications.toString(), label: 'Publications', icon: <BookOpen size={16} /> },
-              { value: platformStats.datasets.toString(), label: 'Datasets', icon: <BarChart3 size={16} /> },
-              { value: platformStats.mediaAssets.toLocaleString(), label: 'Media Assets', icon: <ImageIcon size={16} /> },
-              { value: platformStats.learningResources.toString(), label: 'Learning Resources', icon: <GraduationCap size={16} /> },
+              { value: platformStats.totalResources.toLocaleString(), label: 'Cataloged Resources', icon: <FileText size={16} /> },
+              { value: platformStats.expeditions.toString(), label: 'Scientific Expeditions', icon: <Compass size={16} /> },
+              { value: platformStats.publications.toString(), label: 'Peer-Reviewed Papers', icon: <BookOpen size={16} /> },
+              { value: platformStats.datasets.toString(), label: 'Open Datasets', icon: <BarChart3 size={16} /> },
+              { value: platformStats.mediaAssets.toLocaleString(), label: 'Multimedia Records', icon: <ImageIcon size={16} /> },
+              { value: platformStats.learningResources.toString(), label: 'Educational Modules', icon: <GraduationCap size={16} /> },
             ].map(stat => (
               <div key={stat.label} className="stat-item">
                 <div className="stat-item-value">{stat.value}</div>
@@ -638,21 +638,99 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ Footer ═══ */}
+        {/* ═══ Sovereign Scientific Footer ═══ */}
         <footer className="footer">
           <div className="footer-inner">
-            <div className="footer-brand">
-              <div className="footer-logo">
-                <Snowflake size={20} />
-                <span>POLARA</span>
+            <div className="footer-top-grid">
+              {/* Col 1: Institutional Authority */}
+              <div className="footer-col-authority">
+                <div className="footer-logo">
+                  <Snowflake size={22} className="footer-logo-icon" />
+                  <span className="footer-logo-title">POLARA</span>
+                </div>
+                <div className="footer-institution-badge">
+                  <span>NATIONAL CENTRE FOR POLAR AND OCEAN RESEARCH (NCPOR)</span>
+                </div>
+                <p className="footer-inst-desc">
+                  An autonomous scientific research institute under the Ministry of Earth Sciences (MoES),
+                  Government of India. Mandated to lead the Indian Antarctic, Arctic, Southern Ocean,
+                  and Himalayan Cryosphere scientific programmes.
+                </p>
+                <div className="footer-geo-loc">
+                  Headland Sada, Vasco da Gama, Goa - 403804, India
+                </div>
               </div>
-              <p>Polar Outreach, Learning & Research Archive</p>
-              <p className="footer-org">National Centre for Polar and Ocean Research (NCPOR)</p>
-              <p className="footer-org">Ministry of Earth Sciences, Government of India</p>
+
+              {/* Col 2: Permanent Research Stations */}
+              <div className="footer-col">
+                <div className="footer-col-heading">Permanent Observatories</div>
+                <ul className="footer-links-list">
+                  <li>
+                    <span className="station-code">ANTARCTICA</span>
+                    <span className="station-name">Bharati Station (69°24′S, 76°11′E)</span>
+                  </li>
+                  <li>
+                    <span className="station-code">ANTARCTICA</span>
+                    <span className="station-name">Maitri Station (70°45′S, 11°44′E)</span>
+                  </li>
+                  <li>
+                    <span className="station-code">ARCTIC</span>
+                    <span className="station-name">Himadri Station (Ny-Ålesund, Svalbard)</span>
+                  </li>
+                  <li>
+                    <span className="station-code">ARCTIC</span>
+                    <span className="station-name">IndARC Subsurface Mooring (Kongsfjorden)</span>
+                  </li>
+                  <li>
+                    <span className="station-code">HIMALAYAS</span>
+                    <span className="station-name">Himansh Observatory (Chandra Basin)</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Col 3: Research Archives */}
+              <div className="footer-col">
+                <div className="footer-col-heading">Data Portals & Services</div>
+                <ul className="footer-links-list">
+                  <li><Link href="/explore?type=dataset">Cryospheric Core Datasets</Link></li>
+                  <li><Link href="/repository">Peer-Reviewed Publications</Link></li>
+                  <li><Link href="/expeditions">44 Historical Convoys</Link></li>
+                  <li><Link href="/explore?type=audio">Kongsfjorden Hydrophone Tapes</Link></li>
+                  <li><Link href="/ask">POLARA Scientific AI Oracle</Link></li>
+                  <li><Link href="/collections">Institutional Dossiers</Link></li>
+                </ul>
+              </div>
+
+              {/* Col 4: Open Science Compliance */}
+              <div className="footer-col">
+                <div className="footer-col-heading">Compliance & Standards</div>
+                <ul className="footer-links-list">
+                  <li><span>National Data Sharing & Accessibility Policy (NDSAP)</span></li>
+                  <li><span>Open Government Data (OGD) India Compliant</span></li>
+                  <li><span>ISO 19115 Geospatial Metadata Standard</span></li>
+                  <li><span>WMO CryoNet Data Node Verified</span></li>
+                  <li><span>Creative Commons CC-BY 4.0 Open Science</span></li>
+                </ul>
+                <div className="footer-system-status">
+                  <span className="status-live-pip" />
+                  <span>Telemetry Feeds: Nominal • UTC Sync Active</span>
+                </div>
+              </div>
             </div>
-            <div className="footer-note">
-              <p>This is a prototype application. All data shown is demonstration data.</p>
-              <p>Smart India Hackathon 2025 — Problem Statement #26063</p>
+
+            <div className="footer-bottom-bar">
+              <div className="footer-copyright">
+                © {new Date().getFullYear()} POLARA • National Centre for Polar and Ocean Research, MoES, Government of India.
+              </div>
+              <div className="footer-bottom-links">
+                <span>Terms of Data Usage</span>
+                <span>•</span>
+                <span>Citation Guidelines</span>
+                <span>•</span>
+                <span>DOI Minting Policy</span>
+                <span>•</span>
+                <span>Security Clearance</span>
+              </div>
             </div>
           </div>
         </footer>

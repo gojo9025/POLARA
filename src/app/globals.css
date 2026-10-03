@@ -306,9 +306,9 @@ a:hover {
 }
 
 .card:hover {
-  border-color: var(--border-accent);
-  box-shadow: var(--shadow-glow);
-  transform: translateY(-3px);
+  border-color: rgba(30, 62, 98, 0.95);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 1px rgba(216, 201, 168, 0.3);
+  transform: translateY(-2px);
 }
 
 .card-flat {
@@ -722,43 +722,40 @@ a:hover {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Utility Classes
+/* ═══════════════════════════════════════════════════════════════
+   Utility Classes — Sovereign Editorial Typography
    ═══════════════════════════════════════════════════════════════ */
 
 .text-gradient {
-  background: linear-gradient(135deg, #F5EFE3 20%, #D8C9A8 45%, #88b1e0 70%, #B8892D 88%, #FF6500 100%);
-  background-size: 200% auto;
-  animation: aurora-shift 6s ease-in-out infinite;
+  background: linear-gradient(135deg, #F5EFE3 20%, #E8DFCE 60%, #D8C9A8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
 }
 
 .text-gradient-warm {
-  background: linear-gradient(135deg, #F5EFE3 10%, #D8C9A8 40%, #B8892D 75%, #FF6500 100%);
-  background-size: 200% auto;
-  animation: aurora-shift 5s ease-in-out infinite;
+  background: linear-gradient(135deg, #F5EFE3 20%, #E2D2B5 60%, #B8892D 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
 }
 
 .text-gradient-tundra {
-  background: linear-gradient(135deg, #F5EFE3 15%, #D8C9A8 45%, #4F5B2A 78%, #B8892D 100%);
-  background-size: 200% auto;
-  animation: aurora-shift 6s ease-in-out infinite;
+  background: linear-gradient(135deg, #F5EFE3 25%, #D8C9A8 65%, #6B7B3C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
 }
 
 .text-gradient-ochre {
-  background: linear-gradient(135deg, #F5EFE3 10%, #D8C9A8 35%, #B8892D 85%, #FF6500 100%);
-  background-size: 200% auto;
-  animation: aurora-shift 5s ease-in-out infinite;
+  background: linear-gradient(135deg, #F5EFE3 30%, #D8C9A8 70%, #B8892D 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
 }
 
 .bg-mesh {
@@ -1293,6 +1290,38 @@ a:hover {
   top: 0;
 }
 
+.topbar-institution-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.topbar-institution-tag .inst-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #F5EFE3;
+  background: rgba(30, 62, 98, 0.45);
+  border: 1px solid rgba(30, 62, 98, 0.8);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.topbar-institution-tag .inst-sep {
+  color: rgba(216, 201, 168, 0.4);
+  font-size: 0.75rem;
+}
+
+.topbar-institution-tag .inst-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #D8C9A8;
+  letter-spacing: 0.01em;
+}
+
 .topbar-breadcrumb {
   display: flex;
   align-items: center;
@@ -1309,7 +1338,7 @@ a:hover {
 }
 
 .breadcrumb-link:hover {
-  color: var(--ice-300);
+  color: #F5EFE3;
 }
 
 .breadcrumb-sep {
@@ -1317,7 +1346,7 @@ a:hover {
 }
 
 .breadcrumb-current {
-  color: var(--text-primary);
+  color: #F5EFE3;
   font-weight: 600;
 }
 

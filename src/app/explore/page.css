@@ -88,6 +88,46 @@
   color: var(--text-muted);
 }
 
+/* ── Explore Quick Tags ── */
+.explore-quick-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--space-4);
+}
+
+.explore-quick-tags .quick-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  margin-right: 4px;
+}
+
+.quick-tag-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  border-radius: var(--radius-full);
+  background: rgba(30, 62, 98, 0.28);
+  border: 1px solid rgba(30, 62, 98, 0.65);
+  color: #D8C9A8;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.quick-tag-btn:hover {
+  background: rgba(30, 62, 98, 0.55);
+  border-color: rgba(216, 201, 168, 0.6);
+  color: #F5EFE3;
+  transform: translateY(-1px);
+}
+
 /* ── Explore Body & Layout ── */
 .explore-body {
   display: flex;
@@ -96,26 +136,29 @@
 }
 
 /* ── High-Tech Filter Sidebar ── */
-.filter-sidebar {
+.filter-sidebar,
+.filters-sidebar {
   width: 280px;
-  border-right: 1px solid rgba(30, 62, 98, 0.08);
+  border-right: 1px solid rgba(30, 62, 98, 0.45);
   padding: var(--space-5);
   overflow-y: auto;
   flex-shrink: 0;
-  background: rgba(10, 15, 30, 0.7);
+  background: rgba(11, 25, 44, 0.85);
   backdrop-filter: blur(16px);
 }
 
-.filter-header {
+.filter-header,
+.filters-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: var(--space-5);
   padding-bottom: var(--space-3);
-  border-bottom: 1px solid rgba(30, 62, 98, 0.08);
+  border-bottom: 1px solid rgba(30, 62, 98, 0.45);
 }
 
-.filter-header h3 {
+.filter-header h3,
+.filters-header h3 {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -124,12 +167,13 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--ice-300);
+  color: #F5EFE3;
   margin-bottom: 0;
 }
 
-.filter-header h3 svg {
-  color: var(--cyan-400);
+.filter-header h3 svg,
+.filters-header h3 svg {
+  color: #88b1e0;
 }
 
 .filter-group {

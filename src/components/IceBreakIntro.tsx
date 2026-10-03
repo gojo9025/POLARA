@@ -21,7 +21,7 @@ export default function IceBreakIntro() {
   const [isVisible, setIsVisible] = useState(false);
   const [isBreaking, setIsBreaking] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [viewMode, setViewMode] = useState<'3d' | 'cinematic'>('3d');
+  const [viewMode, setViewMode] = useState<'3d' | 'cinematic'>('cinematic');
   const [crackStage, setCrackStage] = useState(0); // 0: resting, 1: cracking, 2: shattered
   const [shards, setShards] = useState<Shard[]>([]);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -305,7 +305,7 @@ export default function IceBreakIntro() {
           <div className="hud-header-capsule">
             <span className="hud-badge">
               <Snowflake size={14} className="hud-snowflake" />
-              {viewMode === '3d' ? '3D GLACIAL PHYSICS SIMULATION' : 'ARCTIC GLACIAL THRESHOLD'}
+              NCPOR POLAR ARCHIVE • CRYOSPHERE VAULT
             </span>
             <div className="hud-live-tag">
               <span className="live-dot" />
@@ -318,9 +318,8 @@ export default function IceBreakIntro() {
           </h1>
 
           <p className="hud-glacier-subtitle">
-            {viewMode === '3d'
-              ? 'Watch the 3D Polar Bear lunge forward and shatter through the glacial ice wall into the camera, unlocking India\'s polar science archive.'
-              : 'A real-time gateway into India\'s 44 polar expeditions, satellite telemetry, and ocean acoustic science. Break the surface to enter POLARA.'}
+            Official scientific gateway into India&apos;s 44 polar expeditions, IndARC subsurface ocean acoustics,
+            and longitudinal cryospheric archives. Shatter the glacial threshold to enter POLARA.
           </p>
 
           <div className="hud-action-row">
@@ -335,8 +334,8 @@ export default function IceBreakIntro() {
                 <Sparkles size={18} className="btn-icon-pulse" />
                 <span>
                   {isBreaking
-                    ? '3D BEAR SMASHING THROUGH ICE...'
-                    : 'BREAK ICE & ENTER POLARA'}
+                    ? 'SHATTERING GLACIAL ICE WALL...'
+                    : 'SHATTER ICE & ENTER POLARA'}
                 </span>
                 <ArrowRight size={18} />
               </div>
@@ -346,7 +345,7 @@ export default function IceBreakIntro() {
             <button
               onClick={() => setSoundEnabled(!soundEnabled)}
               className="sound-toggle-btn"
-              title={soundEnabled ? 'Mute Ice Sound FX' : 'Enable Ice Sound FX'}
+              title={soundEnabled ? 'Mute Glacial Sound FX' : 'Enable Glacial Sound FX'}
               aria-label="Toggle Sound"
             >
               {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
@@ -355,7 +354,7 @@ export default function IceBreakIntro() {
 
             {/* Fast Skip Option */}
             <button onClick={handleSkip} className="skip-btn">
-              Skip Intro
+              Direct Access
             </button>
           </div>
         </div>
