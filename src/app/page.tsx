@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import PolarBearIceberg3D from '@/components/PolarBearIceberg3D';
-import IceBreakIntro from '@/components/IceBreakIntro';
+
 import PolarBearNarrator from '@/components/PolarBearNarrator';
 import './page.css';
 import AppLayout from '@/components/AppLayout';
@@ -100,7 +100,6 @@ export default function HomePage() {
 
   return (
     <>
-      <IceBreakIntro />
       <AppLayout>
         <div className="home-page">
         {/* ═══ Hero Section ═══ */}
@@ -109,9 +108,9 @@ export default function HomePage() {
             <div className="hero-gradient-1" />
             <div className="hero-gradient-2" />
             <div className="hero-grid" />
-            {/* Animated particles */}
+            {/* Animated particles (Reduced for performance) */}
             <div className="hero-particles">
-              {Array.from({ length: 20 }).map((_, i) => {
+              {Array.from({ length: 8 }).map((_, i) => {
                 const left = (i * 37) % 100;
                 const top = (i * 59) % 100;
                 const delay = (i * 13) % 5;
@@ -181,14 +180,7 @@ export default function HomePage() {
                   <MessageCircle size={18} />
                   Ask POLARA AI
                 </Link>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('replay-polar-intro'))}
-                  className="hero-replay-btn"
-                  title="Replay Cryospheric Intro"
-                >
-                  <Sparkles size={14} />
-                  <span>Replay Intro</span>
-                </button>
+
               </div>
 
               <div className="hero-tags">
@@ -211,23 +203,28 @@ export default function HomePage() {
         {/* ═══ Stats Bar ═══ */}
         <section className="stats-bar">
           <div className="stats-bar-inner">
-            <div className="stats-bar-note">
+            <div className="stats-bar-note shrink-0 z-10 relative bg-[var(--bg-primary)] pr-4">
               <Radio size={14} className="stats-live-dot" />
               <span>SYNCHRONIZED POLAR ARCHIVE</span>
             </div>
-            {[
-              { value: platformStats.totalResources.toLocaleString(), label: 'Cataloged Resources', icon: <FileText size={16} /> },
-              { value: platformStats.expeditions.toString(), label: 'Scientific Expeditions', icon: <Compass size={16} /> },
-              { value: platformStats.publications.toString(), label: 'Peer-Reviewed Papers', icon: <BookOpen size={16} /> },
-              { value: platformStats.datasets.toString(), label: 'Open Datasets', icon: <BarChart3 size={16} /> },
-              { value: platformStats.mediaAssets.toLocaleString(), label: 'Multimedia Records', icon: <ImageIcon size={16} /> },
-              { value: platformStats.learningResources.toString(), label: 'Educational Modules', icon: <GraduationCap size={16} /> },
-            ].map(stat => (
-              <div key={stat.label} className="stat-item">
-                <div className="stat-item-value">{stat.value}</div>
-                <div className="stat-item-label">{stat.label}</div>
-              </div>
-            ))}
+            
+            <div className="flex-1 overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)' }}>
+              <InfiniteSlider gap={64} duration={45} className="w-full py-1">
+                {[
+                  { value: platformStats.totalResources.toLocaleString(), label: 'Cataloged Resources', icon: <FileText size={16} /> },
+                  { value: platformStats.expeditions.toString(), label: 'Scientific Expeditions', icon: <Compass size={16} /> },
+                  { value: platformStats.publications.toString(), label: 'Peer-Reviewed Papers', icon: <BookOpen size={16} /> },
+                  { value: platformStats.datasets.toString(), label: 'Open Datasets', icon: <BarChart3 size={16} /> },
+                  { value: platformStats.mediaAssets.toLocaleString(), label: 'Multimedia Records', icon: <ImageIcon size={16} /> },
+                  { value: platformStats.learningResources.toString(), label: 'Educational Modules', icon: <GraduationCap size={16} /> },
+                ].map(stat => (
+                  <div key={stat.label} className="stat-item px-2">
+                    <div className="stat-item-value">{stat.value}</div>
+                    <div className="stat-item-label">{stat.label}</div>
+                  </div>
+                ))}
+              </InfiniteSlider>
+            </div>
           </div>
         </section>
 
