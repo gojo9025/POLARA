@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { User, UserRole } from './types';
 import { demoUsers } from './data';
 
@@ -59,6 +60,25 @@ function generateSalt(): string {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { data: session, status } = useSession();
+
+  // Sync NextAuth session with local context
+  useEffect(() => {
+    if (session?.user) {
+      const mappedUser: User = {
+        id: (session as any).user?.id || 'oauth-' + Date.now(),
+        name: session.user.name || '',
+        email: session.user.email || '',
+        role: (session as any).user?.role || 'researcher',
+        institution: (session as any).user?.institution || 'Polar Science Network',
+        avatar: session.user.image || undefined,
+        provider: 'oauth',
+      };
+      setUser(mappedUser);
+      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(mappedUser));
+      setIsLoading(false);
+    }
+  }, [session]);
 
   // Initialize accounts database in localStorage
   const initAccounts = useCallback(async () => {
@@ -165,55 +185,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loginOAuth = useCallback(async (provider: 'google' | 'github', customEmail?: string): Promise<{ success: boolean; error?: string }> => {
     try {
-      const raw = localStorage.getItem(REGISTRY_STORAGE_KEY);
-      const accounts: StoredAccount[] = raw ? JSON.parse(raw) : [];
-
-      const cleanEmail = customEmail?.trim().toLowerCase() || (
-        provider === 'google'
-          ? 'goushik.polar@gmail.com'
-          : 'gojo9025@users.noreply.github.com'
-      );
-
-      // Check if user already exists
-      let account = accounts.find(a => a.email.toLowerCase() === cleanEmail);
-
-      if (!account) {
-        const salt = generateSalt();
-        const passwordHash = await hashPassword('oauth_' + provider + '_' + Date.now(), salt);
-        account = {
-          id: 'usr_' + provider + '_' + Date.now().toString(36),
-          name: provider === 'google' ? 'Goushik S' : 'gojo9025',
-          email: cleanEmail,
-          role: 'researcher',
-          institution: provider === 'google'
-            ? 'National Centre for Polar and Ocean Research (NCPOR)'
-            : 'Polar Open Science / GitHub Contributor',
-          researchAreas: ['Cryospheric Science', 'Polar Remote Sensing', 'Oceanography'],
-          bio: provider === 'google'
-            ? 'Google Verified Polar Science Researcher and Data Contributor.'
-            : 'GitHub Verified Open Science Developer and Polar Codebase Maintainer.',
-          avatar: provider === 'google'
-            ? 'https://lh3.googleusercontent.com/a/default-user=s96-c'
-            : 'https://avatars.githubusercontent.com/u/gojo9025',
-          passwordHash,
-          salt,
-          provider,
-          createdAt: new Date().toISOString(),
-        };
-        accounts.push(account);
-        localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(accounts));
-      } else {
-        account.provider = provider;
-        const idx = accounts.findIndex(a => a.id === account!.id);
-        if (idx !== -1) {
-          accounts[idx] = account;
-          localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(accounts));
-        }
-      }
-
-      const { passwordHash: _p, salt: _s, ...safeUser } = account;
-      setUser(safeUser);
-      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(safeUser));
+      await signIn(provider, { callbackUrl: '/dashboard' });
       return { success: true };
     } catch (e) {
       return { success: false, error: (e as Error).message };
@@ -295,6 +267,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(() => {
     setUser(null);
     localStorage.removeItem(SESSION_STORAGE_KEY);
+    signOut({ callbackUrl: '/' });
   }, []);
 
   const switchRole = useCallback((role: UserRole) => {

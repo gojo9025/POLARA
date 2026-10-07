@@ -20,6 +20,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: 'Home', href: '/', icon: <Home size={18} /> },
+  { label: 'Dashboard', href: '/dashboard', icon: <User size={18} />, roles: ['researcher', 'educator', 'student', 'admin', 'public'] },
   { label: 'Explore', href: '/explore', icon: <Compass size={18} /> },
   { label: 'Repository', href: '/repository', icon: <Database size={18} /> },
   { label: 'Expeditions', href: '/expeditions', icon: <Navigation size={18} /> },

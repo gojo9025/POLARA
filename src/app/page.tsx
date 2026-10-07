@@ -8,6 +8,7 @@ import PolarBearIceberg3D from '@/components/PolarBearIceberg3D';
 import PolarBearNarrator from '@/components/PolarBearNarrator';
 import './page.css';
 import AppLayout from '@/components/AppLayout';
+import { useAuth } from '@/lib/auth';
 import { InfiniteSlider } from '@/components/ui/infinite-slider';
 import {
   Search, ArrowRight, Compass, BookOpen, BarChart3,
@@ -94,7 +95,7 @@ const polarStations = [
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeStationId, setActiveStationId] = useState('bharati');
-
+  const { isAuthenticated, user } = useAuth();
 
   const activeStation = polarStations.find(s => s.id === activeStationId) || polarStations[0];
 
@@ -494,9 +495,15 @@ export default function HomePage() {
                 <MessageCircle size={18} />
                 Ask POLARA
               </Link>
-              <Link href="/login" className="btn btn-ghost btn-lg">
-                Sign In for Full Access
-              </Link>
+              {isAuthenticated ? (
+                <Link href="/dashboard" className="btn btn-ghost btn-lg">
+                  Go to Dashboard
+                </Link>
+              ) : (
+                <Link href="/login" className="btn btn-ghost btn-lg">
+                  Sign In for Full Access
+                </Link>
+              )}
             </div>
           </div>
         </section>

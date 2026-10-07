@@ -72,7 +72,8 @@ export default function PolarBearIceberg3D({
       powerPreference: 'high-performance',
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // Limit pixel ratio to 1.5 for better mobile/laptop performance
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
     renderer.shadowMap.enabled = true;
@@ -86,8 +87,8 @@ export default function PolarBearIceberg3D({
     const mainSun = new THREE.DirectionalLight(0xdff0ff, 2.4);
     mainSun.position.set(8, 12, 6);
     mainSun.castShadow = true;
-    mainSun.shadow.mapSize.width = 1024;
-    mainSun.shadow.mapSize.height = 1024;
+    mainSun.shadow.mapSize.width = 512;
+    mainSun.shadow.mapSize.height = 512;
     mainSun.shadow.camera.near = 0.5;
     mainSun.shadow.camera.far = 30;
     mainSun.shadow.camera.left = -8;
@@ -192,8 +193,8 @@ export default function PolarBearIceberg3D({
       floes.push(floeMesh);
     }
 
-    // 4. Arctic Undulating Ocean Plane
-    const oceanGeo = new THREE.PlaneGeometry(36, 36, 64, 64);
+    // 4. Arctic Undulating Ocean Plane (Lower resolution for performance)
+    const oceanGeo = new THREE.PlaneGeometry(36, 36, 32, 32);
     oceanGeo.rotateX(-Math.PI / 2);
     const oceanPos = oceanGeo.attributes.position;
     const oceanInitialY = new Float32Array(oceanPos.count);
@@ -293,11 +294,11 @@ export default function PolarBearIceberg3D({
       leftFoot.position.set(-0.15, 0.05, 0.15);
       group.add(leftFoot);
 
-      // Enable shadows
+      // Enable shadows (Disabled for penguins to optimize performance)
       group.traverse(child => {
         if (child instanceof THREE.Mesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
+          child.castShadow = false;
+          child.receiveShadow = false;
         }
       });
 
@@ -408,8 +409,8 @@ export default function PolarBearIceberg3D({
       auroraMeshes.push(ribbon);
     }
 
-    // 7. Arctic Blizzard / Snow Particles
-    const snowCount = 850;
+    // 7. Arctic Blizzard / Snow Particles (Reduced count for performance)
+    const snowCount = 250;
     const snowGeo = new THREE.BufferGeometry();
     const snowPositions = new Float32Array(snowCount * 3);
     const snowVelocities: { x: number; y: number; z: number }[] = [];

@@ -686,9 +686,8 @@
 .stats-bar-inner {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
   max-width: var(--content-max-width);
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 .stats-bar-note {

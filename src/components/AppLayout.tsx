@@ -190,6 +190,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   </div>
 
                   <div className="profile-menu">
+                    <Link href="/dashboard" className="profile-link" onClick={() => setProfileOpen(false)}>
+                      My Dashboard
+                    </Link>
                     <Link href="/collections" className="profile-link" onClick={() => setProfileOpen(false)}>
                       My Saved Research Dossiers
                     </Link>

@@ -383,35 +383,6 @@ export default function LoginPage() {
             </form>
           )}
 
-          <div className="login-divider">
-            <span>Instant Pre-Configured Researcher Accounts</span>
-          </div>
-
-          <div className="demo-accounts">
-            {[
-              { email: 'admin@polara.demo', role: 'Administrator', desc: 'Dr. Priya Sharma • Lead Admin' },
-              { email: 'researcher@polara.demo', role: 'Researcher', desc: 'Dr. Arjun Mehta • Oceanography' },
-              { email: 'educator@polara.demo', role: 'Educator', desc: 'Prof. Kavita Nair • IIT Bombay' },
-              { email: 'student@polara.demo', role: 'Student', desc: 'Rohan Patel • Polar Biology' },
-            ].map(account => (
-              <button
-                key={account.email}
-                className="demo-account-btn"
-                onClick={() => quickLogin(account.email)}
-                disabled={isSubmitting}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px' }}
-              >
-                <div className="demo-account-info" style={{ textAlign: 'left' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <span className="demo-account-role">{account.role}</span>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>• Instant Demo Access</span>
-                  </div>
-                  <span className="demo-account-email" style={{ fontSize: '0.75rem', color: 'var(--ice-300)' }}>{account.desc}</span>
-                </div>
-                <ArrowRight size={14} />
-              </button>
-            ))}
-          </div>
 
           <p className="login-note" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '16px' }}>
             <ShieldCheck size={14} color="var(--aurora-400)" />
