@@ -13,7 +13,7 @@ export interface User {
   researchAreas?: string[];
   avatar?: string;
   bio?: string;
-  provider?: 'email' | 'google' | 'github';
+  provider?: 'email' | 'google' | 'github' | 'oauth';
 }
 
 export type ResourceType =
